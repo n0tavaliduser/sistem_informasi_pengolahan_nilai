@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
 use App\Notifications\CustomResetPasswordNotification;
@@ -10,65 +14,52 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+/**
+ * Class User
+ * 
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property Carbon|null $email_verified_at
+ * @property string $password
+ * @property string|null $avatar
+ * @property int $role_id
+ * @property string|null $remember_token
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * 
+ * @property Role $role
+ *
+ * @package App\Models
+ */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $table = 'users';
+	protected $table = 'users';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
-    protected $fillable = [
-        'name',
-        'email_verified_at',
-        'username',
-        'email',
-        'fullname',
-        'role_id',
-        'status',
-        'description',
-        'avatar',
-        'remember_token',
-    ];
+	protected $casts = [
+		'email_verified_at' => 'datetime',
+		'role_id' => 'int'
+	];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password'
-    ];
+	protected $hidden = [
+		'password',
+		'remember_token'
+	];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-	public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new CustomResetPasswordNotification($token));
-    }
-
-    public function user()
-	{
-		return $this->belongsTo(User::class, 'updated_by');
-	}
+	protected $fillable = [
+		'name',
+		'email',
+		'email_verified_at',
+		'password',
+		'avatar',
+		'role_id',
+		'remember_token'
+	];
 
 	public function role()
 	{
 		return $this->belongsTo(Role::class);
-	}
-
-	public function users()
-	{
-		return $this->hasMany(User::class, 'updated_by');
 	}
 }
