@@ -19,7 +19,7 @@
                     
                     <div class="form-group mb-3">
                         <label for="keterangan" class="form-label">Keterangan</label>
-                        <textarea class="form-control {{ !$errors->has('nama_jurusan')?:'is-invalid' }}" value="{{ $jurusan->keterangan }}" name="keterangan" id="keterangan" placeholder="Keterangan" cols="30" rows="10">{{ $jurusan->keterangan }}</textarea>
+                        <textarea class="form-control {{ !$errors->has('keterangan')?:'is-invalid' }}" value="{{ $jurusan->keterangan }}" name="keterangan" id="keterangan" placeholder="Keterangan" cols="30" rows="10">{{ $jurusan->keterangan }}</textarea>
                         @error('keterangan')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror

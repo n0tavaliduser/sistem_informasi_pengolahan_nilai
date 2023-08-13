@@ -39,6 +39,9 @@
                         <div class="collapse menu-dropdown {{ strpos(Request::path(), 'master-data/') !== false ? 'show' : '' }}" id="sidebarDashboards">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
+                                    <a href="{{ route('master-data.role.index') }}" class="nav-link {{ Request::is('master-data/role') ? 'active' : '' }}">Role</a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{{ route('master-data.jurusan.index') }}" class="nav-link {{ Request::is('master-data/jurusan') ? 'active' : '' }}">Jurusan</a>
                                 </li>
                             </ul>

@@ -17,4 +17,4 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'root'])->name('root');
 
-require __DIR__ . '/master-data/jurusan.php';
+require __DIR__ . '/master-data.php';

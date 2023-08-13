@@ -2,24 +2,24 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createModalLabel">Tambah Jurusan</h5>
+                <h5 class="modal-title" id="createModalLabel">Tambah Role</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" action="{{ route('master-data.jurusan.store') }}">
+            <form method="post" action="{{ route('master-data.role.store') }}">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group mb-3">
-                        <label for="nama_jurusan" class="form-label">Nama Jurusan</label>
-                        <input type="text" class="form-control {{ !$errors->has('nama_jurusan')?:'is-invalid' }}" value="{{ old('nama_jurusan') }}" id="nama_jurusan" name="nama_jurusan" placeholder="Nama Jurusan">
-                        @error('nama_jurusan')
+                        <label for="name" class="form-label">Nama Role</label>
+                        <input type="text" class="form-control {{ !$errors->has('name')?:'is-invalid' }}" value="{{ old('name') }}" id="name" name="name" placeholder="Nama Role">
+                        @error('name')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     
                     <div class="form-group mb-3">
-                        <label for="keterangan" class="form-label">Keterangan</label>
-                        <textarea class="form-control {{ !$errors->has('keterangan')?:'is-invalid' }}" value="{{ old('keterangan') }}" name="keterangan" id="keterangan" placeholder="Keterangan" cols="30" rows="10"></textarea>
-                        @error('keterangan')
+                        <label for="description" class="form-label">Deskripsi</label>
+                        <textarea class="form-control {{ !$errors->has('description')?:'is-invalid' }}" value="{{ old('description') }}" name="description" id="description" placeholder="Deskripsi" cols="30" rows="2"></textarea>
+                        @error('description')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
