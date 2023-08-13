@@ -36,25 +36,10 @@
                         <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
                             <i data-feather="home" class="icon-dual"></i> <span>Master Data</span>
                         </a>
-                        <div class="collapse menu-dropdown" id="sidebarDashboards">
+                        <div class="collapse menu-dropdown {{ strpos(Request::path(), 'master-data/') !== false ? 'show' : '' }}" id="sidebarDashboards">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link active">Kelas</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">Pelajaran</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">Jurusan</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">Siswa</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">Guru</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">Tahun Ajaran</a>
+                                    <a href="{{ route('master-data.jurusan.index') }}" class="nav-link {{ Request::is('master-data/jurusan') ? 'active' : '' }}">Jurusan</a>
                                 </li>
                             </ul>
                         </div>
