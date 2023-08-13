@@ -27,10 +27,11 @@
 
     <div id="scrollbar">
         <div class="container-fluid">
-
             <div id="two-column-menu">
+
+                @if(Auth::user()->role->id === 1)                    
                 <ul class="navbar-nav" id="navbar-nav">
-                    <li class="menu-title"><span>Data</span></li>
+                    <li class="menu-title"><span>Master Data</span></li>
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
                             <i data-feather="home" class="icon-dual"></i> <span>Master Data</span>
@@ -59,8 +60,8 @@
                         </div>
                     </li> <!-- end Dashboard Menu -->
                 </ul>
+                @endif
             </div>
-            
         </div>
         <!-- Sidebar -->
     </div>

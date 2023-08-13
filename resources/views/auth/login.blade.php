@@ -4,17 +4,6 @@
 @endsection
 @section('content')
 
-@section('css')
-    <style>
-        /* .auth-page-wrapper {
-            background-image: url({{ URL::asset('assets/bg1.jpg') }});
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-        } */
-    </style>
-@endsection
-
 <!-- auth-page wrapper -->
 <div class="auth-page-wrapper py-5 d-flex justify-content-center align-items-center min-vh-100"
     style="
@@ -94,7 +83,7 @@
 
                                             <div class="mb-3">
                                                 <label for="username" class="form-label">Username</label>
-                                                <input type="text" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', 'admin@admin.com') }}" id="username" name="email" placeholder="Enter username">
+                                                <input type="text" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', 'admin@smk.com') }}" id="username" name="email" placeholder="Enter username">
                                                 @error('email')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
