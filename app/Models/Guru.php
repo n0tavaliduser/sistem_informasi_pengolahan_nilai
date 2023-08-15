@@ -19,10 +19,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $tanggal_lahir
  * @property string $alamat
  * @property int $jurusan_id
+ * @property int $user_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
  * @property Jurusan $jurusan
+ * @property User $user
  * @property Collection|Kela[] $kelas
  * @property Collection|Tuga[] $tugas
  *
@@ -34,7 +36,8 @@ class Guru extends Model
 
 	protected $casts = [
 		'tanggal_lahir' => 'datetime',
-		'jurusan_id' => 'int'
+		'jurusan_id' => 'int',
+		'user_id' => 'int'
 	];
 
 	protected $fillable = [
@@ -42,12 +45,18 @@ class Guru extends Model
 		'jenis_kelamin',
 		'tanggal_lahir',
 		'alamat',
-		'jurusan_id'
+		'jurusan_id',
+		'user_id'
 	];
 
 	public function jurusan()
 	{
 		return $this->belongsTo(Jurusan::class);
+	}
+
+	public function user()
+	{
+		return $this->belongsTo(User::class);
 	}
 
 	public function kelas()

@@ -27,11 +27,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $email
  * @property int $kelas_id
  * @property int $tahun_ajaran_id
+ * @property int $user_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
  * @property Kela $kela
  * @property TahunAjaran $tahun_ajaran
+ * @property User $user
  *
  * @package App\Models
  */
@@ -43,7 +45,8 @@ class Siswa extends Model
 		'nomor_induk' => 'int',
 		'tanggal_lahir' => 'datetime',
 		'kelas_id' => 'int',
-		'tahun_ajaran_id' => 'int'
+		'tahun_ajaran_id' => 'int',
+		'user_id' => 'int'
 	];
 
 	protected $fillable = [
@@ -60,16 +63,22 @@ class Siswa extends Model
 		'telepon',
 		'email',
 		'kelas_id',
-		'tahun_ajaran_id'
+		'tahun_ajaran_id',
+		'user_id'
 	];
 
-	public function kelas()
+	public function kela()
 	{
-		return $this->belongsTo(Kelas::class, 'kelas_id');
+		return $this->belongsTo(Kela::class, 'kelas_id');
 	}
 
 	public function tahun_ajaran()
 	{
 		return $this->belongsTo(TahunAjaran::class);
+	}
+
+	public function user()
+	{
+		return $this->belongsTo(User::class);
 	}
 }

@@ -18,11 +18,18 @@ return new class extends Migration
             $table->date('tanggal_lahir');
             $table->text('alamat');
             $table->unsignedBigInteger('jurusan_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
             $table->foreign('jurusan_id', 'fk-guru-jurusan_id')
                 ->references('id')
                 ->on('jurusan')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('user_id', 'fk-guru-user_id')   
+                ->references('id')
+                ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
@@ -35,6 +42,7 @@ return new class extends Migration
     {
         Schema::table('guru', function (Blueprint $table) {
             $table->dropForeign('fk-guru-jurusan_id');
+            $table->dropForeign('fk-guru-user_id');
         });
 
         Schema::dropIfExists('guru');

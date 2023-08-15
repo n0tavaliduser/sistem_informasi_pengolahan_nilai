@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('email')->unique('idx-siswa-email');
             $table->unsignedBigInteger('kelas_id');
             $table->unsignedBigInteger('tahun_ajaran_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
             $table->foreign('kelas_id', 'fk-siswa-kelas_id')
@@ -38,6 +39,12 @@ return new class extends Migration
             $table->foreign('tahun_ajaran_id', 'fk-siswa-tahun_ajaran_id')
                 ->references('id')
                 ->on('tahun_ajaran')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('user_id', 'fk-siswa-user_id')
+                ->references('id')
+                ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
