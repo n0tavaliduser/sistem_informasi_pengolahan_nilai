@@ -44,6 +44,9 @@
                                 <li class="nav-item">
                                     <a href="{{ route('master-data.jurusan.index') }}" class="nav-link {{ Request::is('master-data/jurusan') ? 'active' : '' }}">Jurusan</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('master-data.mata-pelajaran.index') }}" class="nav-link {{ Request::is('master-data/mata-pelajaran') ? 'active' : '' }}">Mata Pelajaran</a>
+                                </li>
                             </ul>
                         </div>
                     </li> <!-- end Dashboard Menu -->

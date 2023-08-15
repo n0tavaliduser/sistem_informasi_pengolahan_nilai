@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class MataPelajaran
  * 
  * @property int $id
- * @property string $nama_mata_pelajaran
+ * @property string $nama
  * @property string|null $keterangan
  * @property int $jurusan_id
  * @property Carbon|null $created_at
@@ -35,7 +35,7 @@ class MataPelajaran extends Model
 	];
 
 	protected $fillable = [
-		'nama_mata_pelajaran',
+		'nama',
 		'keterangan',
 		'jurusan_id'
 	];

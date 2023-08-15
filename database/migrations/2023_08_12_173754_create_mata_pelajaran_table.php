@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('mata_pelajaran', function (Blueprint $table) {
             $table->id();
-            $table->char('nama_mata_pelajaran', 75);
+            $table->char('nama', 75);
             $table->text('keterangan')->nullable();
             $table->unsignedBigInteger('jurusan_id');
             $table->timestamps();
