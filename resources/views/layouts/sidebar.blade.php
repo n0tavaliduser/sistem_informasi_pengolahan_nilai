@@ -29,8 +29,16 @@
         <div class="container-fluid">
             <div id="two-column-menu">
 
-                @if(Auth::user()->role->id === 1)                    
                 <ul class="navbar-nav" id="navbar-nav">
+                    @if(Auth::user()->role->name === 'Kepala Sekolah' || Auth::user()->role->name === 'Admin')
+                        <li class="menu-title"><span>Dashboard</span></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('root') }}" role="button">
+                                <i class="ri-dashboard-fill"></i> <span>Dashboard</span>
+                            </a>
+                        </li>
+                    @endif
+                    @if(Auth::user()->role->name === 'Admin')
                     <li class="menu-title"><span>Master Data</span></li>
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
@@ -47,11 +55,14 @@
                                 <li class="nav-item">
                                     <a href="{{ route('master-data.mata-pelajaran.index') }}" class="nav-link {{ Request::is('master-data/mata-pelajaran') ? 'active' : '' }}">Mata Pelajaran</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('master-data.guru.index') }}" class="nav-link {{ Request::is('master-data/guru') ? 'active' : '' }}">Guru</a>
+                                </li>
                             </ul>
                         </div>
                     </li> <!-- end Dashboard Menu -->
+                    @endif
                 </ul>
-                @endif
             </div>
         </div>
         <!-- Sidebar -->

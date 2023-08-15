@@ -6,6 +6,9 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use App\Notifications\CustomResetPasswordNotification;
 use App\Traits\CreatedUpdatedByTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -29,12 +32,14 @@ use Laravel\Sanctum\HasApiTokens;
  * @property Carbon|null $updated_at
  * 
  * @property Role $role
+ * @property Collection|Guru[] $gurus
+ * @property Collection|Siswa[] $siswas
  *
  * @package App\Models
  */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+	use HasApiTokens, HasFactory, Notifiable;
 
 	protected $table = 'users';
 
@@ -61,5 +66,15 @@ class User extends Authenticatable
 	public function role()
 	{
 		return $this->belongsTo(Role::class);
+	}
+
+	public function gurus()
+	{
+		return $this->hasMany(Guru::class);
+	}
+
+	public function siswas()
+	{
+		return $this->hasMany(Siswa::class);
 	}
 }

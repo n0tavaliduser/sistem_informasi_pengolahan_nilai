@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             JurusanSeeder::class,
             MataPelajaranSeeder::class,
+            GuruSeeder::class,
         ]);
     }
 }
