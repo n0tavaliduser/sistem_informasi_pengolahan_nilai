@@ -30,6 +30,8 @@
             <div id="two-column-menu">
 
                 <ul class="navbar-nav" id="navbar-nav">
+
+                    {{-- Kepala Sekolah ||  Admin Sidebar Dashboard --}}
                     @if(Auth::user()->role->name === 'Kepala Sekolah' || Auth::user()->role->name === 'Admin')
                         <li class="menu-title"><span>Dashboard</span></li>
                         <li class="nav-item">
@@ -38,6 +40,60 @@
                             </a>
                         </li>
                     @endif
+
+                    {{-- Guru || Admin || Siswa Sidebar LMS Label --}}
+                    @if (Auth::user()->role->name === 'Guru' || Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Siswa')
+                        <li class="menu-title"><span>LMS</span></li>              
+                    @endif
+
+                    {{-- Admin Sidebar LMS --}}
+                    @if (Auth::user()->role->name === 'Admin')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('root') }}" role="button">
+                                <i class="ri-shield-user-fill"></i> <span>Guru Pelajaran</span>
+                            </a>
+                        </li>
+                    @endif
+
+                    {{-- Guru Sidebar LMS --}}
+                    @if (Auth::user()->role->name === 'Guru')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('root') }}" role="button">
+                                <i class="ri-ball-pen-line"></i> <span>Input Tugas</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('root') }}" role="button">
+                                <i class="ri-list-check"></i> <span>Nilai Tugas</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('root') }}" role="button">
+                                <i class="ri-file-paper-2-line"></i> <span>Input Materi</span>
+                            </a>
+                        </li>
+                    @endif
+
+                    {{-- Siswa Sidebar LMS --}}
+                    @if(Auth::user()->role->name === 'Siswa')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('root') }}" role="button">
+                                <i class="ri-edit-box-line"></i> <span>Tugas</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('root') }}" role="button">
+                                <i class="ri-search-eye-line"></i> <span>Materi</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('root') }}" role="button">
+                                <i class="ri-checkbox-line"></i> <span>Nilai Tugas</span>
+                            </a>
+                        </li>
+                    @endif
+
+                    {{-- Admin Sidebar Master Data --}}
                     @if(Auth::user()->role->name === 'Admin')
                     <li class="menu-title"><span>Master Data</span></li>
                     <li class="nav-item">
