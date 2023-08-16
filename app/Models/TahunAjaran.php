@@ -34,8 +34,8 @@ class TahunAjaran extends Model
 	protected $table = 'tahun_ajaran';
 
 	protected $casts = [
-		'tahun_mulai' => 'datetime',
-		'tahun_berakhir' => 'datetime',
+		'tahun_mulai' => 'integer',
+		'tahun_berakhir' => 'integer',
 		'jumlah_semester' => 'int'
 	];
 

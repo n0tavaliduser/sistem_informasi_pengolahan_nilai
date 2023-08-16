@@ -7,4 +7,5 @@ Route::prefix('master-data')->group(function () {
     require __DIR__ . '/master-data/role.php';
     require __DIR__ . '/master-data/mata-pelajaran.php';
     require __DIR__ . '/master-data/guru.php';
+    require __DIR__ . '/master-data/tahun-ajaran.php';
 });
