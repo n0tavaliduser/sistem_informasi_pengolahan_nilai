@@ -16,11 +16,18 @@ return new class extends Migration
             $table->char('nama', 75);
             $table->text('keterangan')->nullable();
             $table->unsignedBigInteger('jurusan_id');
+            $table->unsignedBigInteger('guru_id')->nullable();
             $table->timestamps();
 
             $table->foreign('jurusan_id', 'fk-mata_pelajaran-jurusan_id')
                 ->references('id')
                 ->on('jurusan')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('guru_id', 'fk-mata_pelajaran-guru_id')
+                ->references('id')
+                ->on('guru')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });

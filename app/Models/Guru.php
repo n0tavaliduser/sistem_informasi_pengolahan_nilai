@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Jurusan $jurusan
  * @property User $user
  * @property Collection|Kela[] $kelas
+ * @property Collection|MataPelajaran[] $mata_pelajarans
  * @property Collection|Tuga[] $tugas
  *
  * @package App\Models
@@ -65,6 +66,11 @@ class Guru extends Model
 	public function kelas()
 	{
 		return $this->hasMany(Kela::class);
+	}
+
+	public function mata_pelajarans()
+	{
+		return $this->hasMany(MataPelajaran::class);
 	}
 
 	public function tugas()
