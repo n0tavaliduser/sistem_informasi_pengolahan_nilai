@@ -112,6 +112,9 @@
                                     <a href="{{ route('master-data.mata-pelajaran.index') }}" class="nav-link {{ Request::is('master-data/mata-pelajaran') ? 'active' : '' }}">Mata Pelajaran</a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="{{ route('master-data.kelas.index') }}" class="nav-link {{ Request::is('master-data/kelas') ? 'active' : '' }}">Kelas</a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{{ route('master-data.guru.index') }}" class="nav-link {{ Request::is('master-data/guru') ? 'active' : '' }}">Guru</a>
                                 </li>
                                 <li class="nav-item">

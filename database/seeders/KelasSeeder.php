@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Guru;
 use Illuminate\Database\Seeder;
 use App\Models\Kelas;
+use App\Models\TahunAjaran;
 
 class KelasSeeder extends Seeder
 {
@@ -59,13 +61,30 @@ class KelasSeeder extends Seeder
             'X DKV B',
         ];
 
-        foreach ($kelasData as $namaKelas) {
+        foreach ($kelasData as $index => $namaKelas) {
+            // Extract the Roman numeral part (X, XI, XII) from the class name
+            preg_match('/^(XII|XI|X)\s/', $namaKelas, $matches);
+        
+            // Map the Roman numerals to their numeric values
+            $romanToNumeric = [
+                'X' => 10,
+                'XI' => 11,
+                'XII' => 12,
+            ];
+        
+            // Get the Roman numeral from the match
+            $romanNumeral = isset($matches[1]) ? $matches[1] : null;
+        
+            // Get the corresponding numeric value
+            $tingkat = isset($romanToNumeric[$romanNumeral]) ? $romanToNumeric[$romanNumeral] : null;
+        
+
             Kelas::create([
                 'nama_kelas' => $namaKelas,
-                'tingkat' => (int) substr($namaKelas, 0, 2),  // Mengambil angka tingkat dari awal string
-                'guru_id' => 1,  // ID guru wali kelas
-                'jurusan_id' => 1,  // ID jurusan
-                'tahun_ajaran_id' => 1,  // ID tahun ajaran
+                'tingkat' => $tingkat,  // Mengambil angka tingkat dari awal string
+                'guru_id' => $index + 1,  // ID guru wali kelas
+                'jurusan_id' => Guru::where('id', $index + 1)->first()->jurusan->id,  // ID jurusan
+                'tahun_ajaran_id' => TahunAjaran::where('status', 'active')->first()->id,  // ID tahun ajaran
             ]);
         }
     }
