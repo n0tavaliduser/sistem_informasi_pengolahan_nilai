@@ -8,7 +8,6 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -26,16 +25,14 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property Jurusan $jurusan
  * @property User $user
+ * @property Collection|JadwalPelajaran[] $jadwal_pelajarans
  * @property Collection|Kela[] $kelas
- * @property Collection|MataPelajaran[] $mata_pelajarans
  * @property Collection|Tuga[] $tugas
  *
  * @package App\Models
  */
 class Guru extends Model
 {
-	use HasFactory;
-
 	protected $table = 'guru';
 
 	protected $casts = [
@@ -63,14 +60,14 @@ class Guru extends Model
 		return $this->belongsTo(User::class);
 	}
 
+	public function jadwal_pelajarans()
+	{
+		return $this->hasMany(JadwalPelajaran::class);
+	}
+
 	public function kelas()
 	{
 		return $this->hasMany(Kela::class);
-	}
-
-	public function mata_pelajarans()
-	{
-		return $this->hasMany(MataPelajaran::class);
 	}
 
 	public function tugas()

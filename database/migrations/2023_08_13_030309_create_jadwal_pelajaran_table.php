@@ -18,6 +18,7 @@ return new class extends Migration
             $table->time('jam_berakhir');
             $table->unsignedBigInteger('kelas_id');
             $table->unsignedBigInteger('tahun_ajaran_id');
+            $table->unsignedBigInteger('guru_id');
             $table->char('semester', 8);
             $table->timestamps();
 
@@ -32,6 +33,12 @@ return new class extends Migration
                 ->on('tahun_ajaran')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('guru_id', 'fk-jadwal_pelajaran-guru_id')
+                ->references('id')
+                ->on('guru')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 
@@ -43,6 +50,7 @@ return new class extends Migration
         Schema::table('jadwal_pelajaran', function (Blueprint $table) {
             $table->dropForeign('fk-jadwal_pelajaran-kelas_id');
             $table->dropForeign('fk-jadwal_pelajaran-tahun_ajaran_id');
+            $table->dropForeign('fk-jadwal_pelajaran-guru_id');
         });
 
         Schema::dropIfExists('jadwal_pelajaran');

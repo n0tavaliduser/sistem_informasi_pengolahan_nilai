@@ -17,11 +17,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $nama
  * @property string|null $keterangan
  * @property int $jurusan_id
- * @property int|null $guru_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
- * @property Guru|null $guru
  * @property Jurusan $jurusan
  * @property Collection|Absensi[] $absensis
  * @property Collection|Tuga[] $tugas
@@ -33,21 +31,14 @@ class MataPelajaran extends Model
 	protected $table = 'mata_pelajaran';
 
 	protected $casts = [
-		'jurusan_id' => 'int',
-		'guru_id' => 'int'
+		'jurusan_id' => 'int'
 	];
 
 	protected $fillable = [
 		'nama',
 		'keterangan',
-		'jurusan_id',
-		'guru_id'
+		'jurusan_id'
 	];
-
-	public function guru()
-	{
-		return $this->belongsTo(Guru::class);
-	}
 
 	public function jurusan()
 	{
