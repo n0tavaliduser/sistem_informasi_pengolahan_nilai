@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             MataPelajaranSeeder::class,
             GuruSeeder::class,
             TahunAjaranSeeder::class,
+            KelasSeeder::class,
+            JadwalSeeder::class,
         ]);
     }
 }

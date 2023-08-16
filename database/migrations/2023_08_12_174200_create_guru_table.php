@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->char('nama_lengkap', 150);
             $table->char('jenis_kelamin');
+            $table->integer('nomor_nip')->nullable();
             $table->date('tanggal_lahir');
             $table->text('alamat');
             $table->unsignedBigInteger('jurusan_id');

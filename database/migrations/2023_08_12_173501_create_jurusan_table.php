@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('jurusan', function (Blueprint $table) {
             $table->id();
             $table->char('nama_jurusan', 50);
+            $table->char('singkatan', 10)->unique('idx-jurusan-singkatan');
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });

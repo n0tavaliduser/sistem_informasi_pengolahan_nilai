@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property int $id
  * @property string $nama_jurusan
+ * @property string $singkatan
  * @property string|null $keterangan
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -31,6 +32,7 @@ class Jurusan extends Model
 
 	protected $fillable = [
 		'nama_jurusan',
+		'singkatan',
 		'keterangan'
 	];
 
