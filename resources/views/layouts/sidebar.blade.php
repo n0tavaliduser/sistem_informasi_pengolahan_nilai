@@ -49,7 +49,7 @@
                     {{-- Admin Sidebar LMS --}}
                     @if (Auth::user()->role->name === 'Admin')
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('root') }}" role="button">
+                            <a class="nav-link" href="{{ route('jadwal-pelajaran.index') }}" role="button">
                                 <i class="ri-shield-user-fill"></i> <span>Guru Pelajaran</span>
                             </a>
                         </li>

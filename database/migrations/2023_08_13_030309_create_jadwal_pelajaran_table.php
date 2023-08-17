@@ -18,7 +18,8 @@ return new class extends Migration
             $table->time('jam_berakhir');
             $table->unsignedBigInteger('kelas_id');
             $table->unsignedBigInteger('tahun_ajaran_id');
-            $table->unsignedBigInteger('guru_id');
+            $table->unsignedBigInteger('guru_id')->nullable();
+            $table->unsignedBigInteger('mata_pelajaran_id')->nullable();
             $table->char('semester', 8);
             $table->timestamps();
 
@@ -39,6 +40,15 @@ return new class extends Migration
                 ->on('guru')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('mata_pelajaran_id', 'fk-jadwal_pelajaran-mata_pelajaran_id')
+                ->references('id')
+                ->on('mata_pelajaran')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            // $table->unique(['hari', 'jam_mulai', 'guru_id']);
+            // $table->unique(['kelas_id', 'hari', 'mata_pelajaran_id']);
         });
     }
 
@@ -51,6 +61,7 @@ return new class extends Migration
             $table->dropForeign('fk-jadwal_pelajaran-kelas_id');
             $table->dropForeign('fk-jadwal_pelajaran-tahun_ajaran_id');
             $table->dropForeign('fk-jadwal_pelajaran-guru_id');
+            $table->dropForeign('fk-jadwal_pelajaran-mata_pelajaran_id');
         });
 
         Schema::dropIfExists('jadwal_pelajaran');

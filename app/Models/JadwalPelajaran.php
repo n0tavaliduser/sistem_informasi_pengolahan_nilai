@@ -18,13 +18,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $jam_berakhir
  * @property int $kelas_id
  * @property int $tahun_ajaran_id
- * @property int $guru_id
+ * @property int|null $guru_id
+ * @property int|null $mata_pelajaran_id
  * @property string $semester
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
- * @property Guru $guru
+ * @property Guru|null $guru
  * @property Kela $kela
+ * @property MataPelajaran|null $mata_pelajaran
  * @property TahunAjaran $tahun_ajaran
  *
  * @package App\Models
@@ -38,7 +40,8 @@ class JadwalPelajaran extends Model
 		'jam_berakhir' => 'datetime',
 		'kelas_id' => 'int',
 		'tahun_ajaran_id' => 'int',
-		'guru_id' => 'int'
+		'guru_id' => 'int',
+		'mata_pelajaran_id' => 'int'
 	];
 
 	protected $fillable = [
@@ -48,6 +51,7 @@ class JadwalPelajaran extends Model
 		'kelas_id',
 		'tahun_ajaran_id',
 		'guru_id',
+		'mata_pelajaran_id',
 		'semester'
 	];
 
@@ -56,9 +60,14 @@ class JadwalPelajaran extends Model
 		return $this->belongsTo(Guru::class);
 	}
 
-	public function kela()
+	public function kelas()
 	{
-		return $this->belongsTo(Kela::class, 'kelas_id');
+		return $this->belongsTo(Kelas::class, 'kelas_id');
+	}
+
+	public function mata_pelajaran()
+	{
+		return $this->belongsTo(MataPelajaran::class);
 	}
 
 	public function tahun_ajaran()

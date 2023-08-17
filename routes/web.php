@@ -17,4 +17,8 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'root'])->name('root');
 
+// master data routes
 require __DIR__ . '/master-data.php';
+
+// other routes
+require __DIR__ . '/jadwal-pelajaran.php';

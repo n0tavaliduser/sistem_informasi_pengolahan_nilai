@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             GuruSeeder::class,
             TahunAjaranSeeder::class,
             KelasSeeder::class,
-            JadwalSeeder::class,
+            JadwalPelajaranSeeder::class,
         ]);
     }
 }
