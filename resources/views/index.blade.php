@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="avatar-sm flex-shrink-0">
                                     <span class="avatar-title bg-soft-primary rounded fs-3">
-                                        <i class="bx bx-dollar-circle text-primary"></i>
+                                        <i class="bx bxs-graduation text-primary"></i>
                                     </span>
                                 </div>
                             </div>
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="avatar-sm flex-shrink-0">
                                     <span class="avatar-title bg-soft-primary rounded fs-3">
-                                        <i class="bx bx-shopping-bag text-primary"></i>
+                                        <i class="bx bx-user-circle text-primary"></i>
                                     </span>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                                 </div>
                                 <div class="avatar-sm flex-shrink-0">
                                     <span class="avatar-title bg-soft-primary rounded fs-3">
-                                        <i class="bx bx-user-circle text-primary"></i>
+                                        <i class="bx bx-book-open text-primary"></i>
                                     </span>
                                 </div>
                             </div>
