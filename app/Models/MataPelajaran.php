@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property int $id
  * @property string $nama
+ * @property string $kode
  * @property string|null $keterangan
  * @property int $jurusan_id
  * @property Carbon|null $created_at
@@ -22,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property Jurusan $jurusan
  * @property Collection|Absensi[] $absensis
+ * @property Collection|JadwalPelajaran[] $jadwal_pelajarans
  * @property Collection|Tuga[] $tugas
  *
  * @package App\Models
@@ -36,6 +38,7 @@ class MataPelajaran extends Model
 
 	protected $fillable = [
 		'nama',
+		'kode',
 		'keterangan',
 		'jurusan_id'
 	];
@@ -48,6 +51,11 @@ class MataPelajaran extends Model
 	public function absensis()
 	{
 		return $this->hasMany(Absensi::class);
+	}
+
+	public function jadwal_pelajarans()
+	{
+		return $this->hasMany(JadwalPelajaran::class);
 	}
 
 	public function tugas()

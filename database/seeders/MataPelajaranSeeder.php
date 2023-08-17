@@ -17,13 +17,19 @@ class MataPelajaranSeeder extends Seeder
         $jurusanIds = DB::table('jurusan')->orderBy('nama_jurusan', 'ASC')->pluck('id');
 
         // Seed data for the mata_pelajaran table
+        $mata_pelajaran = [
+            'PAI3', 'KEJUR', 'PKn1', 'BIND1', 'PILIH', 'MAT2', 'PAI1', 'BING3', 'BIND4', 'PKn2',
+            'PKK', 'BIND3', 'MAT1', 'BING2', 'BING1', 'PAI2', 'BING4', 'A G M'
+        ];
+
         $mataPelajaranData = [];
 
         foreach ($jurusanIds as $jurusanId) {
-            for ($i = 1; $i <= rand(8, 12); $i++) { // Remove the extra increment here
+            foreach ($mata_pelajaran as $mata_pelajaran_code) {
                 $mataPelajaranData[] = [
-                    'nama' => 'Mata Pelajaran ' . $i . ' for Jurusan ' . Jurusan::where('id', $jurusanId)->get()->first()->nama_jurusan,
-                    'keterangan' => 'Keterangan Mata Pelajaran ' . $i,
+                    'nama' => 'Mata Pelajaran ' . $mata_pelajaran_code . ' for Jurusan ' . Jurusan::where('id', $jurusanId)->value('nama_jurusan'),
+                    'kode' => $mata_pelajaran_code,
+                    'keterangan' => 'Keterangan mata pelajaran ' . $mata_pelajaran_code,
                     'jurusan_id' => $jurusanId,
                 ];
             }

@@ -24,6 +24,7 @@ class StoreMataPelajaranRequest extends FormRequest
     {
         return [
             'nama' => 'required|string|max:75',
+            'kode' => 'required|string|max:10',
             'keterangan' => 'nullable|string',
             'jurusan_id' => 'required|exists:jurusan,id',
         ];

@@ -40,7 +40,7 @@
                         <tbody>
                             @foreach ($semua_mata_pelajaran as $mata_pelajaran)
                             <tr>
-                                <td>{{ $mata_pelajaran->nama }}</td>
+                                <td>{{ $mata_pelajaran->nama }} ({{ $mata_pelajaran->kode }})</td>
                                 <td>{{ $mata_pelajaran->keterangan }}</td>
                                 <td>
                                     <div class="hstack gap-3 fs-15">
