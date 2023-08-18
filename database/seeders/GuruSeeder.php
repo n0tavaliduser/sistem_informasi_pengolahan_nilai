@@ -6,7 +6,9 @@ use Illuminate\Database\Seeder;
 use App\Models\Guru;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Faker\Factory as Faker;
 
 use function Illuminate\Events\queueable;
 
@@ -19,6 +21,20 @@ class GuruSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Faker::create('id_ID');
+
+        $userGuru = User::where('role_id', Role::where('name', 'Guru')->first()->id)->get();
+        foreach ($userGuru as $guru) {
+            DB::table('guru')->insert([
+                'user_id' => $guru->id,
+                'nama_lengkap' => $guru->name,
+                'jenis_kelamin' => 'Laki-laki',
+                'tanggal_lahir' => $faker->dateTimeBetween('-35 years', '-28 years'),
+                'alamat' => $faker->address,
+                'jurusan_id' => 1,
+            ]);
+        }
+
         $guruData = [
             [
                 'nama_lengkap' => 'Fatmawati, S.Pd., M.Pd.',

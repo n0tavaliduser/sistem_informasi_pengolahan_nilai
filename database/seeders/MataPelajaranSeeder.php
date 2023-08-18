@@ -24,16 +24,17 @@ class MataPelajaranSeeder extends Seeder
 
         $mataPelajaranData = [];
 
-        foreach ($jurusanIds as $jurusanId) {
+        // foreach ($jurusanIds as $jurusanId) {
             foreach ($mata_pelajaran as $mata_pelajaran_code) {
                 $mataPelajaranData[] = [
-                    'nama' => 'Mata Pelajaran ' . $mata_pelajaran_code . ' for Jurusan ' . Jurusan::where('id', $jurusanId)->value('nama_jurusan'),
+                    'nama' => 'Mata Pelajaran ' . $mata_pelajaran_code . ' for Jurusan ' . Jurusan::where('id', 1)->value('nama_jurusan'),
                     'kode' => $mata_pelajaran_code,
                     'keterangan' => 'Keterangan mata pelajaran ' . $mata_pelajaran_code,
-                    'jurusan_id' => $jurusanId,
+                    // 'jurusan_id' => $jurusanId,
+                    'jurusan_id' => 1
                 ];
             }
-        }
+        // }
 
         // Insert the data into the mata_pelajaran table
         DB::table('mata_pelajaran')->insert($mataPelajaranData);
