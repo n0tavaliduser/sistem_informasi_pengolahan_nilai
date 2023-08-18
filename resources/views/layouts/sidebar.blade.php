@@ -118,6 +118,9 @@
                                     <a href="{{ route('master-data.guru.index') }}" class="nav-link {{ Request::is('master-data/guru') ? 'active' : '' }}">Guru</a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="{{ route('master-data.siswa.index') }}" class="nav-link {{ Request::is('master-data/siswa') ? 'active' : '' }}">Siswa</a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{{ route('master-data.tahun-ajaran.index') }}" class="nav-link {{ Request::is('master-data/tahun-ajaran') ? 'active' : '' }}">Tahun Ajaran</a>
                                 </li>
                             </ul>

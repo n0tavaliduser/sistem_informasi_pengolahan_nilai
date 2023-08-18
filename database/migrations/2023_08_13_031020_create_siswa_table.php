@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('nomor_induk')->unique('idx-siswa-nomor_induk');
             $table->char('nama_lengkap', 200);
-            $table->char('agamar', 25);
+            $table->char('agama', 25);
             $table->char('status', 25);
             $table->text('foto')->nullable();
             $table->text('catatan')->nullable();

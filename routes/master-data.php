@@ -9,4 +9,5 @@ Route::prefix('master-data')->group(function () {
     require __DIR__ . '/master-data/guru.php';
     require __DIR__ . '/master-data/tahun-ajaran.php';
     require __DIR__ . '/master-data/kelas.php';
+    require __DIR__ . '/master-data/siswa.php';
 });

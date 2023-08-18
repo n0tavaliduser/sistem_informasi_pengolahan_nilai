@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int $nomor_induk
  * @property string $nama_lengkap
- * @property string $agamar
+ * @property string $agama
  * @property string $status
  * @property string|null $foto
  * @property string|null $catatan
@@ -52,7 +52,7 @@ class Siswa extends Model
 	protected $fillable = [
 		'nomor_induk',
 		'nama_lengkap',
-		'agamar',
+		'agama',
 		'status',
 		'foto',
 		'catatan',
@@ -67,9 +67,9 @@ class Siswa extends Model
 		'user_id'
 	];
 
-	public function kela()
+	public function kelas()
 	{
-		return $this->belongsTo(Kela::class, 'kelas_id');
+		return $this->belongsTo(Kelas::class, 'kelas_id');
 	}
 
 	public function tahun_ajaran()
