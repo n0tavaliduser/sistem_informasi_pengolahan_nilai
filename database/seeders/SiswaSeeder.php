@@ -46,7 +46,8 @@ class SiswaSeeder extends Seeder
                         'email' => $user->email,
                         'kelas_id' => $kelasId,
                         'tahun_ajaran_id' => TahunAjaran::where('status', 'active')->first()->id,
-                        'user_id' => $user->id
+                        'user_id' => $user->id,
+                        'catatan' => $faker->sentence(35, true)
                     ]
                 ]);
 
