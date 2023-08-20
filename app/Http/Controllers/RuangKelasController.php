@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JadwalPelajaran;
+use App\Models\Siswa;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,6 +47,13 @@ class RuangKelasController extends Controller
     {
         return view('pages.kelas._ruang_kelas', [
             'jadwal' => $jadwal
+        ]);
+    }
+
+    public function detailSiswa(Siswa $siswa)
+    {
+        return view('pages.kelas.detail_siswa', [
+            'siswa' => $siswa
         ]);
     }
 }
