@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property Kela $kela
  * @property MataPelajaran $mata_pelajaran
+ * @property Siswa $siswa
  * @property TahunAjaran $tahun_ajaran
  *
  * @package App\Models
@@ -61,8 +62,13 @@ class Absensi extends Model
 		return $this->belongsTo(MataPelajaran::class);
 	}
 
+	public function siswa()
+	{
+		return $this->belongsTo(Siswa::class);
+	}
+
 	public function tahun_ajaran()
 	{
-		return $this->belongsTo(TahunAjaran::class, 'siswa_id');
+		return $this->belongsTo(TahunAjaran::class);
 	}
 }

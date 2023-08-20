@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('mata_pelajaran_id');
             $table->timestamps();
 
-            $table->foreign('siswa_id', 'fk-absensi-tahun_ajaran_id')
+            $table->foreign('tahun_ajaran_id', 'fk-absensi-tahun_ajaran_id')
                 ->references('id')
                 ->on('tahun_ajaran')
                 ->onUpdate('cascade')
