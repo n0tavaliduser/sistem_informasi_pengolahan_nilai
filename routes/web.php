@@ -22,3 +22,7 @@ require __DIR__ . '/master-data.php';
 
 // other routes
 require __DIR__ . '/jadwal-pelajaran.php';
+require __DIR__ . '/tugas.php';
+
+// classroom management routes
+require __DIR__ . '/classroom-managerment.php';
