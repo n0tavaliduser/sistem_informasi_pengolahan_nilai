@@ -34,6 +34,7 @@
                                 <th scope="col">Nama Kelas</th>
                                 <th scope="col">Tingkat</th>
                                 <th scope="col">Wali Kelas</th>
+                                <th scope="col">Jumlah Siswa</th>
                                 <th scope="col">Jurusan</th>
                             </tr>
                         </thead>
@@ -44,6 +45,7 @@
                                 <td>{{ $kelas->tingkat }}</td>
                                 <td>{{ $kelas->guru->nama_lengkap }}</td>
                                 <td>{{ $kelas->jurusan->nama_jurusan }}</td>
+                                <td>{{ $kelas->siswas->count() }}</td>
                                 <td>
                                     <div class="hstack gap-3 fs-15">
                                         <a href="{{ route('master-data.kelas.edit', $kelas) }}"><i class="ri-settings-4-line"></i></a>
