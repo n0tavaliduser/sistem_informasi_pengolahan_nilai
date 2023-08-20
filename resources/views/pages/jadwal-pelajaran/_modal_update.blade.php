@@ -96,7 +96,7 @@
                         <select name="mata_pelajaran_id" id="mata_pelajaran_id" class="form-control {{ !$errors->has('mata_pelajaran_id')?:'is-invalid' }}">
                             <option value="">Pilih mata pelajaran</option>
                             @foreach ($semua_mata_pelajaran->sortBy('nama') as $mata_pelajaran)
-                            <option value="{{ $mata_pelajaran->id }}" {{ $jadwal_pelajaran->mata_pelajaran_id == $mata_pelajaran->id ? 'selected' : '' }}>{{ $mata_pelajaran->kode }} - {{ $mata_pelajaran->jurusan->nama_jurusan }}</option>
+                            <option value="{{ $mata_pelajaran->id }}" {{ $jadwal_pelajaran->mata_pelajaran_id == $mata_pelajaran->id ? 'selected' : '' }}>{{ $mata_pelajaran->nama }}</option>
                             @endforeach
                         </select>
                         @error('mata_pelajaran_id')
