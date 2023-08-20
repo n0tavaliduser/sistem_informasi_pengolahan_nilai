@@ -60,6 +60,6 @@ class MataPelajaran extends Model
 
 	public function tugas()
 	{
-		return $this->hasMany(Tuga::class);
+		return $this->hasMany(Tugas::class);
 	}
 }
