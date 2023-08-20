@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('judul');
             $table->text('deskripsi')->nullable();
             $table->date('tanggal_deadline');
+            $table->text('file')->nullable();
+            $table->enum('status', ['open', 'closed']);
             $table->string('tipe')->comment('Tugas Harian / UTS / UAS');
             $table->timestamps();
 
