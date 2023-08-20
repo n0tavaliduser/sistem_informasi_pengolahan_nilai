@@ -51,9 +51,9 @@ class Absensi extends Model
 		'mata_pelajaran_id'
 	];
 
-	public function kela()
+	public function kelas()
 	{
-		return $this->belongsTo(Kela::class, 'kelas_id');
+		return $this->belongsTo(Kelas::class, 'kelas_id');
 	}
 
 	public function mata_pelajaran()
