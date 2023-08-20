@@ -39,6 +39,12 @@ return new class extends Migration
                 ->on('mata_pelajaran')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->foreign('siswa_id', 'fk-absensi-siswa_id')
+                ->references('id')
+                ->on('siswa')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 
@@ -51,6 +57,7 @@ return new class extends Migration
             $table->dropForeign('fk-absensi-tahun_ajaran_id');
             $table->dropForeign('fk-absensi-kelas_id');
             $table->dropForeign('fk-absensi-mata_pelajaran_id');
+            $table->dropForeign('fk-absensi-siswa_id');
         });
 
         Schema::dropIfExists('absensi');

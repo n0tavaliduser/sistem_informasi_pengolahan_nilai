@@ -7,6 +7,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -31,9 +32,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
- * @property Kela $kela
+ * @property Kelas $kelas
  * @property TahunAjaran $tahun_ajaran
  * @property User $user
+ * @property Collection|Absensi[] $absensis
  *
  * @package App\Models
  */
@@ -80,5 +82,10 @@ class Siswa extends Model
 	public function user()
 	{
 		return $this->belongsTo(User::class);
+	}
+
+	public function absensis()
+	{
+		return $this->hasMany(Absensi::class);
 	}
 }
