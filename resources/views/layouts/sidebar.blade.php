@@ -31,15 +31,12 @@
 
                 <ul class="navbar-nav" id="navbar-nav">
 
-                    {{-- Kepala Sekolah ||  Admin Sidebar Dashboard --}}
-                    @if(Auth::user()->role->name === 'Kepala Sekolah' || Auth::user()->role->name === 'Admin')
-                        <li class="menu-title"><span>Dashboard</span></li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('root') }}" role="button">
-                                <i class="ri-dashboard-fill"></i> <span>Dashboard</span>
-                            </a>
-                        </li>
-                    @endif
+                    <li class="menu-title"><span>Dashboard</span></li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="{{ route('root') }}" role="button">
+                            <i class="ri-dashboard-fill"></i> <span>Dashboard</span>
+                        </a>
+                    </li>
 
                     {{-- Guru || Admin || Siswa Sidebar LMS Label --}}
                     @if (Auth::user()->role->name === 'Guru' || Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Siswa')
@@ -49,27 +46,17 @@
                     {{-- Admin Sidebar LMS --}}
                     @if (Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Guru')
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('jadwal-pelajaran.index') }}" role="button">
+                            <a class="nav-link {{ Request::is('jadwal-pelajaran') ? 'active' : '' }}" href="{{ route('jadwal-pelajaran.index') }}" role="button">
                                 <i class="ri-shield-user-fill"></i> <span>Guru Pelajaran</span>
                             </a>
                         </li>
                     @endif
 
-                    {{-- Guru Sidebar LMS --}}
-                    @if (Auth::user()->role->name === 'Guru')
+                    {{-- Guru || Siswa Sidebar LMS --}}
+                    @if (Auth::user()->role->name === 'Guru' || Auth::user()->role->name == 'Siswa')
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('root') }}" role="button">
-                                <i class="ri-ball-pen-line"></i> <span>Input Tugas</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('root') }}" role="button">
-                                <i class="ri-list-check"></i> <span>Nilai Tugas</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('root') }}" role="button">
-                                <i class="ri-file-paper-2-line"></i> <span>Input Materi</span>
+                            <a class="nav-link {{ Request::is('manajemen-kelas/daftar-kelas') ? 'active' : '' }}" href="{{ route('manajemen-kelas.daftar-kelas') }}" role="button">
+                                <i class="ri-ball-pen-line"></i> <span>Daftar Kelas</span>
                             </a>
                         </li>
                     @endif
