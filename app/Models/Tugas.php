@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $judul
  * @property string|null $deskripsi
  * @property Carbon $tanggal_deadline
+ * @property string|null $file
+ * @property string $status
  * @property string $tipe
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -27,7 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Tuga extends Model
+class Tugas extends Model
 {
 	protected $table = 'tugas';
 
@@ -43,6 +45,8 @@ class Tuga extends Model
 		'judul',
 		'deskripsi',
 		'tanggal_deadline',
+		'file',
+		'status',
 		'tipe'
 	];
 
