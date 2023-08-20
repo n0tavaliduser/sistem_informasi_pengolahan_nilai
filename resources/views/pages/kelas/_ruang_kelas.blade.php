@@ -168,7 +168,18 @@
                         <!--end col-->
                         <div class="col-12 col-sm-4">
                             <div class="p-3 border border-dashed border-start-0">
-                                <h5 class="mb-1"><span class="counter-value" data-target="96">0</span>%
+                                @php
+                                    $persentase_absensi_kelas = \App\Models\Absensi::where('mata_pelajaran_id', $jadwal->mata_pelajaran_id)->where('kelas_id', $jadwal->kelas_id)->where('keterangan', 'Hadir')->count() / (16 * $jadwal->kelas->siswas->count()) * 100;
+                                @endphp
+                                <h5 class="mb-1"><span class="counter-value text-@php
+                                    if ($persentase_absensi_kelas >= 60 && $persentase_absensi_kelas < 75) {
+                                        echo 'warning';
+                                    } elseif ($persentase_absensi_kelas >= 75) {
+                                        echo 'success';
+                                    } else {
+                                        echo 'danger';
+                                    }
+                                @endphp" data-target="{{ $persentase_absensi_kelas }}">0</span>%
                                 </h5>
                                 <p class="text-muted mb-0">Persentase Absensi</p>
                             </div>
@@ -206,8 +217,7 @@
                                     <tr>
                                         <th scope="col">Siswa</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Absen</th>
-                                        <th scope="col">Tugas</th>
+                                        <th scope="col">Nomor Induk</th>
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
@@ -226,9 +236,8 @@
                                             </div>
                                         </th>
                                         <td>{{ $siswa->user->email }}</td>
-                                        <td>coming soon</td>
-                                        <td>coming soon</td>
-                                        <td><a href="javascript:void(0);" class="link-success">View More <i class="ri-arrow-right-line align-middle"></i></a></td>
+                                        <td>{{ $siswa->nomor_induk }}</td>
+                                        <td><a href="{{ route('manajemen-kelas.detail-siswa', $siswa) }}" class="link-success">Detail <i class="ri-arrow-right-line align-middle"></i></a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
