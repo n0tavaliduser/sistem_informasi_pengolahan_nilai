@@ -12,10 +12,9 @@ class SiswaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $semua_siswa = Siswa::query()
-            ->paginate(10);
+        $semua_siswa = Siswa::where('kelas_id', $request->get('kelas_id'))->paginate(10);
 
         return view('pages.master-data.siswa.index', [
             'semua_siswa' => $semua_siswa
