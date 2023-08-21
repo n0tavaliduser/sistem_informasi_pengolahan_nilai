@@ -6,6 +6,7 @@ use App\Http\Requests\Tugas\StoreTugasRequest;
 use App\Http\Requests\Tugas\UpdateTugasRequest;
 use App\Models\JadwalPelajaran;
 use App\Models\Tugas;
+use Illuminate\Support\Facades\Storage;
 
 class TugasController extends Controller
 {
@@ -32,9 +33,15 @@ class TugasController extends Controller
     {
         $data = $request->validated();
 
+        $file = null;
+        if ($request->hasFile('file')) {
+            $file = $request->file('file')->storeAs(Tugas::FILE_PATH, 'public');
+        }
+
         $tugas = Tugas::make($data);
         $tugas->status = 'open';
         $tugas->mata_pelajaran_id = $jadwal->mata_pelajaran->id;
+        $tugas->file = $file;
         $tugas->guru_id = $jadwal->guru->id;
         $tugas->saveOrFail();
 
@@ -69,7 +76,16 @@ class TugasController extends Controller
     {
         $data = $request->validated();
 
+        $file = null;
+        if ($request->hasFile('file')) {
+            $file = $request->file('file')->store(Tugas::FILE_PATH, 'public');
+            if ($tugas->file) {
+                Storage::delete($tugas->file);
+            }
+        }
+
         $tugas->fill($data);
+        $tugas->file = $file;
         $tugas->saveOrFail();
 
         return redirect()->back()->with(['success' => 'Berhasil update data tugas!']);
@@ -102,5 +118,10 @@ class TugasController extends Controller
         ]);
 
         return redirect()->back()->with(['success' => 'Tugas berhasil dibuka!']);
+    }
+
+    public function downloadFile(Tugas $tugas)
+    {
+        return response()->download('storage/' . $tugas->file);
     }
 }

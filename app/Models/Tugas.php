@@ -7,10 +7,11 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Tuga
+ * Class Tugas
  * 
  * @property int $id
  * @property int $guru_id
@@ -26,11 +27,14 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property Guru $guru
  * @property MataPelajaran $mata_pelajaran
+ * @property Collection|PengumpulanTugas[] $pengumpulan_tugas
  *
  * @package App\Models
  */
 class Tugas extends Model
 {
+	const FILE_PATH = 'data/tugas/files';
+
 	protected $table = 'tugas';
 
 	protected $casts = [
@@ -58,5 +62,10 @@ class Tugas extends Model
 	public function mata_pelajaran()
 	{
 		return $this->belongsTo(MataPelajaran::class);
+	}
+
+	public function pengumpulan_tugas()
+	{
+		return $this->hasMany(PengumpulanTugas::class, 'tugas_id');
 	}
 }
