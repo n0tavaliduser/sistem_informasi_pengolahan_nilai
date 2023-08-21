@@ -24,7 +24,7 @@ class GuruController extends Controller
                     ->orWhere('tanggal_lahir', 'LIKE', '%' . $request->get('find') . '%')
                     ->orWhere('alamat', 'LIKE', '%' . $request->get('find') . '%');
             })
-            ->orderBy('jurusan_id', 'ASC')
+            ->where('jurusan_id', $request->get('jurusan_id'))
             ->paginate(7);
 
         return view('pages.master-data.guru.index', [

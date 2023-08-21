@@ -11,10 +11,21 @@
         @include('components.alert')
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <a href="{{ route('master-data.guru.create') }}" class="btn btn-outline-success btn-border d-flex align-items-center">
-                    <i class="ri-add-circle-line me-2"></i>
-                    <span>Tambah</span>
-                </a>
+                <div class="d-flex gap-2">
+                    <a href="{{ route('master-data.guru.create') }}" class="btn btn-outline-success btn-border d-flex align-items-center">
+                        <i class="ri-add-circle-line me-2"></i>
+                        <span>Tambah</span>
+                    </a>
+
+                    <form method="get">
+                        <select class="form-select" id="jurusan_id" name="jurusan_id" onchange="this.form.submit()">
+                            <option selected>Pilih Kelas</option>
+                            @foreach (\App\Models\Jurusan::all() as $jurusan)
+                            <option value="{{ $jurusan->id }}" {{ Request::get('jurusan_id') == $jurusan->id ? 'selected' : '' }}>{{ $jurusan->nama_jurusan }}</option>
+                            @endforeach
+                        </select>
+                    </form>
+                </div>
                 
                 <div class="d-flex gap-2">
                     <a href="{{ route('master-data.guru.index') }}" class="btn btn-outline-primary btn-border">
@@ -66,7 +77,7 @@
             </div>
             <div class="card-footer">
                 @if($semua_guru->lastPage() != 1)  
-                @include('components.pagination', [
+                @include('pages.master-data.guru.pagination', [
                     'data' => $semua_guru,
                     'route' => 'master-data.guru.index'
                 ])
