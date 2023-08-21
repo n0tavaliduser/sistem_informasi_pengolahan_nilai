@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title') @lang('translation.basic-tables') @endsection
+@section('title') JADWAL PELAJARAN @endsection
 @section('content')
 @component('components.breadcrumb')
 @slot('li_1') Master Data @endslot

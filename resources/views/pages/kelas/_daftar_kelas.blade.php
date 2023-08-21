@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-@lang('translation.sellers')
+    DAFTAR KELAS
 @endsection
 @section('content')
 @component('components.breadcrumb')
