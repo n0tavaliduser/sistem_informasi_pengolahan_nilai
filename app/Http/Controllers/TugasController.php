@@ -76,11 +76,14 @@ class TugasController extends Controller
     {
         $data = $request->validated();
 
-        $file = null;
+        $file = $tugas->file;
         if ($request->hasFile('file')) {
             $file = $request->file('file')->store(Tugas::FILE_PATH, 'public');
             if ($tugas->file) {
-                Storage::delete($tugas->file);
+                $oldFilePath = storage_path('app/public/' . $tugas->file);
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
             }
         }
 
@@ -96,6 +99,13 @@ class TugasController extends Controller
      */
     public function destroy(Tugas $tugas)
     {
+        if ($tugas->file) {
+            $oldFilePath = storage_path('app/public/' . $tugas->file);
+            if (file_exists($oldFilePath)) {
+                unlink($oldFilePath);
+            }
+        }
+        
         $tugas->delete();
 
         return redirect()->back()->with(['success' => 'Berhasil menghapus tugas!']);

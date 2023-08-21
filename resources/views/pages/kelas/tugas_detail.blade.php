@@ -95,10 +95,13 @@
                                                                 </div>
                                                             </div>
                                                             <div class="flex-grow-1 overflow-hidden">
-                                                                <h5 class="fs-13 mb-1"><a href="#"
-                                                                        class="text-body text-truncate d-block">{{ $tugas->file }}</a></h5>
-                                                                <div>{{ round(filesize($tugas->file) / 1024 / 1024, 2) }} MB</div>
-                                                            </div>
+                                                                <h5 class="fs-13 mb-1"><a href="{{ route('tugas.download-file', $tugas) }}" class="text-body text-truncate d-block" style="text-transform: uppercase;">{{ pathinfo($tugas->file, PATHINFO_EXTENSION) }} FILE</a></h5>
+                                                                @if (is_file(public_path('storage/' . $tugas->file)))
+                                                                    <div>{{ round(filesize(public_path('storage/' . $tugas->file)) / 1024 / 1024, 2) }} MB</div>
+                                                                @else
+                                                                    <div>File not found or inaccessible</div>
+                                                                @endif
+                                                            </div>                                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -119,14 +122,18 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-4">
                                 <h5 class="card-title flex-grow-1">Berkas Pengumpulan</h5>
+
+                                <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal-submit-tugas">pengumpulan tugas</a>
+                                @include('pages.kelas._modal_submit_tugas')
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <div class="table-responsive table-card">
+                                    <div class="table-card">
                                         <table class="table table-borderless align-middle mb-0">
                                             <thead class="table-light">
                                                 <tr>
                                                     <th scope="col">Siswa</th>
+                                                    <th scope="col">File</th>
                                                     <th scope="col">Tipe</th>
                                                     <th scope="col">Ukuran</th>
                                                     <th scope="col">Tanggal Upload</th>
@@ -134,47 +141,72 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar-sm">
-                                                                <div
-                                                                    class="avatar-title bg-light text-primary rounded fs-24">
-                                                                    <i class="ri-folder-zip-line"></i>
+                                                @if($tugas->pengumpulan_tugas->count() == 0)
+                                                    <tr>
+                                                        <td colspan="6" class="text-center">
+                                                            belum ada yang mengumpulkan tugas
+                                                        </td>
+                                                    </tr>
+                                                @else
+                                                    @foreach ($tugas->pengumpulan_tugas as $pengumpulan_tugas)
+                                                    <tr>
+                                                        <td>
+                                                            {{ $pengumpulan_tugas->siswa?->nama_lengkap }}
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="avatar-sm">
+                                                                    <div
+                                                                        class="avatar-title bg-light text-primary rounded fs-24">
+                                                                        <i class="ri-folder-zip-line"></i>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="ms-3 flex-grow-1">
+                                                                    <h5 class="fs-14 mb-0"><a href="{{ route('pengumpulan-tugas.download-file', $pengumpulan_tugas) }}"
+                                                                            class="text-dark">{{ $pengumpulan_tugas->title }}</a>
+                                                                    </h5>
                                                                 </div>
                                                             </div>
-                                                            <div class="ms-3 flex-grow-1">
-                                                                <h5 class="fs-14 mb-0"><a href="javascript:void(0)"
-                                                                        class="text-dark">tugas1-bindo-siswa1.zip</a>
-                                                                </h5>
+                                                        </td>
+                                                        <td style="text-transform: uppercase;">{{ pathinfo($pengumpulan_tugas->file, PATHINFO_EXTENSION) }} FILE</td>
+                                                        <td>
+                                                            @if (is_file(public_path('storage/' . $pengumpulan_tugas->file)))
+                                                                <div>{{ round(filesize(public_path('storage/' . $pengumpulan_tugas->file)) / 1024 / 1024, 2) }} MB</div>
+                                                            @else
+                                                                <div>File not found or inaccessible</div>
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ \Carbon\Carbon::parse($tugas->created_at)->format('d-m-Y') }}</td>
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                <a href="javascript:void(0);"
+                                                                    class="btn btn-soft-primary btn-sm btn-icon"
+                                                                    data-bs-toggle="dropdown" aria-expanded="true">
+                                                                    <i class="ri-more-fill"></i>
+                                                                </a>
+                                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                                    @if (Auth::user()->role->name == 'Siswa')
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#updateModal-{{ $pengumpulan_tugas->id }}"><i class="ri-edit-line me-2 align-bottom text-muted"></i>Edit</a>
+                                                                    </li>
+                                                                    @endif
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="{{ route('pengumpulan-tugas.download-file', $pengumpulan_tugas) }}"><i class="ri-download-2-fill me-2 align-bottom text-muted"></i>Download</a>
+                                                                    </li>
+                                                                    @if (Auth::user()->role->name == 'Siswa')
+                                                                    <li class="dropdown-divider"></li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#delete-submission-{{ $pengumpulan_tugas->id }}"><i class="ri-delete-bin-5-fill me-2 align-bottom text-muted"></i>Hapus</a>
+                                                                    </li>
+                                                                    @endif
+                                                                </ul>
                                                             </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>Zip File</td>
-                                                    <td>4.57 MB</td>
-                                                    <td>18 Aug 2023</td>
-                                                    <td>
-                                                        <div class="dropdown">
-                                                            <a href="javascript:void(0);"
-                                                                class="btn btn-soft-primary btn-sm btn-icon"
-                                                                data-bs-toggle="dropdown" aria-expanded="true">
-                                                                <i class="ri-more-fill"></i>
-                                                            </a>
-                                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                                <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                            class="ri-eye-fill me-2 align-bottom text-muted"></i>View</a>
-                                                                </li>
-                                                                <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                            class="ri-download-2-fill me-2 align-bottom text-muted"></i>Download</a>
-                                                                </li>
-                                                                <li class="dropdown-divider"></li>
-                                                                <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                            class="ri-delete-bin-5-fill me-2 align-bottom text-muted"></i>Delete</a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                            @include('pages.kelas._modal_delete_submission_tugas')
+                                                            @include('pages.kelas._modal_update_submission_tugas')
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>

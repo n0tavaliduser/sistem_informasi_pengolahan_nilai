@@ -119,8 +119,9 @@
                                         @elseif ($tugas->status == 'closed')
                                             <a href="{{ route('tugas.open-tugas', $tugas) }}" class="btn btn-sm btn-success w-100 mb-1">buka</a>
                                         @endif
-                                        <a href="{{ route('tugas.edit', ['tugas' => $tugas, 'jadwal' => $jadwal]) }}" class="btn btn-sm btn-warning w-100 mb-1">update</a>
-                                        <a href="#" class="btn btn-sm btn-primary w-100 mb-1">hasil</a>
+                                            <a href="{{ route('tugas.show', $tugas) }}" class="btn btn-sm btn-primary w-100 mb-1">lihat</a>
+                                            <a href="{{ route('tugas.edit', ['tugas' => $tugas, 'jadwal' => $jadwal]) }}" class="btn btn-sm btn-warning w-100 mb-1">update</a>
+                                            <a href="#" class="btn btn-sm btn-secondary w-100 mb-1">hasil</a>
                                     @else
                                         @if ($tugas->status == 'open')                                            
                                             <a href="{{ route('tugas.show', $tugas) }}" class="btn btn-sm btn-primary w-100 mb-1">lihat</a>

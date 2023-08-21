@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property TahunAjaran $tahun_ajaran
  * @property Collection|Absensi[] $absensis
  * @property Collection|JadwalPelajaran[] $jadwal_pelajarans
+ * @property Collection|PengumpulanTuga[] $pengumpulan_tugas
  * @property Collection|Siswa[] $siswas
  *
  * @package App\Models
@@ -73,6 +74,11 @@ class Kelas extends Model
 	public function jadwal_pelajarans()
 	{
 		return $this->hasMany(JadwalPelajaran::class, 'kelas_id');
+	}
+
+	public function pengumpulan_tugas()
+	{
+		return $this->hasMany(PengumpulanTuga::class, 'kelas_id');
 	}
 
 	public function siswas()
