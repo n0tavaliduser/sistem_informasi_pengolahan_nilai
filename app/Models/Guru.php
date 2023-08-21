@@ -73,11 +73,11 @@ class Guru extends Model
 
 	public function kelas()
 	{
-		return $this->hasMany(Kela::class);
+		return $this->hasMany(Kelas::class);
 	}
 
 	public function tugas()
 	{
-		return $this->hasMany(Tuga::class);
+		return $this->hasMany(Tugas::class);
 	}
 }
