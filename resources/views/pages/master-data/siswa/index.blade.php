@@ -44,7 +44,6 @@
                             <tr>
                                 <th scope="col">Nama Siswa</th>
                                 <th scope="col">Kelas</th>
-                                <th scope="col">Umur</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -68,7 +67,6 @@
                                         <small>{{ $siswa->kelas->jurusan->nama_jurusan }}</small>
                                     </div>
                                 </td>
-                                <td>{{ \Carbon\Carbon::parse($siswa->tanggal_lahir)->diffInYears(\Carbon\Carbon::now()) }} tahun</td>
                                 <td>
                                     <div class="hstack gap-3 fs-15">
                                         <a href="{{ route('master-data.siswa.edit', $siswa) }}"><i class="ri-settings-4-line"></i></a>
