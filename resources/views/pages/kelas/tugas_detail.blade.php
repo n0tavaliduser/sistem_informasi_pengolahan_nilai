@@ -162,8 +162,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="ms-3 flex-grow-1">
-                                                                    <h5 class="fs-14 mb-0"><a href="{{ route('pengumpulan-tugas.download-file', $pengumpulan_tugas) }}"
-                                                                            class="text-dark">{{ $pengumpulan_tugas->title }}</a>
+                                                                    <h5 class="fs-14 mb-0"><a href="{{ route('pengumpulan-tugas.download-file', $pengumpulan_tugas) }}" class="text-dark">{{ $pengumpulan_tugas->title }}</a>
                                                                     </h5>
                                                                 </div>
                                                             </div>
@@ -178,6 +177,7 @@
                                                         </td>
                                                         <td>{{ \Carbon\Carbon::parse($tugas->created_at)->format('d-m-Y') }}</td>
                                                         <td>
+                                                            @if ((Auth::user()->role->name == 'Siswa' && Auth::user()->id == $pengumpulan_tugas->siswa?->user_id) || Auth::user()->role->name == 'Guru')  
                                                             <div class="dropdown">
                                                                 <a href="javascript:void(0);"
                                                                     class="btn btn-soft-primary btn-sm btn-icon"
@@ -185,15 +185,17 @@
                                                                     <i class="ri-more-fill"></i>
                                                                 </a>
                                                                 <ul class="dropdown-menu dropdown-menu-end">
-                                                                    @if (Auth::user()->role->name == 'Siswa')
+                                                                    @if (Auth::user()->role->name == 'Siswa' && Auth::user()->id == $pengumpulan_tugas->siswa?->user_id)
                                                                     <li>
                                                                         <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#updateModal-{{ $pengumpulan_tugas->id }}"><i class="ri-edit-line me-2 align-bottom text-muted"></i>Edit</a>
                                                                     </li>
                                                                     @endif
+                                                                    @if (Auth::user()->role->name == 'Guru')
                                                                     <li>
                                                                         <a class="dropdown-item" href="{{ route('pengumpulan-tugas.download-file', $pengumpulan_tugas) }}"><i class="ri-download-2-fill me-2 align-bottom text-muted"></i>Download</a>
                                                                     </li>
-                                                                    @if (Auth::user()->role->name == 'Siswa')
+                                                                    @endif
+                                                                    @if (Auth::user()->role->name == 'Siswa' && Auth::user()->id == $pengumpulan_tugas->siswa?->user_id)
                                                                     <li class="dropdown-divider"></li>
                                                                     <li>
                                                                         <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#delete-submission-{{ $pengumpulan_tugas->id }}"><i class="ri-delete-bin-5-fill me-2 align-bottom text-muted"></i>Hapus</a>
@@ -203,6 +205,7 @@
                                                             </div>
                                                             @include('pages.kelas._modal_delete_submission_tugas')
                                                             @include('pages.kelas._modal_update_submission_tugas')
+                                                            @endif
                                                         </td>
                                                     </tr>
                                                     @endforeach
