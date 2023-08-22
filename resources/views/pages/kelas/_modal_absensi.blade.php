@@ -32,10 +32,10 @@
                                     </div>
                                 </th>
                                 <td>{{ $siswa->user->email }}</td>
-                                <td>{{ \App\Models\Absensi::where('siswa_id', $siswa->id)->where('kelas_id', $jadwal->kelas->id)->where('keterangan', 'Hadir')->count() }} / 16</td>
+                                <td>{{ \App\Models\Absensi::where('siswa_id', $siswa->id)->where('mata_pelajaran_id', $jadwal->mata_pelajaran_id)->where('kelas_id', $jadwal->kelas->id)->where('keterangan', 'Hadir')->count() }} / 16</td>
                                 <td>
                                     @php
-                                        $persentase_absensi = \App\Models\Absensi::where('siswa_id', $siswa->id)->where('kelas_id', $jadwal->kelas->id)->where('keterangan', 'Hadir')->count() / 16 * 100;
+                                        $persentase_absensi = \App\Models\Absensi::where('siswa_id', $siswa->id)->where('mata_pelajaran_id', $jadwal->mata_pelajaran_id)->where('kelas_id', $jadwal->kelas->id)->where('keterangan', 'Hadir')->count() / 16 * 100;
                                     @endphp
                                     <span class="text-@php
                                         if ($persentase_absensi >= 50 && $persentase_absensi < 75) {
@@ -47,7 +47,20 @@
                                         }
                                     @endphp">{{ $persentase_absensi }}</span> %</td>
                                 <td>
-                                    @if ($siswa->absensis->where('mata_pelajaran_id', $jadwal->mata_pelajaran_id)->where('siswa_id', $siswa->id)->count() == 0)   
+                                    @php
+                                        $absensis = $siswa->absensis->where('mata_pelajaran_id', $jadwal->mata_pelajaran_id)->where('siswa_id', $siswa->id);
+
+                                        $tanggal_absensi = [];
+                                        foreach ($absensis as $absensi) {
+                                            array_push($tanggal_absensi, \Carbon\Carbon::parse($absensi->tanggal)->format('Y-m-d'));
+                                        }
+
+                                        $absensi = false;
+                                        if (in_array(\Carbon\Carbon::now()->format('Y-m-d'), $tanggal_absensi)) {
+                                            $absensi = true;
+                                        }
+                                    @endphp
+                                    @if (!$absensi)   
                                     <div class="d-flex gap-2">
                                         <form method="post" action="{{ route('absensi.store', ['siswa' => $siswa, 'jadwal' => $jadwal]) }}">
                                             @csrf
