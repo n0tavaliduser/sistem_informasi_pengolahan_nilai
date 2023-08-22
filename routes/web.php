@@ -25,6 +25,7 @@ require __DIR__ . '/jadwal-pelajaran.php';
 require __DIR__ . '/tugas.php';
 require __DIR__ . '/absensi.php';
 require __DIR__ . '/pengumpulan-tugas.php';
+require __DIR__ . '/materi.php';
 
 // classroom management routes
 require __DIR__ . '/classroom-managerment.php';

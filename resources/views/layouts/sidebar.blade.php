@@ -43,11 +43,32 @@
                         <li class="menu-title"><span>LMS</span></li>              
                     @endif
 
-                    {{-- Admin Sidebar LMS --}}
+                    {{-- Guru Sidebar LMS --}}
+                    @if (Auth::user()->role->name === 'Guru')
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('manajemen-tugas/tugas') ? 'active' : '' }}" href="{{ route('tugas.index') }}" role="button">
+                                <i class="ri-quill-pen-line"></i> <span>Tugas</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('/materi') ? 'active' : '' }}" href="{{ route('materi.index') }}" role="button">
+                                <i class="ri-book-open-fill"></i> <span>Materi</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('/root') ? 'active' : '' }}" href="{{ route('root') }}" role="button">
+                                <i class="ri-list-unordered"></i> <span>Nilai Tugas</span>
+                            </a>
+                        </li>
+                    @endif
+
+                    {{-- Admin || Guru Sidebar LMS --}}
                     @if (Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Guru')
                         <li class="nav-item">
                             <a class="nav-link {{ Request::is('jadwal-pelajaran') ? 'active' : '' }}" href="{{ route('jadwal-pelajaran.index') }}" role="button">
-                                <i class="ri-shield-user-fill"></i> <span>Guru Pelajaran</span>
+                                <i class="ri-shield-user-fill"></i> <span>Jadwal Pelajaran</span>
                             </a>
                         </li>
                     @endif
@@ -64,7 +85,7 @@
                     {{-- Siswa Sidebar LMS --}}
                     @if(Auth::user()->role->name === 'Siswa')
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('root') }}" role="button">
+                            <a class="nav-link" href="{{ route('tugas.index') }}" role="button">
                                 <i class="ri-edit-box-line"></i> <span>Tugas</span>
                             </a>
                         </li>
@@ -113,6 +134,25 @@
                             </ul>
                         </div>
                     </li> <!-- end Dashboard Menu -->
+
+                    <li class="menu-title"><span>Menu</span></li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('/root') ? 'active' : '' }}" href="{{ route('root') }}" role="button">
+                            <i class="ri-calendar-line"></i> <span>Rekap Absensi</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('/root') ? 'active' : '' }}" href="{{ route('root') }}" role="button">
+                            <i class="ri-calendar-line"></i> <span>Kelola Jadwal Pelajaran</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('/root') ? 'active' : '' }}" href="{{ route('root') }}" role="button">
+                            <i class="ri-list-check"></i> <span>Pengolahan Nilai</span>
+                        </a>
+                    </li>
                     @endif
                 </ul>
             </div>

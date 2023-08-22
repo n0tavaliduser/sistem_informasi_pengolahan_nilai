@@ -7,6 +7,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -28,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Kela $kela
  * @property MataPelajaran|null $mata_pelajaran
  * @property TahunAjaran $tahun_ajaran
+ * @property Collection|Materi[] $materis
  *
  * @package App\Models
  */
@@ -73,5 +75,10 @@ class JadwalPelajaran extends Model
 	public function tahun_ajaran()
 	{
 		return $this->belongsTo(TahunAjaran::class);
+	}
+
+	public function materis()
+	{
+		return $this->hasMany(Materi::class);
 	}
 }

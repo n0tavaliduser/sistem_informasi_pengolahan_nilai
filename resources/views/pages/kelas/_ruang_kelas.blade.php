@@ -151,7 +151,7 @@
 
                 <div class="card-header p-0 border-0 bg-soft-light">
                     <div class="row g-0 text-center">
-                        <div class="col-6 col-sm-4">
+                        <div class="col-6 col-sm-3">
                             <div class="p-3 border border-dashed border-start-0">
                                 <h5 class="mb-1"><span class="counter-value" data-target="{{ $jadwal->kelas->siswas->count() }}">0</span>
                                 </h5>
@@ -159,7 +159,7 @@
                             </div>
                         </div>
                         <!--end col-->
-                        <div class="col-6 col-sm-4">
+                        <div class="col-6 col-sm-3">
                             <div class="p-3 border border-dashed border-start-0">
                                 <h5 class="mb-1"><span class="counter-value" data-target="{{ $jadwal->mata_pelajaran?->tugas->count() }}">0</span> 
                                 </h5>
@@ -167,7 +167,7 @@
                             </div>
                         </div>
                         <!--end col-->
-                        <div class="col-12 col-sm-4">
+                        <div class="col-6 col-sm-3">
                             <div class="p-3 border border-dashed border-start-0">
                                 @php
                                     $persentase_absensi_kelas = \App\Models\Absensi::where('mata_pelajaran_id', $jadwal->mata_pelajaran_id)->where('kelas_id', $jadwal->kelas_id)->where('keterangan', 'Hadir')->count() / (16 * $jadwal->kelas->siswas->count()) * 100;
@@ -183,6 +183,23 @@
                                 @endphp" data-target="{{ $persentase_absensi_kelas }}">0</span>%
                                 </h5>
                                 <p class="text-muted mb-0">Persentase Absensi</p>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <div class="col-6 col-sm-3">
+                            <div class="p-3 border border-dashed border-start-0">
+                                @php
+                                    $materis = $jadwal->materis;
+
+                                    $tanggal_materi = [];
+                                    foreach ($materis as $materi) {
+                                        array_push($tanggal_materi, \Carbon\Carbon::parse($materi->tanggal)->format('Y-m-d'));
+                                    }
+
+                                    $nowIsMateriDate = in_array(\Carbon\Carbon::now()->format('Y-m-d'), $tanggal_materi);
+                                @endphp
+                                <h5 class="mb-1">Materi</h5>
+                                <p class="text-muted mb-0"><a class="{{ !$nowIsMateriDate ? 'text-muted' : '' }}" href="{{ $nowIsMateriDate ? route('materi.download-file', $jadwal->materis?->where('tanggal', \Carbon\Carbon::now()->format('Y-m-d 00:00:00'))->first()) : '#' }}">download</a></p>
                             </div>
                         </div>
                         <!--end col-->

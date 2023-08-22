@@ -20,7 +20,7 @@ class SiswaSeeder extends Seeder
     public function run(): void
     {
         $faker = Faker::create('id_ID');
-        $jumlah_siswa = rand(3, 5);
+        $jumlah_siswa = 3;
 
         $dataCount = 1;
         foreach (Kelas::pluck('id') as $index => $kelasId) {
