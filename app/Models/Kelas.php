@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Collection|JadwalPelajaran[] $jadwal_pelajarans
  * @property Collection|PengumpulanTuga[] $pengumpulan_tugas
  * @property Collection|Siswa[] $siswas
+ * @property Collection|Tugas[] $tugas
  *
  * @package App\Models
  */
@@ -84,5 +85,10 @@ class Kelas extends Model
 	public function siswas()
 	{
 		return $this->hasMany(Siswa::class, 'kelas_id');
+	}
+
+	public function tugas()
+	{
+		return $this->hasMany(Tugas::class, 'kelas_id');
 	}
 }

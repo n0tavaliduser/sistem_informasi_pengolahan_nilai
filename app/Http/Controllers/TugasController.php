@@ -4,18 +4,38 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Tugas\StoreTugasRequest;
 use App\Http\Requests\Tugas\UpdateTugasRequest;
+use App\Models\Guru;
 use App\Models\JadwalPelajaran;
 use App\Models\Tugas;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TugasController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $semua_tugas = null;
+        if (Auth::user()->role->name == 'Siswa') {
+            $semua_tugas = Tugas::with('kelas')
+                ->whereHas('kelas.siswas', function ($query) {
+                    $query->where('user_id', Auth::user()->id);
+                })
+                ->paginate(10);
+        } elseif (Auth::user()->role->name == 'Guru') {
+            $semua_tugas = Tugas::query()
+                ->where(function ($query) use ($request) {
+                    $query->where('judul', 'LIKE', '%' . $request->get('find') . '%');
+                })
+                ->where('kelas_id', $request->get('kelas_id'))
+                ->where('guru_id', Guru::where('user_id', Auth::user()->id)->first()->id)->paginate(10);
+        }
+
+        return view('pages.tugas.index', [
+            'semua_tugas' => $semua_tugas
+        ]);
     }
 
     /**
@@ -43,6 +63,7 @@ class TugasController extends Controller
         $tugas->mata_pelajaran_id = $jadwal->mata_pelajaran->id;
         $tugas->file = $file;
         $tugas->guru_id = $jadwal->guru->id;
+        $tugas->kelas_id = $jadwal->kelas_id;
         $tugas->saveOrFail();
 
         return redirect()->back()->with(['success' => 'Berhasil menambahkan tugas baru!']);

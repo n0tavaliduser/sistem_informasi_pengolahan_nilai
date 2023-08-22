@@ -11,11 +11,12 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Tugas
+ * Class Tuga
  * 
  * @property int $id
  * @property int $guru_id
  * @property int $mata_pelajaran_id
+ * @property int $kelas_id
  * @property string $judul
  * @property string|null $deskripsi
  * @property Carbon $tanggal_deadline
@@ -26,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $updated_at
  * 
  * @property Guru $guru
+ * @property Kelas $kela
  * @property MataPelajaran $mata_pelajaran
  * @property Collection|PengumpulanTugas[] $pengumpulan_tugas
  *
@@ -40,12 +42,14 @@ class Tugas extends Model
 	protected $casts = [
 		'guru_id' => 'int',
 		'mata_pelajaran_id' => 'int',
+		'kelas_id' => 'int',
 		'tanggal_deadline' => 'datetime'
 	];
 
 	protected $fillable = [
 		'guru_id',
 		'mata_pelajaran_id',
+		'kelas_id',
 		'judul',
 		'deskripsi',
 		'tanggal_deadline',
@@ -57,6 +61,11 @@ class Tugas extends Model
 	public function guru()
 	{
 		return $this->belongsTo(Guru::class);
+	}
+
+	public function kelas()
+	{
+		return $this->belongsTo(Kelas::class, 'kelas_id');
 	}
 
 	public function mata_pelajaran()

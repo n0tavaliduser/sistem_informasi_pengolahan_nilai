@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('guru_id');
             $table->unsignedBigInteger('mata_pelajaran_id');
+            $table->unsignedBigInteger('kelas_id');
             $table->string('judul');
             $table->text('deskripsi')->nullable();
             $table->date('tanggal_deadline');
@@ -22,6 +23,12 @@ return new class extends Migration
             $table->enum('status', ['open', 'closed']);
             $table->string('tipe')->comment('Tugas Harian / UTS / UAS');
             $table->timestamps();
+
+            $table->foreign('kelas_id', 'fk-tugas-kelas_id')
+                ->references('id')
+                ->on('kelas')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
 
             $table->foreign('guru_id', 'fk-tugas-guru_id')
                 ->references('id')
