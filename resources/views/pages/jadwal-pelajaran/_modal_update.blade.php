@@ -9,7 +9,10 @@
                 @csrf
                 @method('patch')
                 <div class="modal-body">
-                    <div class="form-group mb-3">
+                    <div class="form-group mb-3" @php if (Auth::user()->role->name == 'Guru') {
+                        echo 'style="display: none;"';
+                        }
+                        @endphp>
                         <label for="hari">Hari</label>
                         <select name="hari" id="hari" class="form-control {{ !$errors->has('hari')?:'is-invalid' }}">
                             <option value="">Pilih hari</option>
@@ -24,7 +27,10 @@
                         @enderror
                     </div>
 
-                    <div class="form-group mb-3">
+                    <div class="form-group mb-3" @php if (Auth::user()->role->name == 'Guru') {
+                        echo 'style="display: none;"';
+                        }
+                        @endphp>
                         <label for="jam_mulai">Jam Mulai</label>
                         <input type="time" name="jam_mulai" id="jam_mulai" value="{{ \Carbon\Carbon::parse($jadwal_pelajaran->jam_mulai)->format('H:i') }}" class="form-control {{ !$errors->has('jam_mulai')?:'is-invalid' }}">
                         @error('jam_mulai')
@@ -32,7 +38,10 @@
                         @enderror
                     </div>
 
-                    <div class="form-group mb-3">
+                    <div class="form-group mb-3" @php if (Auth::user()->role->name == 'Guru') {
+                        echo 'style="display: none;"';
+                        }
+                        @endphp>
                         <label for="jam_berakhir">Jam Berakhir</label>
                         <input type="time" name="jam_berakhir" id="jam_berakhir" value="{{ \Carbon\Carbon::parse($jadwal_pelajaran->jam_berakhir)->format('H:i') }}" class="form-control {{ !$errors->has('jam_berakhir')?:'is-invalid' }}">
                         @error('jam_berakhir')
@@ -40,7 +49,10 @@
                         @enderror
                     </div>
 
-                    <div class="form-group mb-3">
+                    <div class="form-group mb-3" @php if (Auth::user()->role->name == 'Guru') {
+                        echo 'style="display: none;"';
+                        }
+                        @endphp>
                         <label for="kelas_id">Kelas</label>
                         <select name="kelas_id" id="kelas_id" value="{{ old('kelas_id') }}" class="form-control {{ !$errors->has('kelas_id')?:'is-invalid' }}">
                             <option value="">Pilih kelas</option>
@@ -53,7 +65,10 @@
                         @enderror
                     </div>
 
-                    <div class="form-group mb-3">
+                    <div class="form-group mb-3" @php if (Auth::user()->role->name == 'Guru') {
+                        echo 'style="display: none;"';
+                        }
+                        @endphp>
                         <label for="tahun_ajaran_id">Tahun Ajaran</label>
                         <select name="tahun_ajaran_id" id="tahun_ajaran_id" value="{{ old('tahun_ajaran_id') }}" class="form-control {{ !$errors->has('tahun_ajaran_id')?:'is-invalid' }}">
                             <option value="">Pilih tahun ajaran</option>
@@ -66,7 +81,10 @@
                         @enderror
                     </div>
 
-                    <div class="form-group mb-3">
+                    <div class="form-group mb-3" @php if (Auth::user()->role->name == 'Guru') {
+                        echo 'style="display: none;"';
+                        }
+                        @endphp>
                         <label for="semester">Semester</label>
                         <select name="semester" id="semester" class="form-control {{ !$errors->has('semester')?:'is-invalid' }}">
                             <option value="">Pilih semester</option>
@@ -78,7 +96,10 @@
                         @enderror
                     </div>
 
-                    <div class="form-group mb-3">
+                    <div class="form-group mb-3" @php if (Auth::user()->role->name == 'Guru') {
+                        echo 'style="display: none;"';
+                        }
+                        @endphp>
                         <label for="guru_id">Guru</label>
                         <select name="guru_id" id="guru_id" class="form-control {{ !$errors->has('guru_id')?:'is-invalid' }}">
                             <option value="">Pilih guru</option>

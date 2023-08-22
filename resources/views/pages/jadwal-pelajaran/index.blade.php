@@ -83,9 +83,17 @@
                                                     {{ $jadwal_pelajaran->mata_pelajaran?->kode }}
                                                 {{-- @else --}}
                                                     {{-- sudah ada jadwal namun belum ada mata pelajaran --}}
-                                                    <a href="#" class="text-primary m-0" data-bs-toggle="modal" data-bs-target="#updateModal-{{ $jadwal_pelajaran->id }}">
-                                                        <i class="ri-settings-4-line"></i>
-                                                    </a>
+                                                    @if (Auth::user()->role->name == 'Guru')
+                                                        @if ($jadwal_pelajaran->guru_id == \App\Models\Guru::where('user_id', Auth::user()->id)->first()?->id)
+                                                        <a href="#" class="text-primary m-0" data-bs-toggle="modal" data-bs-target="#updateModal-{{ $jadwal_pelajaran->id }}">
+                                                            <i class="ri-settings-4-line"></i>
+                                                        </a>
+                                                        @endif
+                                                    @elseif (Auth::user()->role->name == 'Admin')
+                                                        <a href="#" class="text-primary m-0" data-bs-toggle="modal" data-bs-target="#updateModal-{{ $jadwal_pelajaran->id }}">
+                                                            <i class="ri-settings-4-line"></i>
+                                                        </a>
+                                                    @endif
                                                     @include('pages.jadwal-pelajaran._modal_update')
                                                 {{-- @endif                                 --}}
                                             @endif
