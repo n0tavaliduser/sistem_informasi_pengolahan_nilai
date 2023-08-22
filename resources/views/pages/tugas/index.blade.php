@@ -37,6 +37,7 @@
                                 <th scope="col">Nama</th>
                                 @if (Auth::user()->role->name == 'Guru')
                                     <th>Kelas</th>
+                                    <th>Pengumpul Tugas</th>
                                 @endif
                                 <th scope="col">Judul</th>
                                 <th scope="col">Tenggat Waktu</th>
@@ -64,6 +65,7 @@
                                 </td>
                                 @if (Auth::user()->role->name == 'Guru')
                                     <td class="fw-bold">{{ $tugas->kelas?->nama_kelas }}</td>
+                                    <td><span class="fw-bold">{{ $tugas->pengumpulan_tugas->count() }}</span> dari <span class="fw-bold">{{ count($tugas->kelas?->siswas) }}</span> siswa</td>
                                 @endif
                                 <td>{{ $tugas->judul }}</td>
                                 <td>{{ \Carbon\Carbon::parse($tugas->tanggal_deadline)->format('d-m-Y') }}</td>
