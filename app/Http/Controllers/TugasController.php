@@ -55,7 +55,7 @@ class TugasController extends Controller
 
         $file = null;
         if ($request->hasFile('file')) {
-            $file = $request->file('file')->storeAs(Tugas::FILE_PATH, 'public');
+            $file = $request->file('file')->store(Tugas::FILE_PATH, 'public');
         }
 
         $tugas = Tugas::make($data);
