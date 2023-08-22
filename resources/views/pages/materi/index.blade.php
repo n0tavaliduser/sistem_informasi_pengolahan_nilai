@@ -74,7 +74,6 @@
                                 <td>{{ \Carbon\Carbon::parse($materi->tanggal)->format('d-m-Y') }}</td>
                                 <td>
                                     <div class="hstack gap-3 fs-15">
-                                        <a href="{{ route('tugas.show', $materi) }}"><i class="ri-eye-line"></i></a>
                                         @if (!$materi->tanggal->isPast())
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#updateModal-{{ $materi->id }}"><i class="ri-settings-4-line"></i></a>
                                         <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $materi->id }}" class="text-danger"><i class="ri-delete-bin-5-line"></i></a>
