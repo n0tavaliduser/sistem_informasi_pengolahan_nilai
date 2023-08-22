@@ -93,7 +93,7 @@
                 <div class="card-body p-4 border-top border-top-dashed">
                     <h6 class="text-muted text-uppercase fw-semibold mb-4">Tugas</h6>
                     <!-- Swiper -->
-                    <div class="align-items-center p-3 justify-content-between d-flex">
+                    <div class="align-items-center p-3 justify-content-between d-flex flex-wrap">
                         <div class="flex-shrink-0">
                             <div class="text-muted"><span class="fw-semibold">{{ $jadwal->mata_pelajaran?->tugas->where('status', 'open')->count() }}</span> dari <span class="fw-semibold">{{ $jadwal->mata_pelajaran?->tugas->count() }}</span> dibuka</div>
                         </div>
@@ -107,12 +107,12 @@
                         <ul class="list-group list-group-flush border-dashed">   
                             @foreach ($jadwal->mata_pelajaran?->tugas as $tugas)                       
                             <li class="list-group-item ps-0">
-                                <div class="d-flex align-items-start">
+                                <div class="d-grid">
                                     <div class="flex-grow-1">
                                         <label class="form-check-label mb-0" for="task_one">{{ $tugas->judul }}</label>
                                         <p class="text-muted fs-12 mb-1">Tenggat Waktu : {{ \Carbon\Carbon::parse($tugas->tanggal_deadline)->format('d-m-Y') }}</p>
                                     </div>
-                                    <div class="flex-shrink-0 ms-2">
+                                    <div class="d-flex gap-1">
                                     @if (Auth::user()->role->name == 'Guru')
                                         @if($tugas->status == 'open')
                                             <a href="{{ route('tugas.close-tugas', $tugas) }}" class="btn btn-sm btn-danger w-100 mb-1">tutup</a>
@@ -123,7 +123,7 @@
                                             <a href="{{ route('tugas.edit', ['tugas' => $tugas, 'jadwal' => $jadwal]) }}" class="btn btn-sm btn-warning w-100 mb-1">update</a>
                                             <a href="#" class="btn btn-sm btn-secondary w-100 mb-1">hasil</a>
                                     @else
-                                        @if ($tugas->status == 'open')                                            
+                                        @if ($tugas->status == 'open')                                      
                                             <a href="{{ route('tugas.show', $tugas) }}" class="btn btn-sm btn-primary w-100 mb-1">lihat</a>
                                             <button class="btn btn-sm btn-success w-100">submit</button>
                                         @else
