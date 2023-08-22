@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    DAFTAR KELAS
+DAFTAR KELAS
 @endsection
 @section('content')
 @component('components.breadcrumb')
@@ -15,20 +15,20 @@ Daftar Kelas
     @foreach ($semua_jadwal as $jadwal)
 
     @php
-        $daysOfWeekInIndonesian = [
-            1 => 'Senin',
-            2 => 'Selasa',
-            3 => 'Rabu',
-            4 => 'Kamis',
-            5 => 'Jumat',
-            6 => 'Sabtu',
-            0 => 'Minggu',
-        ];
-        
-        $currentDay = $daysOfWeekInIndonesian[\Carbon\Carbon::now()->dayOfWeek];
-        $isInvalidTime = ($jadwal->hari != $currentDay || 
-            \Carbon\Carbon::now()->lessThan($jadwal->jam_mulai) || 
-            \Carbon\Carbon::now()->greaterThan($jadwal->jam_berakhir));
+    $daysOfWeekInIndonesian = [
+    1 => 'Senin',
+    2 => 'Selasa',
+    3 => 'Rabu',
+    4 => 'Kamis',
+    5 => 'Jumat',
+    6 => 'Sabtu',
+    0 => 'Minggu',
+    ];
+
+    $currentDay = $daysOfWeekInIndonesian[\Carbon\Carbon::now()->dayOfWeek];
+    $isInvalidTime = ($jadwal->hari != $currentDay ||
+    \Carbon\Carbon::now()->lessThan($jadwal->jam_mulai) ||
+    \Carbon\Carbon::now()->greaterThan($jadwal->jam_berakhir));
     @endphp
 
     <div class="col-xl-3 col-lg-6">
@@ -41,7 +41,7 @@ Daftar Kelas
                 <small class="mb-4 text-{{ $isInvalidTime ? 'danger' : 'success' }}">
                     {{
                         $isInvalidTime ? \Carbon\CarbonInterval::seconds(
-                            \Carbon\Carbon::now()->setTimeFromTimeString($jadwal->jam_mulai)->addDays(array_search($jadwal->hari, ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']))->diffInSeconds(\Carbon\Carbon::now())
+                        \Carbon\Carbon::now(new \DateTimeZone('GMT+7'))->setTimeFromTimeString($jadwal->jam_mulai)->addDays(array_search($jadwal->hari, ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']))->diffInSeconds(\Carbon\Carbon::now())
                         )->cascade()->forHumans() : 'Kelas Dibuka'
                     }}
                 </small>
@@ -63,7 +63,7 @@ Daftar Kelas
                             }
                         }
                     @endphp">Masuk Kelas</a>
-                </div>                
+                </div>
             </div>
         </div>
     </div>
