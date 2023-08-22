@@ -19,7 +19,7 @@
 
                     <form method="get">
                         <select class="form-select" id="jurusan_id" name="jurusan_id" onchange="this.form.submit()">
-                            <option selected>Pilih Kelas</option>
+                            <option selected>Pilih Jurusan</option>
                             @foreach (\App\Models\Jurusan::all() as $jurusan)
                             <option value="{{ $jurusan->id }}" {{ Request::get('jurusan_id') == $jurusan->id ? 'selected' : '' }}>{{ $jurusan->nama_jurusan }}</option>
                             @endforeach
