@@ -199,14 +199,6 @@
                         @include('pages.kelas._modal_absensi')
                     </div>
                 </div>
-                <div class="col-sm">
-                    <div class="d-flex justify-content-sm-end">
-                        <div class="search-box ms-2">
-                            <input type="text" class="form-control" placeholder="Search Products...">
-                            <i class="ri-search-line search-icon"></i>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="card">
                 <div class="card-body">
