@@ -40,9 +40,7 @@ Daftar Kelas
                 <p class="text-muted mb-0">{{ $jadwal->hari }} | {{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($jadwal->jam_berakhir)->format('H:i') }}</p>
                 <small class="mb-4 text-{{ $isInvalidTime ? 'danger' : 'success' }}">
                     {{
-                        $isInvalidTime ? \Carbon\CarbonInterval::seconds(
-                        \Carbon\Carbon::now(new \DateTimeZone('GMT+7'))->setTimeFromTimeString($jadwal->jam_mulai)->addDays(array_search($jadwal->hari, ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']))->diffInSeconds(\Carbon\Carbon::now())
-                        )->cascade()->forHumans() : 'Kelas Dibuka'
+                        $isInvalidTime ? 'Tutup' : 'Kelas Dibuka'
                     }}
                 </small>
                 <div class="row mt-4">
