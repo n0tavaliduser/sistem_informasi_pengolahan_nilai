@@ -71,7 +71,7 @@
                                                     </tr>
                                                     <tr>
                                                         <th class="ps-0" scope="row">Agama :</th>
-                                                        <td class="text-muted">{{ $siswa->telepon }}</td>
+                                                        <td class="text-muted">{{ $siswa->agama }}</td>
                                                     </tr>
                                                     <tr>
                                                         <th class="ps-0" scope="row">Email :</th>
