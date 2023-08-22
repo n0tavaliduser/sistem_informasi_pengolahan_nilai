@@ -125,7 +125,6 @@
                                     @else
                                         @if ($tugas->status == 'open')                                      
                                             <a href="{{ route('tugas.show', $tugas) }}" class="btn btn-sm btn-primary w-100 mb-1">lihat</a>
-                                            <button class="btn btn-sm btn-success w-100">submit</button>
                                         @else
                                             <button class="btn btn-sm btn-muted disabled">closed</button>
                                         @endif
