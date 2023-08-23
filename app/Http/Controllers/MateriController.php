@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Materi\StoreMateriRequest;
 use App\Http\Requests\Materi\UpdateMateriRequest;
 use App\Models\JadwalPelajaran;
+use App\Models\MataPelajaran;
 use App\Models\Materi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,23 +17,50 @@ class MateriController extends Controller
      */
     public function index(Request $request)
     {
-        $semua_materi = Materi::with('jadwal_pelajaran')
-            ->whereHas('jadwal_pelajaran.guru', function ($query) {
-                $query->where('user_id', Auth::user()->id);
-            })
-            ->whereHas('jadwal_pelajaran', function ($query) use ($request) {
-                $query->where('kelas_id', $request->get('kelas_id'));
-            })
-            ->paginate(10);
-        $semua_jadwal_pelajaran = JadwalPelajaran::with('guru')
-            ->whereHas('guru', function ($query) {
-                $query->where('user_id', Auth::user()->id);
-            })
-            ->get();
+        if (Auth::user()->role->name == 'Guru') {
+            $semua_materi = Materi::with('jadwal_pelajaran')
+                ->whereHas('jadwal_pelajaran.guru', function ($query) {
+                    $query->where('user_id', Auth::user()->id);
+                })
+                ->whereHas('jadwal_pelajaran', function ($query) use ($request) {
+                    $query->where('kelas_id', $request->get('kelas_id'));
+                })
+                ->paginate(10);
+            $semua_jadwal_pelajaran = JadwalPelajaran::with('guru')
+                ->whereHas('guru', function ($query) {
+                    $query->where('user_id', Auth::user()->id);
+                })
+                ->get();
+            $semua_mata_pelajaran = MataPelajaran::with('jadwal_pelajarans')
+                ->whereHas('jadwal_pelajarans.guru', function ($query) {
+                    $query->where('user_id', Auth::user()->id);
+                })
+                ->get();
+        } elseif (Auth::user()->role->name == 'Siswa') {
+            $semua_materi = Materi::with('jadwal_pelajaran')
+                ->whereHas('jadwal_pelajaran.kelas.siswas', function ($query) {
+                    $query->where('user_id', Auth::user()->id);
+                })
+                ->whereHas('jadwal_pelajaran', function ($query) use ($request) {
+                    $query->where('mata_pelajaran_id', $request->get('mata_pelajaran_id'));
+                })
+                ->paginate(10);
+            $semua_jadwal_pelajaran = JadwalPelajaran::with('guru')
+                ->whereHas('guru', function ($query) {
+                    $query->where('user_id', Auth::user()->id);
+                })
+                ->get();
+            $semua_mata_pelajaran = MataPelajaran::with('jadwal_pelajarans')
+                ->whereHas('jadwal_pelajarans.kelas.siswas', function ($query) {
+                    $query->where('user_id', Auth::user()->id);
+                })
+                ->get();
+        }
 
         return view('pages.materi.index', [
             'semua_materi' => $semua_materi,
-            'semua_jadwal_pelajaran' => $semua_jadwal_pelajaran
+            'semua_jadwal_pelajaran' => $semua_jadwal_pelajaran,
+            'semua_mata_pelajaran' => $semua_mata_pelajaran
         ]);
     }
 

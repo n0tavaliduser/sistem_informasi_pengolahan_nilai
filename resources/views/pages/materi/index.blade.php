@@ -11,6 +11,7 @@
         @include('components.alert')
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
+                @if (Auth::user()->role->name == 'Guru')
                 <div class="d-flex align-items-center">
                     <a href="" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal-tambah-materi"><i></i> Tambah</a>
                 </div>
@@ -29,10 +30,21 @@
                                 <option value="{{ $kelas->id }}" {{ $kelas->id == Request::get('kelas_id') ? 'selected' : '' }}>{{ $kelas->nama_kelas }}</option>
                                 @endforeach
                             </select>
-                            <input type="text" name="find" id="find" class="form-control h-100" placeholder="Cari">
                         </div>
                     </form>
                 </div>
+                @elseif(Auth::user()->role->name == 'Siswa')
+                <form method="get">
+                    <div class="d-flex gap-2">
+                        <select name="mata_pelajaran_id" id="mata_pelajaran_id" class="form-control" onchange="this.form.submit()">
+                            <option value="">Pilih mata pelajaran</option>
+                            @foreach ($semua_mata_pelajaran as $kelas)
+                            <option value="{{ $kelas->id }}" {{ $kelas->id == Request::get('mata_pelajaran_id') ? 'selected' : '' }}>{{ $kelas->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </form>
+                @endif
             </div>
             <div class="card-body">
                 <div class="table-responsive table-card">

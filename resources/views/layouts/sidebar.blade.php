@@ -52,13 +52,13 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('/materi') ? 'active' : '' }}" href="{{ route('materi.index') }}" role="button">
+                            <a class="nav-link {{ Request::is('materi') ? 'active' : '' }}" href="{{ route('materi.index') }}" role="button">
                                 <i class="ri-book-open-fill"></i> <span>Materi</span>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('/manajemen-tugas/rekap-nilai') ? 'active' : '' }}" href="{{ route('tugas.rekap-nilai') }}" role="button">
+                            <a class="nav-link {{ Request::is('manajemen-tugas/rekap-nilai') ? 'active' : '' }}" href="{{ route('tugas.rekap-nilai') }}" role="button">
                                 <i class="ri-list-unordered"></i> <span>Nilai Tugas</span>
                             </a>
                         </li>
@@ -86,7 +86,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('root') }}" role="button">
+                            <a class="nav-link {{ Request::is('materi') ? 'active' : '' }}" href="{{ route('materi.index') }}" role="button">
                                 <i class="ri-search-eye-line"></i> <span>Materi</span>
                             </a>
                         </li>
