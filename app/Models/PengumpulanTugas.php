@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $siswa_id
  * @property int $mata_pelajaran_id
  * @property int $tugas_id
+ * @property int|null $nilai
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
@@ -40,7 +41,8 @@ class PengumpulanTugas extends Model
 		'kelas_id' => 'int',
 		'siswa_id' => 'int',
 		'mata_pelajaran_id' => 'int',
-		'tugas_id' => 'int'
+		'tugas_id' => 'int',
+		'nilai' => 'int'
 	];
 
 	protected $fillable = [
@@ -50,7 +52,8 @@ class PengumpulanTugas extends Model
 		'kelas_id',
 		'siswa_id',
 		'mata_pelajaran_id',
-		'tugas_id'
+		'tugas_id',
+		'nilai'
 	];
 
 	public function kelas()

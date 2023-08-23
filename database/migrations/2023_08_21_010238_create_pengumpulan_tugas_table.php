@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('siswa_id');
             $table->unsignedBigInteger('mata_pelajaran_id');
             $table->unsignedBigInteger('tugas_id');
+            $table->integer('nilai')->nullable();
             $table->timestamps();
 
             $table->foreign('kelas_id', 'fk-pengumpulan_tugas-kelas_id')

@@ -39,7 +39,7 @@
                     </li>
 
                     {{-- Guru || Admin || Siswa Sidebar LMS Label --}}
-                    @if (Auth::user()->role->name === 'Guru' || Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Siswa')
+                    @if (Auth::user()->role->name === 'Guru' || Auth::user()->role->name === 'Siswa')
                         <li class="menu-title"><span>LMS</span></li>              
                     @endif
 
@@ -62,10 +62,6 @@
                                 <i class="ri-list-unordered"></i> <span>Nilai Tugas</span>
                             </a>
                         </li>
-                    @endif
-
-                    {{-- Admin || Guru Sidebar LMS --}}
-                    @if (Auth::user()->role->name === 'Admin' || Auth::user()->role->name === 'Guru')
                         <li class="nav-item">
                             <a class="nav-link {{ Request::is('jadwal-pelajaran') ? 'active' : '' }}" href="{{ route('jadwal-pelajaran.index') }}" role="button">
                                 <i class="ri-shield-user-fill"></i> <span>Jadwal Pelajaran</span>
@@ -136,14 +132,15 @@
                     </li> <!-- end Dashboard Menu -->
 
                     <li class="menu-title"><span>Menu</span></li>
+
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('/root') ? 'active' : '' }}" href="{{ route('root') }}" role="button">
+                        <a class="nav-link {{ Request::is('absensi/rekap') ? 'active' : '' }}" href="{{ route('absensi.rekap') }}" role="button">
                             <i class="ri-calendar-line"></i> <span>Rekap Absensi</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('/root') ? 'active' : '' }}" href="{{ route('root') }}" role="button">
+                        <a class="nav-link {{ Request::is('jadwal-pelajaran') ? 'active' : '' }}" href="{{ route('jadwal-pelajaran.index') }}" role="button">
                             <i class="ri-calendar-line"></i> <span>Kelola Jadwal Pelajaran</span>
                         </a>
                     </li>

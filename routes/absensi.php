@@ -6,4 +6,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(Authenticate::class)->group(function () {
     Route::post('/absensi/{siswa}/{jadwal}', [AbsensiController::class, 'store'])->name('absensi.store');
+    Route::get('/absensi/rekap', [AbsensiController::class, 'rekap'])->name('absensi.rekap');
 });

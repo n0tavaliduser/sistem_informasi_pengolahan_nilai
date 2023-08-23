@@ -72,7 +72,7 @@
                                 <td>
                                     <div class="hstack gap-3 fs-15">
                                         <a href="{{ route('tugas.show', $tugas) }}"><i class="ri-eye-line"></i></a>
-                                        @if ($tugas->status == 'open')
+                                        @if ($tugas->status == 'open' && Auth::user()->role->name == 'Guru')
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#modalUpdate-{{ $tugas->id }}"><i class="ri-settings-4-line"></i></a>
                                         <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $tugas->id }}" class="text-danger"><i class="ri-delete-bin-5-line"></i></a>
                                         @endif
