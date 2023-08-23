@@ -52,7 +52,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('materi') ? 'active' : '' }}" href="{{ route('materi.index') }}" role="button">
+                            <a class="nav-link {{ Request::is('materi') ? 'active' : '' }}" href="{{ route('absensi.index') }}" role="button">
                                 <i class="ri-book-open-fill"></i> <span>Materi</span>
                             </a>
                         </li>
@@ -60,6 +60,12 @@
                         <li class="nav-item">
                             <a class="nav-link {{ Request::is('manajemen-tugas/rekap-nilai') ? 'active' : '' }}" href="{{ route('tugas.rekap-nilai') }}" role="button">
                                 <i class="ri-list-unordered"></i> <span>Nilai Tugas</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('absensi') ? 'active' : '' }}" href="{{ route('absensi.index') }}" role="button">
+                                <i class="ri-list-unordered"></i> <span>Absensi</span>
                             </a>
                         </li>
 
