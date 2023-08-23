@@ -43,24 +43,41 @@ class TugasController extends Controller
 
     public function rekapNilai(Request $request)
     {
-        $semua_pengumpulan_tugas = PengumpulanTugas::with('kelas')
-            ->whereHas('kelas', function ($query) use ($request) {
-                $query->where('id', $request->get('kelas_id'));
-            })
-            ->whereHas('mata_pelajaran.jadwal_pelajarans.guru', function ($query) {
-                $query->where('user_id', Auth::user()->id);
-            })
-            ->where('mata_pelajaran_id', $request->get('mata_pelajaran_id'))
-            ->where('siswa_id', $request->get('siswa_id'))
-            ->get();
+        if (Auth::user()->role->name == 'Guru') {
+            $semua_pengumpulan_tugas = PengumpulanTugas::with('kelas')
+                ->whereHas('kelas', function ($query) use ($request) {
+                    $query->where('id', $request->get('kelas_id'));
+                })
+                ->whereHas('mata_pelajaran.jadwal_pelajarans.guru', function ($query) {
+                    $query->where('user_id', Auth::user()->id);
+                })
+                ->where('mata_pelajaran_id', $request->get('mata_pelajaran_id'))
+                ->where('siswa_id', $request->get('siswa_id'))
+                ->get();
 
-        $semua_mata_pelajaran = MataPelajaran::with('jadwal_pelajarans')
-            ->whereHas('jadwal_pelajarans.guru', function ($query) {
-                $query->where('user_id', Auth::user()->id);
-            })
-            ->get();
+            $semua_mata_pelajaran = MataPelajaran::with('jadwal_pelajarans')
+                ->whereHas('jadwal_pelajarans.guru', function ($query) {
+                    $query->where('user_id', Auth::user()->id);
+                })
+                ->get();
 
-        $semua_siswa = Siswa::where('kelas_id', $request->get('kelas_id'))->get();
+            $semua_siswa = Siswa::where('kelas_id', $request->get('kelas_id'))->get();
+        } elseif (Auth::user()->role->name == 'Siswa') {
+            $semua_pengumpulan_tugas = PengumpulanTugas::with('kelas')
+                ->whereHas('kelas.siswas', function ($query) {
+                    $query->where('user_id', Auth::user()->id);
+                })
+                ->where('mata_pelajaran_id', $request->get('mata_pelajaran_id'))
+                ->get();
+
+            $semua_mata_pelajaran = MataPelajaran::with('jadwal_pelajarans')
+                ->whereHas('jadwal_pelajarans.kelas.siswas', function ($query) {
+                    $query->where('user_id', Auth::user()->id);
+                })
+                ->get();
+
+            $semua_siswa = null;
+        }
 
         return view('pages.tugas.penilaian', [
             'semua_pengumpulan_tugas' => $semua_pengumpulan_tugas,

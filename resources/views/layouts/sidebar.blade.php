@@ -91,7 +91,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('root') }}" role="button">
+                            <a class="nav-link" href="{{ route('tugas.rekap-nilai') }}" role="button">
                                 <i class="ri-checkbox-line"></i> <span>Nilai Tugas</span>
                             </a>
                         </li>
