@@ -55,7 +55,11 @@ class AbsensiController extends Controller
             ->groupBy('tanggal');
         $semua_kelas = Kelas::all();
         $semua_siswa = Siswa::where('kelas_id', $request->get('kelas_id'))->get();
-        $semua_mata_pelajaran = MataPelajaran::all();
+        $semua_mata_pelajaran = MataPelajaran::with('jadwal_pelajarans')
+            ->whereHas('jadwal_pelajarans.kelas', function ($query) use ($request) {
+                $query->where('id', $request->get('kelas_id'));
+            })
+            ->get();
 
         return view('pages.absensi.rekap', [
             'semua_tanggal_absensi' => $semua_tanggal_absensi,

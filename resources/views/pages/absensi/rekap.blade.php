@@ -1,9 +1,9 @@
 @extends('layouts.master')
-@section('title') JADWAL PELAJARAN @endsection
+@section('title') REKAP ABSENSI @endsection
 @section('content')
 @component('components.breadcrumb')
-@slot('li_1') Master Data @endslot
-@slot('title') Jadwal Pelajaran @endslot
+@slot('li_1') Menu @endslot
+@slot('title') Rekap Absensi @endslot
 @endcomponent
 
 <div class="row">
@@ -47,6 +47,7 @@
                                 <th rowspan="2">Nama</th>
                                 <th colspan="{{ $semua_tanggal_absensi->count() }}">REKAP ABSENSI</th>
                                 <th rowspan="2">Hadir</th>
+                                <th rowspan="2">Izin</th>
                                 <th rowspan="2">Alpha</th>
                             </tr>
                             <tr>
@@ -67,11 +68,14 @@
                                     <i class="ri-checkbox-fill text-success fs-2"></i>
                                     @elseif ($absen->siswa_id == $siswa->id && $absen->keterangan == 'Alpha')
                                     <i class="ri-close-circle-fill text-danger fs-2"></i>
+                                    @elseif ($absen->siswa_id == $siswa->id && $absen->keterangan == 'Izin')
+                                    <i class="ri-spam-2-line text-warning fs-2"></i>
                                     @endif
                                     @endforeach
                                 </td>
                                 @endforeach
                                 <td>{{ $siswa->absensis->where('mata_pelajaran_id', Request::get('mata_pelajaran_id'))->where('keterangan', 'Hadir')->count() }}</td>
+                                <td>{{ $siswa->absensis->where('mata_pelajaran_id', Request::get('mata_pelajaran_id'))->where('keterangan', 'Izin')->count() }}</td>
                                 <td>{{ $siswa->absensis->where('mata_pelajaran_id', Request::get('mata_pelajaran_id'))->where('keterangan', 'Alpha')->count() }}</td>
                             </tr>
                             @endforeach
