@@ -156,6 +156,7 @@
 
     $kehadiranData = [];
     $alphaData = [];
+    $izinData = [];
     $lastSevenDays = now()->subDays(6)->toDateString(); // 7 days ago
 
     // Retrieve "Kehadiran" data for each day
@@ -183,6 +184,19 @@
             ->count();
 
         $alphaData[] = $alphaCount;
+    }
+
+    foreach (range(0, 6) as $daysAgo) {
+        $tanggal = now()->subDays($daysAgo)->toDateString();
+
+        $izinCount = Siswa::with('absensis')
+            ->whereHas('absensis', function ($query) use ($tanggal) {
+                $query->where('tanggal', $tanggal)
+                    ->where('keterangan', 'izin');
+            })
+            ->count();
+
+        $izinData[] = $izinCount;
     }
 @endphp
 
@@ -238,16 +252,25 @@
                         backgroundColor: lineChartColor[0],
                         borderColor: lineChartColor[1],
                         startFromZero: true,
-                        data: {!! json_encode($kehadiranData) !!}
+                        data: {!! json_encode($kehadiranData) !!},
                     },
                     {
                         label: "Alpha",
                         fill: true,
                         lineTension: 0.5,
-                        backgroundColor: lineChartColor[0],
-                        borderColor: lineChartColor[1],
+                        backgroundColor: '#ED293956',
+                        borderColor: '#ED2939',
                         startFromZero: true,
-                        data: {!! json_encode($alphaData) !!}
+                        data: {!! json_encode($alphaData) !!},
+                    },
+                    {
+                        label: "Izin",
+                        fill: true,
+                        lineTension: 0.5,
+                        backgroundColor: '#FDFD2656',
+                        borderColor: '#FDFD26',
+                        startFromZero: true,
+                        data: {!! json_encode($izinData) !!},
                     }
                 ]
             },
