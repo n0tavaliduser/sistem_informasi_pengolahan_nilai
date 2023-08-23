@@ -31,7 +31,7 @@ Daftar Kelas
                 \Carbon\Carbon::now()->greaterThan($jadwal->jam_berakhir));
         @endphp
 
-        @if ($jadwal->hari != $currentDay)        
+        @if ($jadwal->hari == $currentDay)        
         <div class="col-xl-3 col-lg-6">
             <div class="card ribbon-box right overflow-hidden">
                 <div class="card-body text-center p-4">
