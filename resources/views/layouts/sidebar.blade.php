@@ -40,7 +40,7 @@
 
                     {{-- Guru || Admin || Siswa Sidebar LMS Label --}}
                     @if (Auth::user()->role->name === 'Guru' || Auth::user()->role->name === 'Siswa')
-                        <li class="menu-title"><span>LMS</span></li>              
+                        <li class="menu-title"><span>LMS</span></li>      
                     @endif
 
                     {{-- Guru Sidebar LMS --}}
@@ -62,6 +62,9 @@
                                 <i class="ri-list-unordered"></i> <span>Nilai Tugas</span>
                             </a>
                         </li>
+
+                        <li class="menu-title"><span>MENU</span></li>      
+
                         <li class="nav-item">
                             <a class="nav-link {{ Request::is('jadwal-pelajaran') ? 'active' : '' }}" href="{{ route('jadwal-pelajaran.index') }}" role="button">
                                 <i class="ri-shield-user-fill"></i> <span>Jadwal Pelajaran</span>
