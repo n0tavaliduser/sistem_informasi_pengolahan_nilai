@@ -6,6 +6,9 @@ use App\Http\Requests\Tugas\StoreTugasRequest;
 use App\Http\Requests\Tugas\UpdateTugasRequest;
 use App\Models\Guru;
 use App\Models\JadwalPelajaran;
+use App\Models\MataPelajaran;
+use App\Models\PengumpulanTugas;
+use App\Models\Siswa;
 use App\Models\Tugas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +38,34 @@ class TugasController extends Controller
 
         return view('pages.tugas.index', [
             'semua_tugas' => $semua_tugas
+        ]);
+    }
+
+    public function rekapNilai(Request $request)
+    {
+        $semua_pengumpulan_tugas = PengumpulanTugas::with('kelas')
+            ->whereHas('kelas', function ($query) use ($request) {
+                $query->where('id', $request->get('kelas_id'));
+            })
+            ->whereHas('mata_pelajaran.jadwal_pelajarans.guru', function ($query) {
+                $query->where('user_id', Auth::user()->id);
+            })
+            ->where('mata_pelajaran_id', $request->get('mata_pelajaran_id'))
+            ->where('siswa_id', $request->get('siswa_id'))
+            ->get();
+
+        $semua_mata_pelajaran = MataPelajaran::with('jadwal_pelajarans')
+            ->whereHas('jadwal_pelajarans.guru', function ($query) {
+                $query->where('user_id', Auth::user()->id);
+            })
+            ->get();
+
+        $semua_siswa = Siswa::where('kelas_id', $request->get('kelas_id'))->get();
+
+        return view('pages.tugas.penilaian', [
+            'semua_pengumpulan_tugas' => $semua_pengumpulan_tugas,
+            'semua_mata_pelajaran' => $semua_mata_pelajaran,
+            'semua_siswa' => $semua_siswa
         ]);
     }
 

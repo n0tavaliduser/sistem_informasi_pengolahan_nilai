@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PengumpulanTugas\StorePengumpulanTugasRequest;
 use App\Http\Requests\PengumpulanTugas\UpdatePengumpulanTugasRequest;
+use App\Http\Requests\PengumpulanTugas\UpdateNilaiTugasRequest;
 use App\Models\PengumpulanTugas;
 use App\Models\Siswa;
 use App\Models\Tugas;
@@ -117,5 +118,15 @@ class PengumpulanTugasController extends Controller
     public function downloadFile(PengumpulanTugas $pengumpulan_tugas)
     {
         return response()->download('storage/' . $pengumpulan_tugas->file);
+    }
+
+    public function nilaiPengumpulanTugas(UpdateNilaiTugasRequest $request, PengumpulanTugas $pengumpulan_tugas)
+    {
+        $data = $request->validated();
+
+        $pengumpulan_tugas->fill($data);
+        $pengumpulan_tugas->saveOrFail();
+
+        return redirect()->back()->with(['success' => 'Berhasil memberikan nilai tugas!']); 
     }
 }

@@ -11,4 +11,5 @@ Route::middleware(Authenticate::class)->group(function () {
 
     // action
     Route::get('/penumpulan_tugas/download/{pengumpulan_tugas}', [PengumpulanTugasController::class, 'downloadFile'])->name('pengumpulan-tugas.download-file');
+    Route::patch('/penilaian-pengumpulan-tugas/{pengumpulan_tugas}', [PengumpulanTugasController::class, 'nilaiPengumpulanTugas'])->name('pengumpulan-tugas.update-nilai');
 });

@@ -1,9 +1,9 @@
 @extends('layouts.master')
-@section('title') PENGOLAHAN NILAI @endsection
+@section('title') NILAI TUGAS @endsection
 @section('content')
 @component('components.breadcrumb')
 @slot('li_1') <a href="{{ route('root') }}">Dashboard</a> @endslot
-@slot('title') Pengolahan Nilai @endslot
+@slot('title') Nilai Tugas @endslot
 @endcomponent
 
 <div class="row">
@@ -21,67 +21,50 @@
                                 @endforeach
                             </select>
 
-                            @if (Request::get('kelas_id'))
+                            <select name="mata_pelajaran_id" id="mata_pelajaran_id" class="form-control" onchange="this.form.submit()">
+                                <option value="">Pilih mata pelajaran</option>
+                                @foreach ($semua_mata_pelajaran as $mata_pelajaran)
+                                <option value="{{ $mata_pelajaran->id }}" {{ $mata_pelajaran->id == Request::get('mata_pelajaran_id') ? 'selected' : '' }}>{{ $mata_pelajaran->nama }}</option>
+                                @endforeach
+                            </select>
+
                             <select name="siswa_id" id="siswa_id" class="form-control" onchange="this.form.submit()">
                                 <option value="">Pilih siswa</option>
-                                @foreach (\App\Models\Siswa::where('kelas_id', Request::get('kelas_id'))->get() as $siswa)
+                                @foreach ($semua_siswa as $siswa)
                                 <option value="{{ $siswa->id }}" {{ $siswa->id == Request::get('siswa_id') ? 'selected' : '' }}>{{ $siswa->nama_lengkap }}</option>
                                 @endforeach
                             </select>
-                            @endif
                         </div>
                     </form>
                 </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    @if (!empty(Request::get('siswa_id')))
-                    <table class="table-bordered table">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Mata Pelajaran</th>
+                                <th>Siswa</th>
+                                <th>Berkas</th>
                                 <th>Nilai</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($semua_mata_pelajaran as $index => $mata_pelajaran)
+                            @foreach ($semua_pengumpulan_tugas as $index => $pengumpulan_tugas)
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
-                                    <td>{{ $mata_pelajaran->nama }}</td>
+                                    <td>{{ $pengumpulan_tugas->siswa?->nama_lengkap }}</td>
+                                    <td><a href="{{ route('pengumpulan-tugas.download-file', $pengumpulan_tugas) }}">download</a></td>
+                                    <td>{{ $pengumpulan_tugas->nilai }}</td>
                                     <td>
-                                        @foreach ($semua_nilai as $nilai)
-                                            @if ($nilai->mata_pelajaran_id == $mata_pelajaran->id)
-                                                @if ($nilai->nilai)
-                                                    {{ $nilai->nilai }}
-                                                @endif
-                                            @endif
-                                        @endforeach
-                                        @if ($semua_nilai->where('mata_pelajaran_id', $mata_pelajaran->id)->count() == 0)
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-create">
-                                            <i class="ri-quill-pen-line text-success fs-5"></i>
-                                        </a>
-                                        @include('pages.nilai._modal_create')
-                                        @else
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-update-{{ $mata_pelajaran->id }}">
-                                            <i class="ri-settings-4-line fs-5"></i>
-                                        </a>
-                                        @include('pages.nilai._modal_update')
-                                        @endif
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-update-{{ $pengumpulan_tugas->id }}"><i class="ri-settings-4-line"></i></a>
+                                        @include('pages.tugas._modal_update_penilaian')
                                     </td>
                                 </tr>
                             @endforeach
-                            <tr>
-                                <td colspan="2" class="text-end fw-bolder">Total</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="text-end fw-bolder">Rata-rata</td>
-                                <td></td>
-                            </tr>
                         </tbody>
                     </table>
-                    @endif
                 </div>
             </div>
         </div>
