@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Jurusan $jurusan
  * @property Collection|Absensi[] $absensis
  * @property Collection|JadwalPelajaran[] $jadwal_pelajarans
+ * @property Collection|Nilai[] $nilais
  * @property Collection|PengumpulanTuga[] $pengumpulan_tugas
  * @property Collection|Tuga[] $tugas
  *
@@ -57,6 +58,11 @@ class MataPelajaran extends Model
 	public function jadwal_pelajarans()
 	{
 		return $this->hasMany(JadwalPelajaran::class);
+	}
+
+	public function nilais()
+	{
+		return $this->hasMany(Nilai::class);
 	}
 
 	public function pengumpulan_tugas()

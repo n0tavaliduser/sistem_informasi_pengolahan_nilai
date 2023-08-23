@@ -36,6 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property TahunAjaran $tahun_ajaran
  * @property User $user
  * @property Collection|Absensi[] $absensis
+ * @property Collection|Nilai[] $nilais
  * @property Collection|PengumpulanTugas[] $pengumpulan_tugas
  *
  * @package App\Models
@@ -88,6 +89,11 @@ class Siswa extends Model
 	public function absensis()
 	{
 		return $this->hasMany(Absensi::class);
+	}
+
+	public function nilais()
+	{
+		return $this->hasMany(Nilai::class);
 	}
 
 	public function pengumpulan_tugas()

@@ -146,7 +146,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('/root') ? 'active' : '' }}" href="{{ route('root') }}" role="button">
+                        <a class="nav-link {{ Request::is('/manajemen-nilai') ? 'active' : '' }}" href="{{ route('nilai.index') }}" role="button">
                             <i class="ri-list-check"></i> <span>Pengolahan Nilai</span>
                         </a>
                     </li>
