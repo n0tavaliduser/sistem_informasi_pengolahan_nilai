@@ -58,7 +58,7 @@ Daftar Kelas
                         <a href="{{ route('manajemen-kelas.ruang-kelas', $jadwal) }}" class="btn btn-light w-100 @php                
                             if (Auth::user()->role->name == 'Siswa') {
                                 if ($isInvalidTime) { 
-                                    // echo 'disabled';
+                                    echo 'disabled';
                                 }
                             }
                         @endphp">Masuk Kelas</a>
