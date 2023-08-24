@@ -34,7 +34,6 @@
                             <tr>
                                 <th scope="col">Nama Jurusan</th>
                                 <th scope="col">Keterangan</th>
-                                <th scope="col">Jumlah Mata Pelajaran</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -43,7 +42,6 @@
                             <tr>
                                 <td>{{ $jurusan->nama_jurusan }}</td>
                                 <td>{{ $jurusan->keterangan }}</td>
-                                <td>{{ count($jurusan->mata_pelajarans) }}</td>
                                 <td>
                                     <div class="hstack gap-3 fs-15">
                                         <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#updateModal-{{ $jurusan->id }}"><i class="ri-settings-4-line"></i></a>
