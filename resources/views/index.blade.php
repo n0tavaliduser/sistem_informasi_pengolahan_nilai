@@ -136,7 +136,7 @@
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title mb-0">Grafik Absensi Keseluruhan</h4>
+                            <h4 class="card-title mb-0">Grafik Jumlah Siswa Tiap Jurusan</h4>
                         </div>
                         <div class="card-body">
                             <canvas id="lineChart" class="chartjs-chart" data-colors='["--vz-primary-rgb, 0.2", "--vz-primary", "--vz-info-rgb, 0.2", "--vz-info"]'></canvas>
@@ -152,54 +152,17 @@
 </div>
 
 @php
-    use App\Models\Siswa;
+    $jurusanIds = \App\Models\Jurusan::orderBy('id')->pluck('id')->toArray();
+    $jumlahSiswaPerJurusan = [];
 
-    $kehadiranData = [];
-    $alphaData = [];
-    $izinData = [];
-    $lastSevenDays = now()->subDays(6)->toDateString(); // 7 days ago
-
-    // Retrieve "Kehadiran" data for each day
-    foreach (range(0, 6) as $daysAgo) {
-        $tanggal = now()->subDays($daysAgo)->toDateString();
-
-        $kehadiranCount = Siswa::with('absensis')
-            ->whereHas('absensis', function ($query) use ($tanggal) {
-                $query->where('tanggal', $tanggal)
-                    ->where('keterangan', 'hadir');
-            })
-            ->count();
-
-        $kehadiranData[] = $kehadiranCount;
-    }
-
-    foreach (range(0, 6) as $daysAgo) {
-        $tanggal = now()->subDays($daysAgo)->toDateString();
-
-        $alphaCount = Siswa::with('absensis')
-            ->whereHas('absensis', function ($query) use ($tanggal) {
-                $query->where('tanggal', $tanggal)
-                    ->where('keterangan', 'alpha');
-            })
-            ->count();
-
-        $alphaData[] = $alphaCount;
-    }
-
-    foreach (range(0, 6) as $daysAgo) {
-        $tanggal = now()->subDays($daysAgo)->toDateString();
-
-        $izinCount = Siswa::with('absensis')
-            ->whereHas('absensis', function ($query) use ($tanggal) {
-                $query->where('tanggal', $tanggal)
-                    ->where('keterangan', 'izin');
-            })
-            ->count();
-
-        $izinData[] = $izinCount;
+    foreach ($jurusanIds as $jurusanId) {
+        $siswaCount = 0;
+        foreach (\App\Models\Kelas::where('jurusan_id', $jurusanId)->pluck('id') as $kelasId) {
+            $siswaCount += \App\Models\Siswa::where('kelas_id', $kelasId)->count();
+        }
+        array_push($jumlahSiswaPerJurusan, $siswaCount);
     }
 @endphp
-
 
 @endsection
 @section('script')
@@ -241,37 +204,19 @@
         islinechart.setAttribute("width", islinechart.parentElement.offsetWidth);
 
         var lineChart = new Chart(islinechart, {
-            type: 'line',
+            type: 'bar',
             data: {
-                labels: {!! json_encode(array_map(fn($i) => now()->subDays($i)->toDateString(), range(0, 6))) !!},
+                labels: {!! json_encode(\App\Models\Jurusan::orderBy('id')->pluck('nama_jurusan')->toArray()) !!},
                 datasets: [
                     {
-                        label: "Kehadiran",
+                        label: "Jumlah Siswa",
                         fill: true,
                         lineTension: 0.5,
                         backgroundColor: lineChartColor[0],
                         borderColor: lineChartColor[1],
                         startFromZero: true,
-                        data: {!! json_encode($kehadiranData) !!},
+                        data: {!! json_encode($jumlahSiswaPerJurusan) !!}
                     },
-                    {
-                        label: "Alpha",
-                        fill: true,
-                        lineTension: 0.5,
-                        backgroundColor: '#ED293956',
-                        borderColor: '#ED2939',
-                        startFromZero: true,
-                        data: {!! json_encode($alphaData) !!},
-                    },
-                    {
-                        label: "Izin",
-                        fill: true,
-                        lineTension: 0.5,
-                        backgroundColor: '#FDFD2656',
-                        borderColor: '#FDFD26',
-                        startFromZero: true,
-                        data: {!! json_encode($izinData) !!},
-                    }
                 ]
             },
             options: {
