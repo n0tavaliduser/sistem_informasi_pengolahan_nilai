@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Requests\User\ChangePhotoProfileRequest;
+use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -13,6 +15,15 @@ class UserController extends Controller
     public function profile()
     {
         return view('pages.user.profile');
+    }
+
+    public function editProfile()
+    {
+        if (Auth::user()->role->name == 'Siswa') {
+            return view('pages.user.edit-siswa-profile',[ 
+                'siswa' => Siswa::where('user_id', Auth::user()->id)->first(),
+            ]);
+        }
     }
 
     public function changePassword(ChangePasswordRequest $request, User $user)

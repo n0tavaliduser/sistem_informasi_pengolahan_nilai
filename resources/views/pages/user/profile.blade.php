@@ -37,7 +37,7 @@
                 <h3 class="text-white mb-1">{{ Auth::user()->name }}</h3>
                 <p class="text-white-75">{{ Auth::user()->kelas?->nama_kelas }}</p>
                 <div class="hstack text-white-50 gap-1">
-                    <div class="me-2"><i class="ri-map-pin-user-line me-1 text-white-75 fs-16 align-middle"></i>{{ Auth::user()->siswa?->alamat }}</div>
+                    <div class="me-2"><i class="ri-map-pin-user-line me-1 text-white-75 fs-16 align-middle"></i>{{ Auth::user()->siswas->where('user_id', Auth::user()->id)->first()?->alamat }}</div>
                     <div><i class="ri-mail-fill me-1 text-white-75 fs-16 align-middle"></i>{{ Auth::user()->email }}</div>
                 </div>
             </div>
@@ -63,7 +63,7 @@
                     </li>
                 </ul>
                 <div class="flex-shrink-0">
-                    <a href="{{ URL::asset('/pages-profile-settings') }}" class="btn btn-success"><i class="ri-edit-box-line align-bottom"></i> Edit Profile</a>
+                    <a href="{{ route('user.edit-profile') }}" class="btn btn-success"><i class="ri-edit-box-line align-bottom"></i> Edit Profile</a>
                 </div>
             </div>
 
@@ -84,35 +84,35 @@
                                             <tbody>
                                                 <tr>
                                                     <th class="ps-0" scope="row">Nama Lengkap :</th>
-                                                    <td class="text-muted">{{ Auth::user()->siswa?->nama_lengkap }}</td>
+                                                    <td class="text-muted">{{ Auth::user()->siswas->where('user_id', Auth::user()->id)->first()?->nama_lengkap }}</td>
                                                 </tr>
                                                 <tr>
                                                     <th class="ps-0" scope="row">Jenis Kelamin :</th>
-                                                    <td class="text-muted">{{ Auth::user()->siswa?->jenis_kelamin }}</td>
+                                                    <td class="text-muted">{{ Auth::user()->siswas->where('user_id', Auth::user()->id)->first()?->jenis_kelamin }}</td>
                                                 </tr>
                                                 <tr>
                                                     <th class="ps-0" scope="row">Nomor Telp :</th>
-                                                    <td class="text-muted">{{ Auth::user()->siswa?->telepon }}</td>
+                                                    <td class="text-muted">{{ Auth::user()->siswas->where('user_id', Auth::user()->id)->first()?->telepon }}</td>
                                                 </tr>
                                                 <tr>
                                                     <th class="ps-0" scope="row">Agama :</th>
-                                                    <td class="text-muted">{{ Auth::user()->siswa?->agama }}</td>
+                                                    <td class="text-muted">{{ Auth::user()->siswas->where('user_id', Auth::user()->id)->first()?->agama }}</td>
                                                 </tr>
                                                 <tr>
                                                     <th class="ps-0" scope="row">Email :</th>
-                                                    <td class="text-muted">{{ Auth::user()->siswa?->email }}</td>
+                                                    <td class="text-muted">{{ Auth::user()->siswas->where('user_id', Auth::user()->id)->first()?->email }}</td>
                                                 </tr>
                                                 <tr>
                                                     <th class="ps-0" scope="row">Tempat Lahir :</th>
-                                                    <td class="text-muted">{{ Auth::user()->siswa?->tempat_lahir }}</td>
+                                                    <td class="text-muted">{{ Auth::user()->siswas->where('user_id', Auth::user()->id)->first()?->tempat_lahir }}</td>
                                                 </tr>
                                                 <tr>
                                                     <th class="ps-0" scope="row">Tanggal Lahir :</th>
-                                                    <td class="text-muted">{{ \Carbon\Carbon::parse(Auth::user()->siswa?->tanggal_lahir)->format('d-m-Y') }}</td>
+                                                    <td class="text-muted">{{ \Carbon\Carbon::parse(Auth::user()->siswas->where('user_id', Auth::user()->id)->first()?->tanggal_lahir)->format('d-m-Y') }}</td>
                                                 </tr>
                                                 <tr>
                                                     <th class="ps-0" scope="row">Tingkat :</th>
-                                                    <td class="text-muted">{{ Auth::user()->siswa?->kelas->tingkat }}</td>
+                                                    <td class="text-muted">{{ Auth::user()->siswas->where('user_id', Auth::user()->id)->first()?->kelas->tingkat }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -125,7 +125,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title mb-3">About</h5>
-                                    <p>{{ Auth::user()->siswa?->catatan }}</p>
+                                    <p>{{ Auth::user()->siswas->where('user_id', Auth::user()->id)->first()?->catatan }}</p>
                                 </div>
                                 <!--end card-body-->
                             </div><!-- end card -->
