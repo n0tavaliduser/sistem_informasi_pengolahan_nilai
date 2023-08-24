@@ -161,9 +161,28 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('/manajemen-nilai') ? 'active' : '' }}" href="{{ route('nilai.index') }}" role="button">
+                        <a class="nav-link {{ Request::is('manajemen-nilai') ? 'active' : '' }}" href="{{ route('nilai.index') }}" role="button">
                             <i class="ri-list-check"></i> <span>Pengolahan Nilai</span>
                         </a>
+                    </li>
+                    @endif
+
+                    @if(Auth::user()->role->name == 'Admin' || Auth::user()->role->name == 'Guru')
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#sidebarPengolahanNilai" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
+                            <i data-feather="home" class="icon-dual"></i> <span>Pengolahan Nilai</span>
+                        </a>
+                        <div class="collapse menu-dropdown {{ strpos(Request::path(), 'manajemen-nilai') !== false ? 'show' : '' }}" id="sidebarPengolahanNilai">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{ route('nilai.index') }}" class="nav-link {{ Request::is('manajemen-nilai/nilai') ? 'active' : '' }}">Nilai Akhir</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{{ route('nilai-mata-pelajaran.index') }}" class="nav-link {{ Request::is('manajemen-nilai/nilai-mata-pelajaran') ? 'active' : '' }}">Nilai Mata Pelajan</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     @endif
                 </ul>

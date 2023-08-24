@@ -28,6 +28,7 @@ require __DIR__ . '/pengumpulan-tugas.php';
 require __DIR__ . '/materi.php';
 require __DIR__ . '/nilai.php';
 require __DIR__ . '/user.php';
+require __DIR__ . '/nilai-mata-pelajaran.php';
 
 // classroom management routes
 require __DIR__ . '/classroom-managerment.php';

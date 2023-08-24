@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Collection|Absensi[] $absensis
  * @property Collection|JadwalPelajaran[] $jadwal_pelajarans
  * @property Collection|Nilai[] $nilais
+ * @property Collection|NilaiMataPelajaran[] $nilai_mata_pelajarans
  * @property Collection|PengumpulanTuga[] $pengumpulan_tugas
  * @property Collection|Tuga[] $tugas
  *
@@ -63,6 +64,11 @@ class MataPelajaran extends Model
 	public function nilais()
 	{
 		return $this->hasMany(Nilai::class);
+	}
+
+	public function nilai_mata_pelajarans()
+	{
+		return $this->hasMany(NilaiMataPelajaran::class);
 	}
 
 	public function pengumpulan_tugas()

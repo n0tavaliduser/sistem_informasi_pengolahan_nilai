@@ -37,6 +37,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property User $user
  * @property Collection|Absensi[] $absensis
  * @property Collection|Nilai[] $nilais
+ * @property Collection|NilaiMataPelajaran[] $nilai_mata_pelajarans
  * @property Collection|PengumpulanTugas[] $pengumpulan_tugas
  *
  * @package App\Models
@@ -94,6 +95,11 @@ class Siswa extends Model
 	public function nilais()
 	{
 		return $this->hasMany(Nilai::class);
+	}
+
+	public function nilai_mata_pelajarans()
+	{
+		return $this->hasMany(NilaiMataPelajaran::class);
 	}
 
 	public function pengumpulan_tugas()
