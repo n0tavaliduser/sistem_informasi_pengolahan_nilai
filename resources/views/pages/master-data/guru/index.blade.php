@@ -53,7 +53,7 @@
                                 <td>
                                     <div class="d-flex gap-2 align-items-center">
                                         <div class="flex-shrink-0">
-                                            <img src="{{ URL::asset('assets/img/person-dummy.jpg') }}" alt="" class="avatar-xs rounded-circle" />
+                                            <img src="@if (Auth::user()->avatar != ''){{ URL::asset('images/' . Auth::user()->avatar) }}@else{{ URL::asset('assets/img/person-dummy.jpg') }}@endif" alt="" class="avatar-xs rounded-circle" />
                                         </div>
                                         <div class="flex-grow-1">
                                             <p class="mb-0">{{ $guru->nama_lengkap }}</p>
