@@ -62,12 +62,6 @@
                                 <i class="ri-list-unordered"></i> <span>Nilai Tugas</span>
                             </a>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('absensi') ? 'active' : '' }}" href="{{ route('absensi.index') }}" role="button">
-                                <i class="ri-list-unordered"></i> <span>Absensi</span>
-                            </a>
-                        </li>
                     @endif
 
                     {{-- Siswa Sidebar LMS --}}
@@ -90,8 +84,18 @@
                     @endif
 
                     @if (Auth::user()->role->name == 'Guru' || Auth::user()->role->name == 'Siswa')
-                        <li class="menu-title"><span>MENU</span></li>      
+                        <li class="menu-title"><span>MENU</span></li>   
+                    @endif
+
+                    @if (Auth::user()->role->name == 'Guru')
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('absensi') ? 'active' : '' }}" href="{{ route('absensi.index') }}" role="button">
+                                <i class="ri-list-unordered"></i> <span>Absensi</span>
+                            </a>
+                        </li>
+                    @endif
                         
+                    @if (Auth::user()->role->name == 'Guru' || Auth::user()->role->name == 'Siswa')
                         <li class="nav-item">
                             <a class="nav-link {{ Request::is('jadwal-pelajaran') ? 'active' : '' }}" href="{{ route('jadwal-pelajaran.index') }}" role="button">
                                 <i class="ri-shield-user-fill"></i> <span>Jadwal Pelajaran</span>
