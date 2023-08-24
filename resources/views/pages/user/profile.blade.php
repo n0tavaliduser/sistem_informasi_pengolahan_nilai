@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="{{ URL::asset('build/libs/swiper/swiper-bundle.min.css') }}">
 @endsection
 @section('content')
-
 <div class="profile-foreground position-relative mx-n4 mt-n4">
     <div class="profile-wid-bg">
         <img src="{{ URL::asset('build/images/profile-bg.jpg') }}" alt="" class="profile-wid-img" />
@@ -54,6 +53,10 @@
                     <a href="{{ URL::asset('/pages-profile-settings') }}" class="btn btn-success"><i class="ri-edit-box-line align-bottom"></i> Edit Profile</a>
                 </div>
             </div>
+
+            <div class="mt-3">
+                @include('components.alert')
+            </div>
             <!-- Tab panes -->
             <div class="tab-content pt-4 text-muted">
                 <div class="tab-pane active" id="detail-tab" role="tabpanel">
@@ -62,7 +65,7 @@
 
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title mb-3">Info</h5>
+                                    <h5 class="card-title mb-3">Informasi</h5>
                                     <div class="table-responsive">
                                         <table class="table table-borderless mb-0">
                                             <tbody>
