@@ -14,8 +14,21 @@
 <div class="pt-4 mb-4 mb-lg-3 pb-lg-4 profile-wrapper">
     <div class="row g-4">
         <div class="col-auto">
-            <div class="avatar-lg">
-                <img src="@if (Auth::user()->avatar != '') {{ URL::asset('images/' . Auth::user()->avatar) }}@else{{ URL::asset('assets/img/person-dummy.jpg') }} @endif" alt="user-img" class="img-thumbnail rounded-circle" />
+            <div class="profile-user position-relative d-inline-block mx-auto">
+                <img src="@if (Auth::user()->avatar != '') {{ URL::asset('storage/' . Auth::user()->avatar) }}@else{{ URL::asset('assets/img/person-dummy.jpg') }} @endif"
+                    class="rounded-circle avatar-lg img-thumbnail user-profile-image" alt="user-profile-image">
+                <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
+                    <form method="post" action="{{ route('user.change-profile-pic', Auth::user()) }}" enctype="multipart/form-data">
+                        @csrf
+                        @method('patch')
+                        <input id="avatar" name="avatar" type="file" class="profile-img-file-input" onchange="this.form.submit()">
+                        <label for="avatar" class="profile-photo-edit avatar-xs">
+                            <span class="avatar-title rounded-circle bg-light text-body">
+                                <i class="ri-camera-fill"></i>
+                            </span>
+                        </label>
+                    </form>
+                </div>
             </div>
         </div>
         <!--end col-->

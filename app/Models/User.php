@@ -41,6 +41,8 @@ class User extends Authenticatable
 {
 	use HasApiTokens, HasFactory, Notifiable;
 
+	const AVATAR_PATH = 'data/users/pictures';
+
 	protected $table = 'users';
 
 	protected $casts = [

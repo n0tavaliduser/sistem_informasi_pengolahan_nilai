@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\ChangePasswordRequest;
+use App\Http\Requests\User\ChangePhotoProfileRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -26,5 +27,27 @@ class UserController extends Controller
         } else {
             return redirect()->back()->withErrors(['current_password' => 'Password sebelumnya yang anda masukan salah!']);
         }
+    }
+
+    public function changeProfilePic(ChangePhotoProfileRequest $request, User $user)
+    {
+        $data = $request->validated();
+
+        $avatar = $user->avatar;
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar')->store(User::AVATAR_PATH, 'public');
+            if ($user->avatar) {
+                $oldFilePath = storage_path('app/public/' . $user->avatar);
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
+            }
+        }
+
+        $user->fill($data);
+        $user->avatar = $avatar;
+        $user->saveOrFail();
+
+        return redirect()->back()->with(['success' => 'Berhasil mengganti photo profile!']);
     }
 }

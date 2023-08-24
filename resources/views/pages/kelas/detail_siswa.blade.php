@@ -18,14 +18,14 @@ Detail Siswa
 
 <div class="profile-foreground position-relative mx-n4 mt-n4">
     <div class="profile-wid-bg">
-        <img src="{{ URL::asset('build/images/profile-bg.jpg') }}" alt="" class="profile-wid-img" />
+        <img src="@if ($siswa->user?->avatar != ''){{ URL::asset('storage/' . $siswa->user?->avatar) }}@else{{ URL::asset('assets/img/person-dummy.jpg') }}@endif" alt="" class="profile-wid-img" />
     </div>
 </div>
 <div class="pt-4 mb-4 mb-lg-3 pb-lg-4 profile-wrapper">
     <div class="row g-4">
         <div class="col-auto">
             <div class="avatar-lg">
-                <img src="@if (Auth::user()->avatar != '') {{ URL::asset('images/' . Auth::user()->avatar) }}@else{{ URL::asset('assets/img/person-dummy.jpg') }} @endif" alt="user-img" class="img-thumbnail rounded-circle" />
+                <img src="@if ($siswa->user?->avatar != ''){{ URL::asset('storage/' . $siswa->user?->avatar) }}@else{{ URL::asset('assets/img/person-dummy.jpg') }}@endif" alt="user-img" class="img-thumbnail rounded-circle" />
             </div>
         </div>
         <!--end col-->
