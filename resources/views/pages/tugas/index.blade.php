@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title') MASTER DATA GURU @endsection
+@section('title') TUGAS @endsection
 @section('content')
 @component('components.breadcrumb')
 @slot('li_1') LMS @endslot

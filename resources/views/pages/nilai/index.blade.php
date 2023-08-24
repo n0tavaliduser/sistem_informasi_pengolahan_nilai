@@ -2,7 +2,7 @@
 @section('title') PENGOLAHAN NILAI @endsection
 @section('content')
 @component('components.breadcrumb')
-@slot('li_1') <a href="{{ route('root') }}">Dashboard</a> @endslot
+@slot('li_1') <a href="{{ route('root') }}">LMS</a> @endslot
 @slot('title') Pengolahan Nilai @endslot
 @endcomponent
 

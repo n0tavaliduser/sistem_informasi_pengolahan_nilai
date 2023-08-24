@@ -2,7 +2,7 @@
 @section('title') JADWAL PELAJARAN @endsection
 @section('content')
 @component('components.breadcrumb')
-@slot('li_1') Master Data @endslot
+@slot('li_1') Menu @endslot
 @slot('title') Jadwal Pelajaran @endslot
 @endcomponent
 

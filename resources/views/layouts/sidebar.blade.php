@@ -68,23 +68,6 @@
                                 <i class="ri-list-unordered"></i> <span>Absensi</span>
                             </a>
                         </li>
-
-                        <li class="menu-title"><span>MENU</span></li>      
-
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('jadwal-pelajaran') ? 'active' : '' }}" href="{{ route('jadwal-pelajaran.index') }}" role="button">
-                                <i class="ri-shield-user-fill"></i> <span>Jadwal Pelajaran</span>
-                            </a>
-                        </li>
-                    @endif
-
-                    {{-- Guru || Siswa Sidebar LMS --}}
-                    @if (Auth::user()->role->name === 'Guru' || Auth::user()->role->name == 'Siswa')
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('manajemen-kelas/daftar-kelas') ? 'active' : '' }}" href="{{ route('manajemen-kelas.daftar-kelas') }}" role="button">
-                                <i class="ri-ball-pen-line"></i> <span>Daftar Kelas</span>
-                            </a>
-                        </li>
                     @endif
 
                     {{-- Siswa Sidebar LMS --}}
@@ -102,6 +85,25 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('tugas.rekap-nilai') }}" role="button">
                                 <i class="ri-checkbox-line"></i> <span>Nilai Tugas</span>
+                            </a>
+                        </li>
+                    @endif
+
+                    @if (Auth::user()->role->name == 'Guru' || Auth::user()->role->name == 'Siswa')
+                        <li class="menu-title"><span>MENU</span></li>      
+                        
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('jadwal-pelajaran') ? 'active' : '' }}" href="{{ route('jadwal-pelajaran.index') }}" role="button">
+                                <i class="ri-shield-user-fill"></i> <span>Jadwal Pelajaran</span>
+                            </a>
+                        </li>
+                    @endif
+
+                    {{-- Guru || Siswa Sidebar LMS --}}
+                    @if (Auth::user()->role->name === 'Guru' || Auth::user()->role->name == 'Siswa')
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('manajemen-kelas/daftar-kelas') ? 'active' : '' }}" href="{{ route('manajemen-kelas.daftar-kelas') }}" role="button">
+                                <i class="ri-ball-pen-line"></i> <span>Daftar Kelas</span>
                             </a>
                         </li>
                     @endif

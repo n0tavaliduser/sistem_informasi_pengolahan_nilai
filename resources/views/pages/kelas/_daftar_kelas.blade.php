@@ -5,7 +5,7 @@ DAFTAR KELAS
 @section('content')
 @component('components.breadcrumb')
 @slot('li_1')
-LMS
+Menu
 @endslot
 @slot('title')
 Daftar Kelas
