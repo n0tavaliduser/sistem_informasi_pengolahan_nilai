@@ -52,7 +52,6 @@ class TugasController extends Controller
                     $query->where('user_id', Auth::user()->id);
                 })
                 ->where('mata_pelajaran_id', $request->get('mata_pelajaran_id'))
-                ->where('siswa_id', $request->get('siswa_id'))
                 ->get();
 
             $semua_mata_pelajaran = MataPelajaran::with('jadwal_pelajarans')
