@@ -139,6 +139,7 @@
                                                     <th scope="col">Tipe</th>
                                                     <th scope="col">Ukuran</th>
                                                     <th scope="col">Tanggal Upload</th>
+                                                    <th scope="col">Nilai</th>
                                                     <th scope="col" style="width: 120px;">Action</th>
                                                 </tr>
                                             </thead>
@@ -178,6 +179,7 @@
                                                             @endif
                                                         </td>
                                                         <td>{{ \Carbon\Carbon::parse($tugas->created_at)->format('d-m-Y') }}</td>
+                                                        <td>{{ $pengumpulan_tugas->nilai }}</td>
                                                         <td>
                                                             @if ((Auth::user()->role->name == 'Siswa' && Auth::user()->id == $pengumpulan_tugas->siswa?->user_id) || Auth::user()->role->name == 'Guru')  
                                                             <div class="dropdown">
@@ -195,6 +197,7 @@
                                                                     @if (Auth::user()->role->name == 'Guru')
                                                                     <li>
                                                                         <a class="dropdown-item" href="{{ route('pengumpulan-tugas.download-file', $pengumpulan_tugas) }}"><i class="ri-download-2-fill me-2 align-bottom text-muted"></i>Download</a>
+                                                                        <a class="dropdown-item" href="javascript:void(0);" href="#" data-bs-toggle="modal" data-bs-target="#modal-update-{{ $pengumpulan_tugas->id }}"><i class="ri-settings-4-line me-2 text-muted align-bottom"></i>Beri Nilai</a>
                                                                     </li>
                                                                     @endif
                                                                     @if (Auth::user()->role->name == 'Siswa' && Auth::user()->id == $pengumpulan_tugas->siswa?->user_id)
@@ -205,6 +208,10 @@
                                                                     @endif
                                                                 </ul>
                                                             </div>
+                                                            @include('pages.tugas._modal_update_penilaian')
+                                                            @if (Auth::user()->role->name == 'Guru')
+                                                                
+                                                            @endif
                                                             @include('pages.kelas._modal_delete_submission_tugas')
                                                             @include('pages.kelas._modal_update_submission_tugas')
                                                             @endif
