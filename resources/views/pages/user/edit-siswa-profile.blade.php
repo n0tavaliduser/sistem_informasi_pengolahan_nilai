@@ -30,7 +30,7 @@
                         <select name="agama" id="agama" class="form-control {{ !$errors->has('agama')?:'is-invalid' }}">
                             <option value="">Pilih agama</option>
                             <option value="Islam" {{ $siswa->agama == 'Islam' ? 'selected' : '' }}>Islam</option>
-                            <option value="Kristen"> {{ $siswa->agama == 'Kristen' ? 'selected' : '' }}Kristen</option>
+                            <option value="Kristen" {{ $siswa->agama == 'Kristen' ? 'selected' : '' }}>Kristen</option>
                             <option value="Katholik" {{ $siswa->agama == 'Katholik' ? 'selected' : '' }}>Katholik</option>
                             <option value="Budha" {{ $siswa->agama == 'Budha' ? 'selected' : '' }}>Budha</option>
                             <option value="Hindu" {{ $siswa->agama == 'Hindu' ? 'selected' : '' }}>Hindu</option>
