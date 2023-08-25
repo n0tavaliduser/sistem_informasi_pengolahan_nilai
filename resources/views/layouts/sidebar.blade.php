@@ -2,22 +2,20 @@
 <div class="app-menu navbar-menu">
     <!-- LOGO -->
     <div class="navbar-brand-box">
-        <!-- Dark Logo-->
-        <a href="index" class="logo logo-dark">
-            <span class="logo-sm">
-                <img src="{{ URL::asset('build/images/logo-sm.png') }}" alt="" height="22">
-            </span>
-            <span class="logo-lg">
-                <img src="{{ URL::asset('build/images/logo-dark.png') }}" alt="" height="17">
-            </span>
-        </a>
-        <!-- Light Logo-->
         <a href="index" class="logo logo-light">
             <span class="logo-sm">
-                <img src="{{ URL::asset('build/images/logo-sm.png') }}" alt="" height="22">
+                <img src="{{ URL::asset('assets/img/logo.png') }}" alt="" height="34">
             </span>
             <span class="logo-lg">
-                <img src="{{ URL::asset('build/images/logo-light.png') }}" alt="" height="17">
+                <img src="{{ URL::asset('assets/img/logo.png') }}" alt="" height="30" class="me-2"> <span class="fw-bolder text-white">SMK NEGERI 1 MAROS</span>
+            </span>
+        </a>
+        <a href="index" class="logo logo-dark">
+            <span class="logo-sm">
+                <img src="{{ URL::asset('assets/img/logo.png') }}" alt="" height="34">
+            </span>
+            <span class="logo-lg">
+                <img src="{{ URL::asset('assets/img/logo.png') }}" alt="" height="30" class="me-2"> <span class="fw-bolder text-dark">SMK NEGERI 1 MAROS</span>
             </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
@@ -41,10 +39,7 @@
                     {{-- Guru || Admin || Siswa Sidebar LMS Label --}}
                     @if (Auth::user()->role->name === 'Guru' || Auth::user()->role->name === 'Siswa')
                         <li class="menu-title"><span>LMS</span></li>      
-                    @endif
 
-                    {{-- Guru Sidebar LMS --}}
-                    @if (Auth::user()->role->name === 'Guru')
                         <li class="nav-item">
                             <a class="nav-link {{ Request::is('manajemen-tugas/tugas') ? 'active' : '' }}" href="{{ route('tugas.index') }}" role="button">
                                 <i class="ri-quill-pen-line"></i> <span>Tugas</span>
@@ -60,25 +55,6 @@
                         <li class="nav-item">
                             <a class="nav-link {{ Request::is('manajemen-tugas/rekap-nilai') ? 'active' : '' }}" href="{{ route('tugas.rekap-nilai') }}" role="button">
                                 <i class="ri-list-unordered"></i> <span>Nilai Tugas</span>
-                            </a>
-                        </li>
-                    @endif
-
-                    {{-- Siswa Sidebar LMS --}}
-                    @if(Auth::user()->role->name === 'Siswa')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('tugas.index') }}" role="button">
-                                <i class="ri-edit-box-line"></i> <span>Tugas</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ Request::is('materi') ? 'active' : '' }}" href="{{ route('materi.index') }}" role="button">
-                                <i class="ri-search-eye-line"></i> <span>Materi</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('tugas.rekap-nilai') }}" role="button">
-                                <i class="ri-checkbox-line"></i> <span>Nilai Tugas</span>
                             </a>
                         </li>
                     @endif
@@ -105,11 +81,11 @@
 
                     {{-- Guru || Siswa Sidebar LMS --}}
                     @if (Auth::user()->role->name === 'Guru' || Auth::user()->role->name == 'Siswa')
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link {{ Request::is('manajemen-kelas/daftar-kelas') ? 'active' : '' }}" href="{{ route('manajemen-kelas.daftar-kelas') }}" role="button">
                                 <i class="ri-ball-pen-line"></i> <span>Daftar Kelas</span>
                             </a>
-                        </li>
+                        </li> --}}
                     @endif
 
                     {{-- Siswa sidebar MENU --}}
