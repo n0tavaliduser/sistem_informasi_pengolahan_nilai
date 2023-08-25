@@ -63,7 +63,7 @@
                     </li>
                 </ul>
                 <div class="flex-shrink-0">
-                    <a href="{{ route('user.edit-profile') }}" class="btn btn-success"><i class="ri-edit-box-line align-bottom"></i> Edit Profile</a>
+                    <a href="{{ route('user.edit-profile', \App\Models\Siswa::where('user_id', Auth::user()->id)->first()) }}" class="btn btn-success"><i class="ri-edit-box-line align-bottom"></i> Edit Profile</a>
                 </div>
             </div>
 
