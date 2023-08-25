@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Siswa\StoreSiswaRequest;
 use App\Http\Requests\Siswa\UpdateSiswaRequest;
+use App\Models\Role;
 use App\Models\Siswa;
+use App\Models\TahunAjaran;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class SiswaController extends Controller
 {
@@ -26,7 +31,7 @@ class SiswaController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.master-data.siswa.create');
     }
 
     /**
@@ -34,7 +39,24 @@ class SiswaController extends Controller
      */
     public function store(StoreSiswaRequest $request)
     {
-        //
+        $password = explode(' ', $request->get('nama_lengkap'))[0] . 'smkn1maros';
+        $user = User::create([
+            'name' => $request->get('nama_lengkap'),
+            'email' => $request->get('email'),
+            'role_id' => $request->get('role_id'),
+            'password' => Hash::make($password),
+        ]);
+
+        $data = $request->validated();
+
+        $siswa = Siswa::make($data);
+        $siswa->tahun_ajaran_id = TahunAjaran::where('status', 'active')->first()->id;
+        $siswa->user_id = $user->id;
+        $siswa->status = 'active';
+        $siswa->nomor_induk = Siswa::max('nomor_induk') + 1;
+        $siswa->saveOrFail();
+
+        return redirect()->back()->with(['success' => 'Berhasil menambahkan siswa baru!']);
     }
 
     /**
