@@ -44,7 +44,9 @@
                                     <th colspan="{{ $semua_nilai_mata_pelajaran->groupBy('pertemuan')->count() }}">Nilai Sumatif</th>
                                     <th rowspan="2">Total</th>
                                     <th rowspan="2">Rata-rata</th>
+                                    @if (Auth::user()->role->name == 'Guru')
                                     <th rowspan="2">Action</th>
+                                    @endif
                                 </tr>
                                 <tr>
                                     @foreach ($semua_nilai_mata_pelajaran->sortBy('pertemuan')->groupBy('pertemuan') as $key => $pertemuan)
@@ -66,12 +68,14 @@
                                                     @if ($nilai_mata_pelajaran->pertemuan == $pertemuan->first()->pertemuan && $nilai_mata_pelajaran->siswa_id == $siswa->id)
                                                     <div class="d-flex gap-2 justify-content-center align-items-center">
                                                         {{ $nilai_mata_pelajaran->nilai }} 
+                                                        @if (Auth::user()->role->name == 'Guru')
                                                         <form method="post" action="{{ route('nilai-mata-pelajaran.destroy', $nilai_mata_pelajaran) }}">
                                                             @csrf
                                                             @method('delete')
                                                             <button type="submit" class="p-0 m-0 btn"><i class="ri-delete-bin-line text-danger"></i></button>
                                                         </form>
                                                         <a href="#" data-bs-toggle="modal" data-bs-target="#modal-update-{{ $nilai_mata_pelajaran->id }}"><i class="ri-ball-pen-line"></i></a>
+                                                        @endif
                                                     </div>
                                                     @include('pages.nilai-mata-pelajaran._modal_update')
                                                     @endif
@@ -80,12 +84,14 @@
                                         @endforeach
                                         <td>{{ $semua_nilai_mata_pelajaran->where('siswa_id', $siswa->id)->sum('nilai') }}</td>
                                         <td>{{ $semua_nilai_mata_pelajaran->where('siswa_id', $siswa->id)->average('nilai') }}</td>
+                                        @if (Auth::user()->role->name == 'Guru')
                                         <td>
                                             <div class="d-flex gap-2 align-items-center">
                                                 <a href="#" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#modal-create-{{ $siswa->id }}"><i class="ri-file-add-fill me-2"></i>tambah</a>
                                                 @include('pages.nilai-mata-pelajaran._modal_create')
                                             </div>
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>

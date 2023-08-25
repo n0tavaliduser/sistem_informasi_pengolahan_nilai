@@ -10,6 +10,7 @@
     <div class="col-xl-12">
         @include('components.alert')
         <div class="card">
+            @if (Auth::user()->role->name != 'Siswa')
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div class="d-flex gap-2 w-50">
                     <form method="get" class="w-100">
@@ -21,18 +22,21 @@
                                 @endforeach
                             </select>
 
-                            @if (Request::get('kelas_id'))
                             <select name="siswa_id" id="siswa_id" class="form-control" onchange="this.form.submit()">
                                 <option value="">Pilih siswa</option>
                                 @foreach (\App\Models\Siswa::where('kelas_id', Request::get('kelas_id'))->get() as $siswa)
                                 <option value="{{ $siswa->id }}" {{ $siswa->id == Request::get('siswa_id') ? 'selected' : '' }}>{{ $siswa->nama_lengkap }}</option>
                                 @endforeach
                             </select>
-                            @endif
                         </div>
                     </form>
+
+                    @if (Request::get('siswa_id'))
+                        <a href="{{ route('nilai.cetak', \App\Models\Siswa::where('id', Request::get('siswa_id'))->first()) }}" class="btn btn-sm btn-success d-flex align-items-center">Cetak</a>
+                    @endif
                 </div>
             </div>
+            @endif
             <div class="card-body">
                 <div class="table-responsive">
                     @if (!empty(Request::get('siswa_id')))
@@ -45,9 +49,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($semua_mata_pelajaran as $index => $mata_pelajaran)
+                            @php
+                                $nomor = 1;
+                            @endphp
+                            @foreach ($semua_mata_pelajaran->sortBy('nama') as $index => $mata_pelajaran)
                                 <tr>
-                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $nomor++ }}</td>
                                     <td>{{ $mata_pelajaran->nama }}</td>
                                     <td>
                                         @foreach ($semua_nilai as $nilai)
@@ -63,9 +70,11 @@
                                         </a>
                                         @include('pages.nilai._modal_create')
                                         @else
+                                        @if (Auth::user()->role->name == 'Admin')
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#modal-update-{{ $mata_pelajaran->id }}">
                                             <i class="ri-settings-4-line fs-5"></i>
                                         </a>
+                                        @endif
                                         @include('pages.nilai._modal_update')
                                         @endif
                                     </td>
@@ -73,11 +82,18 @@
                             @endforeach
                             <tr>
                                 <td colspan="2" class="text-end fw-bolder">Total</td>
-                                <td></td>
+                                <td>{{ $semua_nilai->sum('nilai') }}</td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="text-end fw-bolder">Rata-rata</td>
-                                <td></td>
+                                @php
+                                    $average = $semua_nilai->average('nilai');
+
+                                    $average_format = number_format($average, 2, '.', '');
+
+                                    $average_dua_desimal = substr($average_format, 0, -1);
+                                @endphp
+                                <td>{{ $average_dua_desimal }}</td>
                             </tr>
                         </tbody>
                     </table>

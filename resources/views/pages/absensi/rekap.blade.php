@@ -64,13 +64,13 @@
                                 @foreach ($semua_tanggal_absensi as $absensi)
                                 <td class="text-center">
                                     @foreach ($absensi as $absen)
-                                    @if ($absen->siswa_id == $siswa->id && $absen->keterangan == 'Hadir')
-                                    <i class="ri-checkbox-fill text-success fs-2"></i>
-                                    @elseif ($absen->siswa_id == $siswa->id && $absen->keterangan == 'Alpha')
-                                    <i class="ri-close-circle-fill text-danger fs-2"></i>
-                                    @elseif ($absen->siswa_id == $siswa->id && $absen->keterangan == 'Izin')
-                                    <i class="ri-spam-2-line text-warning fs-2"></i>
-                                    @endif
+                                        @if ($absen->siswa_id == $siswa->id && $absen->keterangan == 'Hadir')
+                                            <i class="ri-checkbox-fill text-success fs-2"></i>
+                                        @elseif ($absen->siswa_id == $siswa->id && $absen->keterangan == 'Alpha')
+                                            <i class="ri-close-circle-fill text-danger fs-2"></i>
+                                        @elseif ($absen->siswa_id == $siswa->id && $absen->keterangan == 'Izin')
+                                            <i class="ri-spam-2-line text-warning fs-2"></i>
+                                        @endif
                                     @endforeach
                                 </td>
                                 @endforeach

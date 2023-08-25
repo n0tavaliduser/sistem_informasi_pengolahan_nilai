@@ -18,24 +18,40 @@ class NilaiMataPelajaranController extends Controller
      */
     public function index(Request $request)
     {
-        $semua_nilai_mata_pelajaran = NilaiMataPelajaran::with('mata_pelajaran')
-            ->whereHas('mata_pelajaran.jadwal_pelajarans.guru', function ($query) {
-                $query->where('user_id', Auth::user()->id);
-            })
-            ->where('mata_pelajaran_id', $request->get('mata_pelajaran_id'))
-            ->get();
+        
+        if (Auth::user()->role->name == 'Guru') {
+            $semua_nilai_mata_pelajaran = NilaiMataPelajaran::with('mata_pelajaran')
+                ->whereHas('mata_pelajaran.jadwal_pelajarans.guru', function ($query) {
+                    $query->where('user_id', Auth::user()->id);
+                })
+                ->where('mata_pelajaran_id', $request->get('mata_pelajaran_id'))
+                ->get();
 
-        $semua_mata_pelajaran = MataPelajaran::with(['jadwal_pelajarans'])
-            ->whereHas('jadwal_pelajarans.kelas', function ($query) use ($request) {
-                $query->where('id', $request->get('kelas_id'));
-            })
-            ->get();
+            $semua_mata_pelajaran = MataPelajaran::with(['jadwal_pelajarans'])
+                ->whereHas('jadwal_pelajarans.guru', function ($query) use ($request) {
+                    $query->where('user_id', Auth::user()->id);
+                })
+                ->get();
 
-        $semua_kelas = Kelas::with(['jadwal_pelajarans'])
-            ->whereHas('jadwal_pelajarans.guru', function ($query) {
-                $query->where('user_id', Auth::user()->id);
-            })
-            ->get();
+            $semua_kelas = Kelas::with(['jadwal_pelajarans'])
+                ->whereHas('jadwal_pelajarans.guru', function ($query) {
+                    $query->where('user_id', Auth::user()->id);
+                })
+                ->get();
+        } elseif (Auth::user()->role->name == 'Admin') {
+            $semua_nilai_mata_pelajaran = NilaiMataPelajaran::with('mata_pelajaran')
+                ->where('mata_pelajaran_id', $request->get('mata_pelajaran_id'))
+                ->get();
+
+            $semua_mata_pelajaran = MataPelajaran::with(['jadwal_pelajarans'])
+                ->whereHas('jadwal_pelajarans.kelas', function ($query) use ($request) {
+                    $query->where('id', $request->get('kelas_id'));
+                })
+                ->get();
+
+            $semua_kelas = Kelas::with(['jadwal_pelajarans'])
+                ->get();
+        }
 
         $semua_siswa = Siswa::where('kelas_id', $request->get('kelas_id'))->get();
 

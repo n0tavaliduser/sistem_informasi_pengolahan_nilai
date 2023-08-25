@@ -52,7 +52,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('materi') ? 'active' : '' }}" href="{{ route('absensi.index') }}" role="button">
+                            <a class="nav-link {{ Request::is('materi') ? 'active' : '' }}" href="{{ route('materi.index') }}" role="button">
                                 <i class="ri-book-open-fill"></i> <span>Materi</span>
                             </a>
                         </li>
@@ -98,7 +98,7 @@
                     @if (Auth::user()->role->name == 'Guru' || Auth::user()->role->name == 'Siswa')
                         <li class="nav-item">
                             <a class="nav-link {{ Request::is('jadwal-pelajaran') ? 'active' : '' }}" href="{{ route('jadwal-pelajaran.index') }}" role="button">
-                                <i class="ri-shield-user-fill"></i> <span>Jadwal Pelajaran</span>
+                                <i class="ri-calendar-line"></i> <span>Jadwal Pelajaran</span>
                             </a>
                         </li>
                     @endif
@@ -110,6 +110,15 @@
                                 <i class="ri-ball-pen-line"></i> <span>Daftar Kelas</span>
                             </a>
                         </li>
+                    @endif
+
+                    {{-- Siswa sidebar MENU --}}
+                    @if (Auth::user()->role->name == 'Siswa')
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::is('manajemen-nilai/nilai') ? 'active' : '' }}" href="{{ route('nilai.index', ['siswa_id' => \App\Models\Siswa::where('user_id', Auth::user()->id)->first()->id]) }}" role="button">
+                            <i class="ri-checkbox-line"></i> <span>Lihat Nilai Akhir</span>
+                        </a>
+                    </li>
                     @endif
 
                     {{-- Admin Sidebar Master Data --}}
@@ -159,15 +168,17 @@
                             <i class="ri-calendar-line"></i> <span>Kelola Jadwal Pelajaran</span>
                         </a>
                     </li>
+                    @endif
 
+                    @if (Auth::user()->role->name == 'Guru')
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('manajemen-nilai') ? 'active' : '' }}" href="{{ route('nilai.index') }}" role="button">
-                            <i class="ri-list-check"></i> <span>Pengolahan Nilai</span>
+                        <a class="nav-link {{ Request::is('manajemen-nilai/nilai-mata-pelajaran') ? 'active' : '' }}" href="{{ route('nilai-mata-pelajaran.index') }}" role="button">
+                            <i class="ri-checkbox-line"></i> <span>Nilai Mata Pelajaran</span>
                         </a>
                     </li>
                     @endif
 
-                    @if(Auth::user()->role->name == 'Admin' || Auth::user()->role->name == 'Guru')
+                    @if(Auth::user()->role->name == 'Admin')
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="#sidebarPengolahanNilai" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
                             <i data-feather="home" class="icon-dual"></i> <span>Pengolahan Nilai</span>

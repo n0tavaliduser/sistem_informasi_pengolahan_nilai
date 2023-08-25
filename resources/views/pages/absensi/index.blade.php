@@ -12,7 +12,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-end align-items-center">
                 <div class="d-flex gap-2">
-                    <a href="{{ route('tugas.index') }}" class="btn btn-outline-primary btn-border">
+                    <a href="{{ route('absensi.index') }}" class="btn btn-outline-primary btn-border">
                         <i class="ri-refresh-line"></i>
                     </a>
                 </div>

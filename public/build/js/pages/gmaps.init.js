@@ -12,13 +12,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
     if (document.getElementById('gmaps-markers')) {
         map = new GMaps({
             div: '#gmaps-markers',
-            lat: -12.043333,
-            lng: -77.028333
+            lat: -4.98182,
+            lng: 119.571066
         });
         map.addMarker({
             lat: -12.043333,
             lng: -77.03,
-            title: 'Lima',
+            title: 'SMAK 1 MAROS',
             details: {
                 database_id: 42,
                 author: 'HPNeo'

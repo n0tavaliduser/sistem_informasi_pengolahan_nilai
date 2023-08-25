@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Guru;
 use App\Models\Kelas;
+use App\Models\MataPelajaran;
 use App\Models\TahunAjaran;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
@@ -34,6 +36,9 @@ class JadwalPelajaranSeeder extends Seeder
                     }
                 }
 
+                $mata_pelajarans = MataPelajaran::pluck('id')->toArray();
+                $gurus = Guru::pluck('id')->toArray();
+
                 if ($hari != 'Jumat') {
                     foreach ($data_jam_mulai as $jam_mulai) {
                         DB::table('jadwal_pelajaran')->insert(array(
@@ -42,8 +47,10 @@ class JadwalPelajaranSeeder extends Seeder
                                 'jam_mulai' => $jam_mulai,
                                 'jam_berakhir' => Carbon::createFromFormat('H:i', $jam_mulai)->addMinutes(45),
                                 'kelas_id' => $kelas->id,
-                                'tahun_ajaran_id' => TahunAjaran::where('status', 'active')->first()->id,  
-                                'semester' => 'Ganjil'
+                                'tahun_ajaran_id' => TahunAjaran::where('status', 'active')->first()->id,
+                                'semester' => 'Ganjil',
+                                'mata_pelajaran_id' => $mata_pelajarans[rand(0, count($mata_pelajarans) - 1)],
+                                'guru_id' => $gurus[rand(0, count($gurus) - 1)]
                             ]
                         ));
                     }
@@ -56,7 +63,9 @@ class JadwalPelajaranSeeder extends Seeder
                                 'jam_berakhir' => Carbon::createFromFormat('H:i', $jam_mulai)->addMinutes(45),
                                 'kelas_id' => $kelas->id,
                                 'tahun_ajaran_id' => TahunAjaran::where('status', 'active')->first()->id,  
-                                'semester' => 'Ganjil'
+                                'semester' => 'Ganjil',
+                                'mata_pelajaran_id' => $mata_pelajarans[rand(0, count($mata_pelajarans) - 1)],
+                                'guru_id' => $gurus[rand(0, count($gurus) - 1)]
                             ]
                         ));
                     }

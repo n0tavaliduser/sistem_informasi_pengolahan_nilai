@@ -9,4 +9,7 @@ Route::middleware(Authenticate::class)->prefix('manajemen-nilai')->group(functio
     Route::post('/nilai', [NilaiController::class, 'store'])->name('nilai.store');
     Route::patch('/nilai/{nilai}', [NilaiController::class, 'update'])->name('nilai.update');
     Route::delete('/nilai/{nilai}', [NilaiController::class, 'destroy'])->name('nilai.destroy');
+
+    // Action
+    Route::get('/nilai/{siswa}/cetak', [NilaiController::class, 'cetak'])->name('nilai.cetak');
 });

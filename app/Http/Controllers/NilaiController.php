@@ -6,7 +6,9 @@ use App\Http\Requests\Nilai\StoreNilaiRequest;
 use App\Http\Requests\Nilai\UpdateNilaiRequest;
 use App\Models\MataPelajaran;
 use App\Models\Nilai;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NilaiController extends Controller
 {
@@ -15,21 +17,35 @@ class NilaiController extends Controller
      */
     public function index(Request $request)
     {
-        $semua_nilai = Nilai::with('siswa')
-            ->whereHas('siswa', function ($query) use ($request) {
-                $query->where('kelas_id', $request->get('kelas_id'));
-            })
-            ->where('siswa_id', $request->get('siswa_id'))
-            ->get();
-        $semua_mata_pelajaran = MataPelajaran::with('jadwal_pelajarans')
-            ->whereHas('jadwal_pelajarans', function ($query) use ($request) {
-                $query->where('kelas_id', $request->get('kelas_id'));
-            })
-            ->get();
+        if (Auth::user()->role->name != 'Siswa') {
+            $semua_nilai = Nilai::with('siswa')
+                ->whereHas('siswa', function ($query) use ($request) {
+                    $query->where('kelas_id', $request->get('kelas_id'));
+                })
+                ->where('siswa_id', $request->get('siswa_id'))
+                ->get();
+            $semua_mata_pelajaran = MataPelajaran::with('jadwal_pelajarans')
+                ->whereHas('jadwal_pelajarans', function ($query) use ($request) {
+                    $query->where('kelas_id', $request->get('kelas_id'));
+                })
+                ->get();
+        } else {
+            $semua_nilai = Nilai::with('siswa')
+                ->whereHas('siswa', function ($query) use ($request) {
+                    $query->where('user_id', Auth::user()->id);
+                })
+                ->where('siswa_id', $request->get('siswa_id'))
+                ->get();
+            $semua_mata_pelajaran = MataPelajaran::with('jadwal_pelajarans')
+                ->whereHas('jadwal_pelajarans.kelas.siswas', function ($query) use ($request) {
+                    $query->where('user_id', Auth::user()->id);
+                })
+                ->get();
+        }
 
         return view('pages.nilai.index', [
             'semua_nilai' => $semua_nilai,
-            'semua_mata_pelajaran' => $semua_mata_pelajaran
+            'semua_mata_pelajaran' => $semua_mata_pelajaran,
         ]);
     }
 
@@ -91,5 +107,12 @@ class NilaiController extends Controller
         $nilai->delete();
 
         return redirect()->back()->with(['success' => 'Berhasil menghapus data nilai!']);
+    }
+
+    public function cetak(Siswa $siswa)
+    {
+        return view('pages.nilai.cetak', [
+            'siswa' => $siswa
+        ]);
     }
 }

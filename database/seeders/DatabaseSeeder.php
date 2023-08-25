@@ -24,6 +24,9 @@ class DatabaseSeeder extends Seeder
             JadwalPelajaranSeeder::class,
             // JadwalGuruSeeder::class,
             SiswaSeeder::class,
+            NilaiSeeder::class,
+            NilaiMataPelajaranSeeder::class,
+            AbsensiSeeder::class
         ]);
     }
 }
