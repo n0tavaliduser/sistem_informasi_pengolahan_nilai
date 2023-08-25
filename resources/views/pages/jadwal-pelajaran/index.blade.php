@@ -9,7 +9,24 @@
 <div class="row">
     <div class="col-xl-12">
         <div class="card">
+            @if (Auth::user()->role->name == 'Siswa')
+                <div class="card-header py-0">
+                    <table class="table table-borderless w-25">
+                        <tbody>
+                            <tr>
+                                <th class="ps-0" scope="row">Tingkat :</th>
+                                <td class="text-muted">: {{ \App\Models\Siswa::where('user_id', Auth::user()->id)->first()->kelas->tingkat }}</td>
+                            </tr>
+                            <tr>
+                                <th class="ps-0" scope="row">Kelas :</th>
+                                <td class="text-muted">: {{ \App\Models\Siswa::where('user_id', Auth::user()->id)->first()->kelas->nama_kelas }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            @endif
             <div class="card-body">
+                @if(Auth::user()->role->name == 'Admin')                    
                 <div class="row">
                     <div class="col-xl-7">
                         <form method="get">
@@ -145,6 +162,83 @@
                         </tbody>
                     </table>
                 </div>
+                @endif
+
+                @if(Auth::user()->role->name == 'Siswa')
+                    <div class="row mb-3">
+                        <form action="">
+                            <select name="hari" id="hari" class="form-control" onchange="this.form.submit()">
+                                <option value="">Pilih hari</option>
+                                <option value="Senin" {{ Request::get('hari') === 'Senin' ? 'selected' : '' }}>Senin</option>
+                                <option value="Selasa" {{ Request::get('hari') === 'Selasa' ? 'selected' : '' }}>Selasa</option>
+                                <option value="Rabu" {{ Request::get('hari') === 'Rabu' ? 'selected' : '' }}>Rabu</option>
+                                <option value="Kamis" {{ Request::get('hari') === 'Kamis' ? 'selected' : '' }}>Kamis</option>
+                                <option value="Jumat" {{ Request::get('hari') === 'Jumat' ? 'selected' : '' }}>Jumat</option>
+                            </select>
+                        </form>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-borderless table-nowrap table-hover">
+                            <thead class="">
+                                <tr class="table-active">
+                                    <th>Hari</th>
+                                    <th>Mata Pelajaran</th>
+                                    <th>Jam</th>
+                                    <th>Guru</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <td rowspan="{{ $semua_jadwal->where('hari', Request::get('hari'))->count() + 1 }}" class="fw-bolder">{{ Request::get('hari') }}</td>
+                                @foreach ($semua_jadwal->where('hari', Request::get('hari'))->sortBy('jam_mulai') as $index => $jadwal)
+                                <tr>
+                                    <td>{{ $jadwal->mata_pelajaran?->nama }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H:i') }} {{ \Carbon\Carbon::parse($jadwal->jam_berakhir)->format('H:i') }}</td>
+                                    <td>{{ $jadwal->guru?->nama_lengkap }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
+
+                @if(Auth::user()->role->name == 'Guru')
+                    <div class="row mb-3">
+                        <form action="">
+                            <select name="hari" id="hari" class="form-control" onchange="this.form.submit()">
+                                <option value="">Pilih hari</option>
+                                <option value="Senin" {{ Request::get('hari') === 'Senin' ? 'selected' : '' }}>Senin</option>
+                                <option value="Selasa" {{ Request::get('hari') === 'Selasa' ? 'selected' : '' }}>Selasa</option>
+                                <option value="Rabu" {{ Request::get('hari') === 'Rabu' ? 'selected' : '' }}>Rabu</option>
+                                <option value="Kamis" {{ Request::get('hari') === 'Kamis' ? 'selected' : '' }}>Kamis</option>
+                                <option value="Jumat" {{ Request::get('hari') === 'Jumat' ? 'selected' : '' }}>Jumat</option>
+                            </select>
+                        </form>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-borderless table-nowrap table-hover">
+                            <thead class="">
+                                <tr class="table-active">
+                                    <th>Hari</th>
+                                    <th>Mata Pelajaran</th>
+                                    <th>Kelas</th>
+                                    <th>Jam</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <td rowspan="{{ $semua_jadwal->where('hari', Request::get('hari'))->count() + 1 }}" class="fw-bolder">{{ Request::get('hari') }}</td>
+                                @foreach ($semua_jadwal->where('hari', Request::get('hari'))->sortBy('jam_mulai') as $index => $jadwal)
+                                <tr>
+                                    <td>{{ $jadwal->mata_pelajaran?->nama }}</td>
+                                    <td>{{ $jadwal->kelas?->nama_kelas }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H:i') }} {{ \Carbon\Carbon::parse($jadwal->jam_berakhir)->format('H:i') }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

@@ -10,6 +10,7 @@ use App\Models\Kelas;
 use App\Models\MataPelajaran;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JadwalPelajaranController extends Controller
 {
@@ -18,13 +19,28 @@ class JadwalPelajaranController extends Controller
      */
     public function index()
     {
-        $semua_jadwal = JadwalPelajaran::query()
-            ->orderBy('jam_mulai', 'ASC')
-            ->paginate(100);
         $semua_kelas = Kelas::all();
         $semua_tahun_ajaran = TahunAjaran::where('status', 'active')->get();
         $semua_guru = Guru::all();
         $semua_mata_pelajaran = MataPelajaran::all();
+
+        if (Auth::user()->role->name == 'Admin') {
+            $semua_jadwal = JadwalPelajaran::query()
+                ->orderBy('jam_mulai', 'ASC')
+                ->paginate(100);
+        } elseif (Auth::user()->role->name == 'Siswa') {
+            $semua_jadwal = JadwalPelajaran::with('kelas')
+                ->whereHas('kelas.siswas', function ($query) {
+                    $query->where('user_id', Auth::user()->id);
+                })
+                ->get();
+        } elseif (Auth::user()->role->name == 'Guru') {
+            $semua_jadwal = JadwalPelajaran::with('guru')
+                ->whereHas('guru', function ($query) {
+                    $query->where('user_id', Auth::user()->id);
+                })
+                ->get();
+        }
 
         return view('pages.jadwal-pelajaran.index', [
             'semua_jadwal' => $semua_jadwal,
