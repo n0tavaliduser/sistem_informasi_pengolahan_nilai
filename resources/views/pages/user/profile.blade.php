@@ -75,7 +75,6 @@
                 <div class="tab-pane active" id="detail-tab" role="tabpanel">
                     <div class="row">
                         <div class="col-xxl-3">
-
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title mb-3">Informasi</h5>
@@ -109,6 +108,10 @@
                                                 <tr>
                                                     <th class="ps-0" scope="row">Tanggal Lahir :</th>
                                                     <td class="text-muted">{{ \Carbon\Carbon::parse(Auth::user()->siswas->where('user_id', Auth::user()->id)->first()?->tanggal_lahir)->format('d-m-Y') }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="ps-0" scope="row">Kelas :</th>
+                                                    <td class="text-muted">{{ Auth::user()->siswas->where('user_id', Auth::user()->id)->first()?->kelas->nama_kelas }}</td>
                                                 </tr>
                                                 <tr>
                                                     <th class="ps-0" scope="row">Tingkat :</th>
