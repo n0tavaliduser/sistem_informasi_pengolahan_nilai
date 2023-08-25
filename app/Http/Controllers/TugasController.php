@@ -97,7 +97,7 @@ class TugasController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTugasRequest $request, JadwalPelajaran $jadwal)
+    public function store(StoreTugasRequest $request)
     {
         $data = $request->validated();
 
@@ -108,10 +108,8 @@ class TugasController extends Controller
 
         $tugas = Tugas::make($data);
         $tugas->status = 'open';
-        $tugas->mata_pelajaran_id = $jadwal->mata_pelajaran->id;
         $tugas->file = $file;
-        $tugas->guru_id = $jadwal->guru->id;
-        $tugas->kelas_id = $jadwal->kelas_id;
+        $tugas->guru_id = Guru::where('user_id', Auth::user()->id)->first()->id;
         $tugas->saveOrFail();
 
         return redirect()->back()->with(['success' => 'Berhasil menambahkan tugas baru!']);

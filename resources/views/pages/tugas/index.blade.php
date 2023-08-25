@@ -10,7 +10,12 @@
     <div class="col-xl-12">
         @include('components.alert')
         <div class="card">
-            <div class="card-header d-flex justify-content-end align-items-center">
+            @if (Auth::user()->role->name == 'Guru')
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <a href="" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal-tambah-tugas"><i></i> Tambah</a>
+                </div>
+                @include('pages.tugas._modal_create')
                 <div class="d-flex gap-2">
                     <a href="{{ route('tugas.index') }}" class="btn btn-outline-primary btn-border">
                         <i class="ri-refresh-line"></i>
@@ -20,7 +25,9 @@
                         <div class="d-flex gap-2">
                             <select name="kelas_id" id="kelas_id" class="form-control" onchange="this.form.submit()">
                                 <option value="">Pilih kelas</option>
-                                @foreach (\App\Models\Kelas::all() as $kelas)
+                                @foreach (\App\Models\Kelas::with('jadwal_pelajarans')->whereHas('jadwal_pelajarans.guru', function ($query) {
+                                    $query->where('user_id', Auth::user()->id);
+                                })->get() as $kelas)
                                 <option value="{{ $kelas->id }}" {{ $kelas->id == Request::get('kelas_id') ? 'selected' : '' }}>{{ $kelas->nama_kelas }}</option>
                                 @endforeach
                             </select>
@@ -29,6 +36,7 @@
                     </form>
                 </div>
             </div>
+            @endif
             <div class="card-body">
                 <div class="table-responsive table-card">
                     <table class="table table-striped-columns table-nowrap">

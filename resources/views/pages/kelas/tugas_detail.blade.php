@@ -5,7 +5,7 @@
 @section('content')
     @component('components.breadcrumb')
         @slot('li_1')
-            <a href="{{ URL::previous() }}">Ruang Kelas</a>
+            <a href="{{ URL::previous() }}">Tugas</a>
         @endslot
         @slot('title')
             Detail Tugas
@@ -123,8 +123,10 @@
                             <div class="d-flex align-items-center mb-4">
                                 <h5 class="card-title flex-grow-1">Berkas Pengumpulan</h5>
 
+                                @if (Auth::user()->role->name == 'Siswa')
                                 <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal-submit-tugas">pengumpulan tugas</a>
                                 @include('pages.kelas._modal_submit_tugas')
+                                @endif
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">

@@ -27,6 +27,8 @@ class StoreTugasRequest extends FormRequest
             'deskripsi' => 'nullable|string',
             'tanggal_deadline' => 'required|date',
             'tipe' => 'required|string',
+            'kelas_id' => 'required|exists:kelas,id',
+            'mata_pelajaran_id' => 'required|exists:mata_pelajaran,id'
         ];
     }
 }

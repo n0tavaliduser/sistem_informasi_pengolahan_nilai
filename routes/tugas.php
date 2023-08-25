@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(Authenticate::class)->prefix('manajemen-tugas')->group(function () {
     Route::get('/tugas', [TugasController::class, 'index'])->name('tugas.index');
-    Route::post('/tugas/{jadwal}', [TugasController::class, 'store'])->name('tugas.store');
+    Route::post('/tugas', [TugasController::class, 'store'])->name('tugas.store');
     Route::get('/tugas/{tugas}/show', [TugasController::class, 'show'])->name('tugas.show');
     Route::get('/tugas/{jadwal}/{tugas}', [TugasController::class, 'edit'])->name('tugas.edit');
     Route::patch('/tugas/{tugas}', [TugasController::class, 'update'])->name('tugas.update');
