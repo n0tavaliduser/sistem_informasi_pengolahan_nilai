@@ -11,10 +11,10 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-xl-7">
-                        <form method="get">
+                    <div class="col-xl-7 row">
+                        <form method="get" class="col-9">
                             <div class="row">
-                                <div class="form-group mb-3 col-6">
+                                <div class="form-group mb-3 col-5">
                                     <label for="kelas_id" class="form-label">Kelas <span class="text-muted">(required)</span> <span class="text-danger">*</span></label>
                                     <select name="kelas_id" id="kelas_id" class="form-control" onchange="this.form.submit()">
                                         <option value="">Pilih kelas</option>
@@ -24,7 +24,7 @@
                                     </select>
                                 </div>
 
-                                <div class="form-group mb-3 col-6">
+                                <div class="form-group mb-3 col-5">
                                     <label for="mata_pelajaran_id" class="form-label">Mata Pelajaran <span class="text-muted">(required)</span> <span class="text-danger">*</span></label>
                                     <select name="mata_pelajaran_id" id="mata_pelajaran_id" class="form-control" onchange="this.form.submit()">
                                         <option value="">Pilih mata pelajaran</option>
@@ -33,6 +33,13 @@
                                         @endforeach
                                     </select>
                                 </div>
+
+                                @if (Request::get('mata_pelajaran_id'))
+                                <div class="form-group mb-3 col-2">
+                                    <label for="" class="text-white">cetak</label>
+                                    <a href="{{ route('absensi.cetak', ['kelas' => \App\Models\Kelas::where('id', Request::get('kelas_id'))->first(), 'mata_pelajaran' => \App\Models\MataPelajaran::where('id', Request::get('mata_pelajaran_id'))->first()]) }}" class="btn btn-sm btn-success d-flex align-items-center justify-content-center h-50">Cetak</a>
+                                </div>
+                                @endif
                             </div>
                         </form>
                     </div>
@@ -45,12 +52,14 @@
                             <tr>
                                 <th rowspan="2">No</th>
                                 <th rowspan="2">Nama</th>
+                                <th>L</th>
                                 <th colspan="{{ $semua_tanggal_absensi->count() }}">REKAP ABSENSI</th>
                                 <th rowspan="2">Hadir</th>
                                 <th rowspan="2">Izin</th>
                                 <th rowspan="2">Alpha</th>
                             </tr>
                             <tr>
+                                <th>P</th>
                                 @foreach ($semua_tanggal_absensi as $tanggal)
                                 <th>{{ \Carbon\Carbon::parse($tanggal[0]->tanggal)->format('d-m-Y') }}</th>
                                 @endforeach
@@ -61,6 +70,11 @@
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $siswa->nama_lengkap }}</td>
+                                <td class="text-center">@if ($siswa->jenis_kelamin == 'Laki-laki')
+                                    L
+                                @else
+                                    P                                    
+                                @endif</td>
                                 @foreach ($semua_tanggal_absensi as $absensi)
                                 <td class="text-center">
                                     @foreach ($absensi as $absen)
@@ -74,9 +88,9 @@
                                     @endforeach
                                 </td>
                                 @endforeach
-                                <td>{{ $siswa->absensis->where('mata_pelajaran_id', Request::get('mata_pelajaran_id'))->where('keterangan', 'Hadir')->count() }}</td>
-                                <td>{{ $siswa->absensis->where('mata_pelajaran_id', Request::get('mata_pelajaran_id'))->where('keterangan', 'Izin')->count() }}</td>
-                                <td>{{ $siswa->absensis->where('mata_pelajaran_id', Request::get('mata_pelajaran_id'))->where('keterangan', 'Alpha')->count() }}</td>
+                                <td class="text-center">{{ $siswa->absensis->where('mata_pelajaran_id', Request::get('mata_pelajaran_id'))->where('keterangan', 'Hadir')->count() }}</td>
+                                <td class="text-center">{{ $siswa->absensis->where('mata_pelajaran_id', Request::get('mata_pelajaran_id'))->where('keterangan', 'Izin')->count() }}</td>
+                                <td class="text-center">{{ $siswa->absensis->where('mata_pelajaran_id', Request::get('mata_pelajaran_id'))->where('keterangan', 'Alpha')->count() }}</td>
                             </tr>
                             @endforeach
                         </tbody>
