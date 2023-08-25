@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title') @lang('translation.basic-tables') @endsection
+@section('title') MASTER DATA GURU @endsection
 @section('content')
 @component('components.breadcrumb')
 @slot('li_1') <a href="{{ route('master-data.guru.index') }}">Guru</a> @endslot
@@ -21,6 +21,22 @@
                         <input type="text" name="nama_lengkap" id="nama_lengkap" class="form-control {{ !$errors->has('nama_lengkap')?:'is-invalid' }}" placeholder="Nama Lengkap" required>
                         @error('nama_lengkap')
                             <small>{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="nomor_nip">Nomor NIP <small class="text-danger">*</small></label>
+                        <input type="text" name="nomor_nip" id="nomor_nip" class="form-control {{ !$errors->has('nomor_nip')?:'is-invalid' }}" placeholder="Nomor NIP" required>
+                        @error('nomor_nip')
+                            <small>{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="email">Email <span class="text-danger">*</span></label>
+                        <input type="email" name="email" id="email" class="form-control {{ !$errors->has('email')?:'is-invalid' }}" placeholder="Email">
+                        @error('email')
+                            <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                     
@@ -61,22 +77,6 @@
                             @endforeach
                         </select>
                         @error('jurusan_id')
-                            <small>{{ $message }}</small>
-                        @enderror
-                    </div>
-                    
-                    <div class="form-group mb-3">
-                        <label for="user_id">User (data login guru) <small class="text-danger">*</small></label>
-                        <select name="user_id" id="user_id" class="form-control {{ !$errors->has('user_id')?:'is-invalid' }}" {{ count($users) == 0 ? 'disabled' : '' }} required>
-                            <option value="">Pilih user</option>
-                            @foreach ($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                            @endforeach
-                        </select>
-                        @if (count($users) == 0)
-                            <small>Belum ada user baru dengan role guru yang terdaftar? <a href="">daftar user</a></small>
-                        @endif
-                        @error('user_id')
                             <small>{{ $message }}</small>
                         @enderror
                     </div>

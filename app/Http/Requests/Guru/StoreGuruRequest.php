@@ -24,11 +24,11 @@ class StoreGuruRequest extends FormRequest
     {
         return [
             'nama_lengkap' => 'required|string|max:150',
+            'nomor_nip' => 'required|unique:guru,nomor_nip,except,id',
             'jenis_kelamin' => 'required|string',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string',
             'jurusan_id' => 'required|exists:jurusan,id',
-            'user_id' => 'required|exists:users,id'
         ];
     }
 }

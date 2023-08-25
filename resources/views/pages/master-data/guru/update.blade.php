@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title') @lang('translation.basic-tables') @endsection
+@section('title') MASTER DATA UPDATE GURU @endsection
 @section('content')
 @component('components.breadcrumb')
 @slot('li_1') <a href="{{ route('master-data.guru.index') }}">Guru</a> @endslot

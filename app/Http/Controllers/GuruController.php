@@ -9,6 +9,7 @@ use App\Models\Jurusan;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class GuruController extends Controller
 {
@@ -54,9 +55,18 @@ class GuruController extends Controller
      */
     public function store(StoreGuruRequest $request)
     {
+        $password = explode(' ', $request->get('nama_lengkap'))[0] . '-Gurusmkn1Maros';
+        $user = User::create([
+            'name' => $request->get('nama_lengkap'),
+            'email' => $request->get('email'),
+            'role_id' => Role::where('name', 'Guru')->first()->id,
+            'password' => Hash::make($password)
+        ]);
+
         $data = $request->validated();
 
         $guru = Guru::make($data);
+        $guru->user_id = $user->id;
         $guru->saveOrFail();
 
         return redirect()->route('master-data.guru.index')->with(['success' => 'Berhasil menambahkan guru baru!']);
