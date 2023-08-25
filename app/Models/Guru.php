@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $nama_lengkap
  * @property string $jenis_kelamin
- * @property int $nomor_nip
+ * @property string|null $nomor_nip
  * @property Carbon $tanggal_lahir
  * @property string $alamat
  * @property int $jurusan_id
@@ -40,7 +40,6 @@ class Guru extends Model
 	protected $table = 'guru';
 
 	protected $casts = [
-		'nomor_nip' => 'int',
 		'tanggal_lahir' => 'datetime',
 		'jurusan_id' => 'int',
 		'user_id' => 'int'
