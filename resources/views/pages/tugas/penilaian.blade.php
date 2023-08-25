@@ -28,13 +28,6 @@
                                 <option value="{{ $kelas->id }}" {{ $kelas->id == Request::get('kelas_id') ? 'selected' : '' }}>{{ $kelas->nama_kelas }}</option>
                                 @endforeach
                             </select>
-
-                            <select name="siswa_id" id="siswa_id" class="form-control" onchange="this.form.submit()">
-                                <option value="">Pilih siswa</option>
-                                @foreach ($semua_siswa as $siswa)
-                                <option value="{{ $siswa->id }}" {{ $siswa->id == Request::get('siswa_id') ? 'selected' : '' }}>{{ $siswa->nama_lengkap }}</option>
-                                @endforeach
-                            </select>
                             @endif
                         </div>
                     </form>
@@ -42,37 +35,61 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    @if (Auth::user()->role->name == 'Guru')
+                    
+                    @php
+                        $semua_tugas = \App\Models\Tugas::where('mata_pelajaran_id', Request::get('mata_pelajaran_id'))->where('kelas_id', Request::get('kelas_id'))->get();
+                    @endphp
+                    @if ($semua_tugas->count() == 0)
+                        tidak ada data ditemukan
+                    @else
+                    <table class="table">
                         <thead>
+                            <tr class="table-active">
+                                <th rowspan="2">Nama</th>
+                                <th colspan="{{ count($semua_tugas) }}" class="text-center">Tugas Ke-</th>
+                                <th rowspan="2" class="text-center">Total</th>
+                                <th rowspan="2" class="text-center">Rata-rata</th>
+                            </tr>
                             <tr>
-                                <th>No</th>
-                                <th>Siswa</th>
-                                <th>Tanggal</th>
-                                <th>Berkas</th>
-                                <th>Nilai</th>
-                                @if (Auth::user()->role->name == 'Guru')
-                                <th>Actions</th>
-                                @endif
+                                @foreach ($semua_tugas as $index => $tugas)
+                                    <td class="text-center">T-{{ ++$index }}</td>
+                                @endforeach
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($semua_pengumpulan_tugas as $index => $pengumpulan_tugas)
-                                <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>{{ $pengumpulan_tugas->siswa?->nama_lengkap }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($pengumpulan_tugas->tugas?->created_at)->format('d-m-Y') }}</td>
-                                    <td><a href="{{ route('pengumpulan-tugas.download-file', $pengumpulan_tugas) }}">download</a></td>
-                                    <td>{{ $pengumpulan_tugas->nilai }}</td>
-                                    @if (Auth::user()->role->name == 'Guru')
-                                    <td>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-update-{{ $pengumpulan_tugas->id }}"><i class="ri-settings-4-line"></i></a>
-                                        @include('pages.tugas._modal_update_penilaian')
-                                    </td>
+                            @foreach ($semua_siswa as $siswa)
+                            <tr>
+                                <td>{{ $siswa->nama_lengkap }}</td>
+                                @foreach ($semua_tugas as $tugas)
+                                <td class="text-center">
+                                    @if ($semua_pengumpulan_tugas->where('siswa_id', $siswa->id)->where('tugas_id', $tugas->id)->count() != 0)
+                                        @foreach ($semua_pengumpulan_tugas as $pengumpulan_tugas) 
+                                            @if ($pengumpulan_tugas->siswa_id == $siswa->id && $pengumpulan_tugas->tugas_id == $tugas->id)
+                                                {{ $pengumpulan_tugas->nilai }}
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        0
                                     @endif
-                                </tr>
+                                </td>
+                                @endforeach
+                                <td class="text-center">
+                                    @if (!empty($pengumpulan_tugas))
+                                        {{ $pengumpulan_tugas->where('mata_pelajaran_id', Request::get('mata_pelajaran_id'))->where('siswa_id', $siswa->id)->sum('nilai') }}
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if (!empty($pengumpulan_tugas))
+                                        {{ substr(number_format($pengumpulan_tugas->where('mata_pelajaran_id', Request::get('mata_pelajaran_id'))->where('siswa_id', $siswa->id)->average('nilai'), 2, '.', ''), 0, -1) }}
+                                    @endif
+                                </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    @endif
+                    @endif
                 </div>
             </div>
         </div>
