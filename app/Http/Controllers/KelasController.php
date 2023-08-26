@@ -22,7 +22,7 @@ class KelasController extends Controller
     {
         $semua_kelas = Kelas::query()
             ->where(function ($query) use ($request) { 
-                $query->where('nama_kelas', 'LIKE', '%' , $request->get('find') , '%');
+                $query->where('nama_kelas', 'LIKE', '%' . $request->get('find') . '%');
             })
             ->paginate(10);
         
@@ -70,9 +70,6 @@ class KelasController extends Controller
                     unset($data_jam_mulai[$index_to_remove]);
                 }
             }
-
-            $mata_pelajarans = MataPelajaran::pluck('id')->toArray();
-            $gurus = Guru::pluck('id')->toArray();
 
             if ($hari != 'Jumat') {
                 foreach ($data_jam_mulai as $jam_mulai) {
