@@ -166,7 +166,7 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="{{ route('nilai-mata-pelajaran.index') }}" class="nav-link {{ Request::is('manajemen-nilai/nilai-mata-pelajaran') ? 'active' : '' }}">Nilai Mata Pelajan</a>
+                                    <a href="{{ route('nilai-mata-pelajaran.index') }}" class="nav-link {{ Request::is('manajemen-nilai/nilai-mata-pelajaran') ? 'active' : '' }}">Nilai Mata Pelajaran</a>
                                 </li>
                             </ul>
                         </div>
