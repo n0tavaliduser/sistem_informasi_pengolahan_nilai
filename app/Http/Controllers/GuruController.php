@@ -55,7 +55,8 @@ class GuruController extends Controller
      */
     public function store(StoreGuruRequest $request)
     {
-        $password = explode(' ', $request->get('nama_lengkap'))[0] . '-Gurusmkn1Maros';
+        $password = strtolower(explode(' ', $request->get('nama_lengkap'))[0]) . '-guru';
+        dd($password);
         $user = User::create([
             'name' => $request->get('nama_lengkap'),
             'email' => $request->get('email'),
