@@ -72,7 +72,9 @@ class SiswaController extends Controller
      */
     public function edit(Siswa $siswa)
     {
-        //
+        return view('pages.master-data.siswa.update', [
+            'siswa' => $siswa
+        ]);
     }
 
     /**
@@ -80,7 +82,12 @@ class SiswaController extends Controller
      */
     public function update(UpdateSiswaRequest $request, Siswa $siswa)
     {
-        //
+        $data = $request->validated();
+
+        $siswa->fill($data);
+        $siswa->saveOrFail();
+
+        return redirect()->route('master-data.siswa.index')->with(['success' => 'Berhasil update data siswa!']);
     }
 
     /**

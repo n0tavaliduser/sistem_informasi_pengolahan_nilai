@@ -23,21 +23,15 @@ class UpdateSiswaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nomor_induk' => 'required|integer|unique:siswa,nomor_induk',
             'nama_lengkap' => 'required|string|max:200',
             'agama' => 'required|string|max:25',
-            'status' => 'required|string|max:25',
-            'foto' => 'nullable|string',
             'catatan' => 'nullable|string',
             'jenis_kelamin' => 'required|string|max:30',
             'tempat_lahir' => 'required|string|max:100',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string',
             'telepon' => 'required|string',
-            'email' => 'required|email|unique:siswa,email',
             'kelas_id' => 'required|exists:kelas,id',
-            'tahun_ajaran_id' => 'required|exists:tahun_ajaran,id',
-            'user_id' => 'required|exists:users,id',
         ];
     }
 }
