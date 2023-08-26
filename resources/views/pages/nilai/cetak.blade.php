@@ -117,7 +117,7 @@ Detail Nilai Akhir
 @endsection
 @section('script')
 <script>
-    document.title = 'CETAK NILAI AKHIR | SIPP SMKN 1 MAROS'
+    document.title = 'CETAK NILAI AKHIR | SIPP SMK Negeri 1 MAROS'
 </script>
 {{-- <script src="{{ URL::asset('build/js/pages/invoicedetails.js') }}"></script> --}}
 <script src="{{ URL::asset('build/js/app.js') }}"></script>

@@ -135,4 +135,29 @@ class AbsensiController extends Controller
     {
         //
     }
+
+    public function cetak(Kelas $kelas, MataPelajaran $mata_pelajaran)
+    {
+        $semua_tanggal_absensi = Absensi::query()   
+            ->where('kelas_id', $kelas->id)
+            ->where('mata_pelajaran_id', $mata_pelajaran->id)
+            ->get()
+            ->groupBy('tanggal');
+        $semua_kelas = Kelas::all();
+        $semua_siswa = Siswa::where('kelas_id', $kelas->id)->get();
+        $semua_mata_pelajaran = MataPelajaran::with('jadwal_pelajarans')
+            ->whereHas('jadwal_pelajarans.kelas', function ($query) use ($kelas) {
+                $query->where('id', $kelas->id);
+            })
+            ->get();
+
+        return view('pages.absensi.cetak', [
+            'semua_tanggal_absensi' => $semua_tanggal_absensi,
+            'semua_kelas' => $semua_kelas,
+            'semua_siswa' => $semua_siswa,
+            'semua_mata_pelajaran' => $semua_mata_pelajaran,
+            'mata_pelajaran' => $mata_pelajaran,
+            'kelas' => $kelas
+        ]);
+    }
 }
