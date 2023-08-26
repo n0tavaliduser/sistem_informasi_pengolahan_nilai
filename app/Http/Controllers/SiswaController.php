@@ -95,6 +95,22 @@ class SiswaController extends Controller
      */
     public function destroy(Siswa $siswa)
     {
-        //
+        $user = User::with('siswas')
+            ->whereHas('siswas', function ($query) use ($siswa) {
+                $query->where('id', $siswa->id);
+            })
+            ->first();
+
+        if ($user->avatar) {
+            $oldFilePath = storage_path('app/public/' . $user->avatar);
+            if (file_exists($oldFilePath)) {
+                unlink($oldFilePath);
+            }
+        }
+
+        $user->delete();
+        $siswa->delete();
+
+        return redirect()->route('master-data.siswa.index')->with(['success' => 'Berhasil menghapus data siswa']);
     }
 }
