@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Requests\User\ChangePhotoProfileRequest;
+use App\Http\Requests\User\UpdateGuruProfileRequest;
 use App\Http\Requests\User\UpdateSiswaProfileRequest;
+use App\Models\Guru;
 use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -18,11 +20,20 @@ class UserController extends Controller
         return view('pages.user.profile');
     }
 
-    public function editProfile()
+    public function editSiswaProfile()
     {
         if (Auth::user()->role->name == 'Siswa') {
             return view('pages.user.edit-siswa-profile',[ 
                 'siswa' => Siswa::where('user_id', Auth::user()->id)->first(),
+            ]);
+        }
+    }
+
+    public function editGuruProfile()
+    {
+        if (Auth::user()->role->name == 'Guru') {
+            return view('pages.user.edit-guru-profile',[ 
+                'guru' => Guru::where('user_id', Auth::user()->id)->first(),
             ]);
         }
     }
@@ -63,12 +74,30 @@ class UserController extends Controller
         return redirect()->back()->with(['success' => 'Berhasil mengganti photo profile!']);
     }
 
-    public function updateProfile(UpdateSiswaProfileRequest $request, Siswa $siswa)
+    public function updateSiswaProfile(UpdateSiswaProfileRequest $request, Siswa $siswa)
     {
         $data = $request->validated();
 
+        User::where('id', $siswa->user_id)->update([
+            'name' => $siswa->nama_lengkap
+        ]);
+
         $siswa->fill($data);
         $siswa->saveOrFail();
+
+        return redirect()->back()->with(['success' => 'Berhasil update profile!']);
+    }
+
+    public function updateGuruProfile(UpdateGuruProfileRequest $request, Guru $guru)
+    {
+        $data = $request->validated();
+
+        User::where('id', $guru->user_id)->update([
+            'name' => $guru->nama_lengkap
+        ]);
+
+        $guru->fill($data);
+        $guru->saveOrFail();
 
         return redirect()->back()->with(['success' => 'Berhasil update profile!']);
     }
