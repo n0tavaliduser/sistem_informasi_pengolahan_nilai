@@ -13,7 +13,7 @@
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h4>Edit Data Siswa</h4>
             </div>
-            <form method="post" action="{{ route('user.update-profile') }}">
+            <form method="post" action="{{ route('user.update-siswa-profile', $siswa) }}">
                 @csrf
                 @method('patch')
                 <div class="card-body">
@@ -21,6 +21,14 @@
                         <label for="nama_lengkap">Nama lengkap <small class="text-danger">*</small></label>
                         <input type="text" name="nama_lengkap" id="nama_lengkap" value="{{ $siswa?->nama_lengkap }}" class="form-control {{ !$errors->has('nama_lengkap')?:'is-invalid' }}" placeholder="Nama Lengkap" required>
                         @error('nama_lengkap')
+                            <small>{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="telepon">Nomor Telepon <small class="text-danger">*</small></label>
+                        <input type="text" name="telepon" id="telepon" value="{{ $siswa?->telepon }}" class="form-control {{ !$errors->has('telepon')?:'is-invalid' }}" placeholder="Nomor Telepon" required>
+                        @error('telepon')
                             <small>{{ $message }}</small>
                         @enderror
                     </div>
@@ -52,12 +60,22 @@
                         @enderror
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="tanggal_lahir">Tanggal Lahir <small class="text-danger">*</small></label>
-                        <input type="date" name="tanggal_lahir" id="tanggal_lahir" value="{{ \Carbon\Carbon::parse($siswa?->tanggal_lahir)->format('Y-m-d') }}" class="form-control {{ !$errors->has('tanggal_lahir')?:'is-invalid' }}" required>
-                        @error('tanggal_lahir')
-                            <small>{{ $message }}</small>
-                        @enderror
+                    <div class="row">
+                        <div class="form-group mb-3 col-6">
+                            <label for="tempat_lahir">Tempat Lahir <small class="text-danger">*</small></label>
+                            <input type="text" name="tempat_lahir" id="tempat_lahir" value="{{ $siswa?->tempat_lahir }}" class="form-control {{ !$errors->has('tempat_lahir')?:'is-invalid' }}" placeholder="Tempat Lahir" required>
+                            @error('tempat_lahir')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <div class="form-group mb-3 col-6">
+                            <label for="tanggal_lahir">Tanggal Lahir <small class="text-danger">*</small></label>
+                            <input type="date" name="tanggal_lahir" id="tanggal_lahir" value="{{ \Carbon\Carbon::parse($siswa?->tanggal_lahir)->format('Y-m-d') }}" class="form-control {{ !$errors->has('tanggal_lahir')?:'is-invalid' }}" required>
+                            @error('tanggal_lahir')
+                                <small>{{ $message }}</small>
+                            @enderror
+                        </div>
                     </div>
                     
                     <div class="form-group mb-3">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Requests\User\ChangePhotoProfileRequest;
+use App\Http\Requests\User\UpdateSiswaProfileRequest;
 use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -60,5 +61,15 @@ class UserController extends Controller
         $user->saveOrFail();
 
         return redirect()->back()->with(['success' => 'Berhasil mengganti photo profile!']);
+    }
+
+    public function updateProfile(UpdateSiswaProfileRequest $request, Siswa $siswa)
+    {
+        $data = $request->validated();
+
+        $siswa->fill($data);
+        $siswa->saveOrFail();
+
+        return redirect()->back()->with(['success' => 'Berhasil update profile!']);
     }
 }
