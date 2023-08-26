@@ -40,7 +40,7 @@
                         <tbody>
                             @foreach ($semua_jurusan as $jurusan)
                             <tr>
-                                <td>{{ $jurusan->nama_jurusan }}</td>
+                                <td>{{ $jurusan->nama_jurusan }} ({{ $jurusan->singkatan }})</td>
                                 <td>{{ $jurusan->keterangan }}</td>
                                 <td>
                                     <div class="hstack gap-3 fs-15">

@@ -18,6 +18,14 @@
                     </div>
                     
                     <div class="form-group mb-3">
+                        <label for="singkatan" class="form-label">Singkatan Jurusan</label>
+                        <input type="text" class="form-control {{ !$errors->has('singkatan')?:'is-invalid' }}" value="{{ $jurusan->singkatan }}" id="singkatan" name="singkatan" placeholder="Singkatan Jurusan">
+                        @error('singkatan')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    
+                    <div class="form-group mb-3">
                         <label for="keterangan" class="form-label">Keterangan</label>
                         <textarea class="form-control {{ !$errors->has('keterangan')?:'is-invalid' }}" value="{{ $jurusan->keterangan }}" name="keterangan" id="keterangan" placeholder="Keterangan" cols="30" rows="10">{{ $jurusan->keterangan }}</textarea>
                         @error('keterangan')

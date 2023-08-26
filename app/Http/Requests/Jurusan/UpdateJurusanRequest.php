@@ -24,6 +24,7 @@ class UpdateJurusanRequest extends FormRequest
     {
         return [
             'nama_jurusan' => 'required|string|max:50',
+            'singkatan' => 'required|string|max:10|unique:jurusan,singkatan,except,id',
             'keterangan' => 'nullable|string'
         ];
     }

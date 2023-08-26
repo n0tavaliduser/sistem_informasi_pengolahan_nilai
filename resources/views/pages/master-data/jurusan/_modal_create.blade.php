@@ -15,6 +15,14 @@
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
+
+                    <div class="form-group mb-3">
+                        <label for="singkatan" class="form-label">Singkatan Jurusan</label>
+                        <input type="text" class="form-control {{ !$errors->has('singkatan')?:'is-invalid' }}" value="{{ old('singkatan') }}" id="singkatan" name="singkatan" placeholder="Singkatan Jurusan">
+                        @error('singkatan')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
                     
                     <div class="form-group mb-3">
                         <label for="keterangan" class="form-label">Keterangan</label>
