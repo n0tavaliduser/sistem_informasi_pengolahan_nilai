@@ -16,24 +16,24 @@
                         <i class="ri-add-circle-line me-2"></i>
                         <span>Tambah</span>
                     </a>
-
-                    <form method="get">
-                        <select class="form-select" id="kelas_id" name="kelas_id" onchange="this.form.submit()">
-                            <option selected>Pilih Kelas</option>
-                            @foreach (\App\Models\Kelas::all() as $kelas)
-                            <option value="{{ $kelas->id }}">{{ $kelas->nama_kelas }}</option>
-                            @endforeach
-                        </select>
-                    </form>
                 </div>
-                    
+
                 <div class="d-flex gap-2">
                     <a href="{{ route('master-data.siswa.index') }}" class="btn btn-outline-primary btn-border">
                         <i class="ri-refresh-line"></i>
                     </a>
 
                     <form method="get">
-                        <input type="text" name="find" id="find" class="form-control h-100" placeholder="Cari">
+                        <div class="d-flex gap-3">
+                            <select class="form-select" id="kelas_id" name="kelas_id" onchange="this.form.submit()">
+                                <option selected>Pilih Kelas</option>
+                                @foreach (\App\Models\Kelas::all() as $kelas)
+                                <option value="{{ $kelas->id }}" {{ $kelas->id == Request::get('kelas_id') ? 'selected' : '' }}>{{ $kelas->nama_kelas }}</option>
+                                @endforeach
+                            </select>
+                            <input type="text" name="find" id="find" class="form-control h-100" placeholder="Cari">
+                        </div>
+
                     </form>
                 </div>
             </div>
@@ -81,10 +81,10 @@
                 </div>
             </div>
             <div class="card-footer">
-                @if($semua_siswa->lastPage() != 1)  
+                @if($semua_siswa->lastPage() != 1)
                 @include('components.pagination', [
-                    'data' => $semua_siswa,
-                    'route' => 'master-data.siswa.index'
+                'data' => $semua_siswa,
+                'route' => 'master-data.siswa.index'
                 ])
                 @endif
             </div>
