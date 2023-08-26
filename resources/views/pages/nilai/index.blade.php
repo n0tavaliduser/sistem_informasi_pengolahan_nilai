@@ -64,18 +64,18 @@
                                                 @endif
                                             @endif
                                         @endforeach
-                                        @if ($semua_nilai->where('mata_pelajaran_id', $mata_pelajaran->id)->count() == 0)
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-create">
-                                            <i class="ri-quill-pen-line text-success fs-5"></i>
-                                        </a>
-                                        @include('pages.nilai._modal_create')
-                                        @else
                                         @if (Auth::user()->role->name == 'Admin')
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-update-{{ $mata_pelajaran->id }}">
-                                            <i class="ri-settings-4-line fs-5"></i>
-                                        </a>
-                                        @endif
-                                        @include('pages.nilai._modal_update')
+                                            @if ($semua_nilai->where('mata_pelajaran_id', $mata_pelajaran->id)->count() == 0)
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#modal-create">
+                                                    <i class="ri-quill-pen-line text-success fs-5"></i>
+                                                </a>
+                                                @include('pages.nilai._modal_create')
+                                            @else
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#modal-update-{{ $mata_pelajaran->id }}">
+                                                    <i class="ri-settings-4-line fs-5"></i>
+                                                </a>
+                                                @include('pages.nilai._modal_update')
+                                            @endif
                                         @endif
                                     </td>
                                 </tr>

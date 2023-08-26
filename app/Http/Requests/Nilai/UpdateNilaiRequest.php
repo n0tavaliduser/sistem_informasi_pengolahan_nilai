@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Nilai;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateNilaiRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdateNilaiRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Auth::user()->role->name == 'Admin';
     }
 
     /**
