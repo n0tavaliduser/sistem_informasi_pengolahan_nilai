@@ -27,13 +27,13 @@
                         @enderror
                     </div>
 
-                    {{-- <div class="form-group mb-3">
+                    <div class="form-group mb-3">
                         <label for="nomor_induk">Nomor Induk <span class="text-danger">*</span></label>
                         <input type="number" name="nomor_induk" id="nomor_induk" class="form-control {{ !$errors->has('nomor_induk')?:'is-invalid' }}" placeholder="Nomor Induk Siswa">
                         @error('nomor_induk')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
-                    </div> --}}
+                    </div>
 
                     <div class="row">
                         <div class="form-group mb-3 col-6">

@@ -13,15 +13,6 @@
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h4>Edit Data Siswa</h4>
             </div>
-            @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
             <form method="post" action="{{ route('master-data.siswa.update', $siswa) }}">
                 @csrf
                 @method('patch')
@@ -31,6 +22,14 @@
                         <input type="text" name="nama_lengkap" id="nama_lengkap" value="{{ $siswa?->nama_lengkap }}" class="form-control {{ !$errors->has('nama_lengkap')?:'is-invalid' }}" placeholder="Nama Lengkap" required>
                         @error('nama_lengkap')
                             <small>{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="nomor_induk">Nomor Induk <span class="text-danger">*</span></label>
+                        <input type="number" name="nomor_induk" id="nomor_induk" value="{{ $siswa->nomor_induk }}" class="form-control {{ !$errors->has('nomor_induk')?:'is-invalid' }}" placeholder="Nomor Induk Siswa">
+                        @error('nomor_induk')
+                            <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
 
