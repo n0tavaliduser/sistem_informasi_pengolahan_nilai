@@ -16,24 +16,23 @@
                         <i class="ri-add-circle-line me-2"></i>
                         <span>Tambah</span>
                     </a>
-
-                    <form method="get">
-                        <select class="form-select" id="jurusan_id" name="jurusan_id" onchange="this.form.submit()">
-                            <option selected>Pilih Jurusan</option>
-                            @foreach (\App\Models\Jurusan::all() as $jurusan)
-                            <option value="{{ $jurusan->id }}" {{ Request::get('jurusan_id') == $jurusan->id ? 'selected' : '' }}>{{ $jurusan->nama_jurusan }}</option>
-                            @endforeach
-                        </select>
-                    </form>
                 </div>
-                
+
                 <div class="d-flex gap-2">
                     <a href="{{ route('master-data.guru.index') }}" class="btn btn-outline-primary btn-border">
                         <i class="ri-refresh-line"></i>
                     </a>
 
                     <form method="get">
-                        <input type="text" name="find" id="find" class="form-control h-100" placeholder="Cari">
+                        <div class="d-flex gap-3">
+                            <select class="form-select" id="jurusan_id" name="jurusan_id" onchange="this.form.submit()">
+                                <option selected>Pilih Jurusan</option>
+                                @foreach (\App\Models\Jurusan::all() as $jurusan)
+                                <option value="{{ $jurusan->id }}" {{ Request::get('jurusan_id') == $jurusan->id ? 'selected' : '' }}>{{ $jurusan->nama_jurusan }}</option>
+                                @endforeach
+                            </select>
+                            <input type="text" name="find" id="find" class="form-control h-100" placeholder="Cari">
+                        </div>
                     </form>
                 </div>
             </div>
@@ -76,10 +75,10 @@
                 </div>
             </div>
             <div class="card-footer">
-                @if($semua_guru->lastPage() != 1)  
+                @if($semua_guru->lastPage() != 1)
                 @include('pages.master-data.guru.pagination', [
-                    'data' => $semua_guru,
-                    'route' => 'master-data.guru.index'
+                'data' => $semua_guru,
+                'route' => 'master-data.guru.index'
                 ])
                 @endif
             </div>
