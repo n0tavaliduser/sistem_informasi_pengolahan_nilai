@@ -13,12 +13,12 @@
     ">
     <div class="bg-overlay" style="opacity: 0.4">
     </div>
-    <div class="d-flex" style="position: absolute; padding: 5rem; left: 2rem; top: 1rem;">
-        <div class="d-flex gap-5 justify-content-center align-items center">
-            <img src="{{ URL::asset('assets/img/logo.png') }}" alt="" height="80">
+    <div class="d-flex" style="position: absolute; padding-top: 30px; padding-left: 30px; left: 2rem; top: 1rem;">
+        <div class="d-flex gap-3 justify-content-center align-items center">
+            <img src="{{ URL::asset('assets/img/logo.png') }}" alt="" height="50">
             <div class="d-grid align-items-center">
-                <h2 class="text-light">APN - SMKN1MAROS</h2>
-                <h5 class="text-light">Jl. Ps. Ikan No.63, Allepolea</h5>
+                <h5 class="text-light">APN - SMKN1MAROS</h5>
+                <h6 class="text-light">Jl. Ps. Ikan No.63, Allepolea</h6>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
     <div class="auth-page-content overflow-hidden pt-lg-5">
         <div class="container d-flex flex-column justify-content-center align-items-center">
             <h2 class="mb-4 text-light">Selamat Datang</h2>
-            <div class="card overflow-hidden w-50 bg-white bg-opacity-50">
+            <div class="card overflow-hidden bg-white bg-opacity-50 col-lg-6">
                 <div class="row g-0">
                     <div class="col-lg-12">
                         <div class="p-lg-5 p-4">
