@@ -1,6 +1,6 @@
 @extends('layouts.master-without-nav')
 @section('title')
-@lang('translation.signin')
+    LOGIN
 @endsection
 @section('content')
 
@@ -11,7 +11,17 @@
         background-size: cover;
         background-repeat: no-repeat;
     ">
-    <div class="bg-overlay"></div>
+    <div class="bg-overlay" style="opacity: 0.4">
+    </div>
+    <div class="d-flex" style="position: absolute; padding: 5rem; left: 2rem; top: 1rem;">
+        <div class="d-flex gap-5 justify-content-center align-items center">
+            <img src="{{ URL::asset('assets/img/logo.png') }}" alt="" height="80">
+            <div class="d-grid align-items-center">
+                <h2 class="text-light">APN - SMKN1MAROS</h2>
+                <h5 class="text-light">Jl. Ps. Ikan No.63, Allepolea</h5>
+            </div>
+        </div>
+    </div>
     <!-- auth-page content -->
     <div class="auth-page-content overflow-hidden pt-lg-5">
         <div class="container d-flex flex-column justify-content-center align-items-center">
