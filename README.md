@@ -37,8 +37,22 @@ php artisan serve
 
 Login Page :
 
-![Login Page](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![Login Page](https://github.com/n0tavaliduser/sistem_informasi_pengolahan_nilai/assets/73369743/0d80a3ec-72ea-4fa4-a145-07bb71e9dcb6)
 
 Admin Dashboard
 
-![Login Page](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![Admin Dashboard](https://github.com/n0tavaliduser/sistem_informasi_pengolahan_nilai/assets/73369743/7cc532d3-0a21-42e9-9dda-59de641d828c)
+
+Guru Dashboard
+
+![Guru Dashboard](https://github.com/n0tavaliduser/sistem_informasi_pengolahan_nilai/assets/73369743/28f5f079-9aaa-4d16-b0df-852455922601)
+
+Kepala Sekolah Dashboard
+
+![Kepala Sekolah Dashboard](https://github.com/n0tavaliduser/sistem_informasi_pengolahan_nilai/assets/73369743/41a1e22f-f88b-4990-8508-027f34b41aeb)
+
+Siswa Dashboard
+
+![Siswa Dashboard](https://github.com/n0tavaliduser/sistem_informasi_pengolahan_nilai/assets/73369743/88e4f53e-1b57-4c9e-b425-71237c3917ab)
+
+
