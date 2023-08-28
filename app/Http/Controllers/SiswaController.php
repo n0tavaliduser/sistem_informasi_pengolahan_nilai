@@ -43,9 +43,14 @@ class SiswaController extends Controller
     public function store(StoreSiswaRequest $request)
     {
         $password = explode(' ', $request->get('nama_lengkap'))[0] . 'smkn1maros';
+
+        $userValidation = $request->validate([
+            'email' => 'required|unique:users,email,except,id'
+        ]);
+
         $user = User::create([
             'name' => $request->get('nama_lengkap'),
-            'email' => $request->get('email'),
+            'email' => $userValidation['email'],
             'role_id' => $request->get('role_id'),
             'password' => Hash::make($password),
         ]);
