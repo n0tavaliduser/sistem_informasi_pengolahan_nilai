@@ -89,9 +89,14 @@
                                     <div class="table-responsive">
                                         <table class="table table-borderless mb-0">
                                             <tbody>
+                                                @if (Auth::user()->role->name == 'Siswa')
                                                 <tr>
                                                     <th class="ps-0" scope="row">Nama Lengkap :</th>
                                                     <td class="text-muted">{{ Auth::user()->siswas->where('user_id', Auth::user()->id)->first()?->nama_lengkap }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="ps-0" scope="row">NIS :</th>
+                                                    <td class="text-muted">{{ Auth::user()->siswas->where('user_id', Auth::user()->id)->first()?->nomor_induk }}</td>
                                                 </tr>
                                                 <tr>
                                                     <th class="ps-0" scope="row">Jenis Kelamin :</th>
@@ -125,6 +130,44 @@
                                                     <th class="ps-0" scope="row">Tingkat :</th>
                                                     <td class="text-muted">{{ Auth::user()->siswas->where('user_id', Auth::user()->id)->first()?->kelas->tingkat }}</td>
                                                 </tr>
+                                                @elseif(Auth::user()->role->name == 'Guru')
+                                                <tr>
+                                                    <th class="ps-0" scope="row">Nama Lengkap :</th>
+                                                    <td class="text-muted">{{ Auth::user()->gurus->where('user_id', Auth::user()->id)->first()?->nama_lengkap }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="ps-0" scope="row">Jenis Kelamin :</th>
+                                                    <td class="text-muted">{{ Auth::user()->gurus->where('user_id', Auth::user()->id)->first()?->jenis_kelamin }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="ps-0" scope="row">Nomor Telp :</th>
+                                                    <td class="text-muted">{{ Auth::user()->gurus->where('user_id', Auth::user()->id)->first()?->telepon }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="ps-0" scope="row">Agama :</th>
+                                                    <td class="text-muted">{{ Auth::user()->gurus->where('user_id', Auth::user()->id)->first()?->agama }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="ps-0" scope="row">Email :</th>
+                                                    <td class="text-muted">{{ Auth::user()->gurus->where('user_id', Auth::user()->id)->first()?->email }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="ps-0" scope="row">Tempat Lahir :</th>
+                                                    <td class="text-muted">{{ Auth::user()->gurus->where('user_id', Auth::user()->id)->first()?->tempat_lahir }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="ps-0" scope="row">Tanggal Lahir :</th>
+                                                    <td class="text-muted">{{ \Carbon\Carbon::parse(Auth::user()->gurus->where('user_id', Auth::user()->id)->first()?->tanggal_lahir)->format('d-m-Y') }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="ps-0" scope="row">Kelas :</th>
+                                                    <td class="text-muted">{{ Auth::user()->gurus->where('user_id', Auth::user()->id)->first()?->kelas->nama_kelas }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="ps-0" scope="row">Tingkat :</th>
+                                                    <td class="text-muted">{{ Auth::user()->gurus->where('user_id', Auth::user()->id)->first()?->kelas->tingkat }}</td>
+                                                </tr>
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>

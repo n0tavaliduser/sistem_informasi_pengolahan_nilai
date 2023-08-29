@@ -61,7 +61,6 @@ class SiswaController extends Controller
         $siswa->tahun_ajaran_id = TahunAjaran::where('status', 'active')->first()->id;
         $siswa->user_id = $user->id;
         $siswa->status = 'active';
-        $siswa->nomor_induk = Siswa::max('nomor_induk') + 1;
         $siswa->saveOrFail();
 
         return redirect()->back()->with(['success' => 'Berhasil menambahkan siswa baru!']);
