@@ -79,6 +79,7 @@ class SiswaController extends Controller
      */
     public function edit(Siswa $siswa)
     {
+     
         return view('pages.master-data.siswa.update', [
             'siswa' => $siswa
         ]);
@@ -91,10 +92,15 @@ class SiswaController extends Controller
     {
         $data = $request->validated();
 
+        $additionalData = $request->validate([
+            'nomor_induk' => 'required|unique:siswa,nomor_induk,' . $siswa->id,
+        ]);
+
         $siswa->fill($data);
+        $siswa->nomor_induk = $additionalData['nomor_induk'];
         $siswa->saveOrFail();
 
-        return redirect()->route('master-data.siswa.index')->with(['success' => 'Berhasil update data siswa!']);
+        return redirect()->with(['success' => 'Berhasil update data siswa!']);
     }
 
     /**

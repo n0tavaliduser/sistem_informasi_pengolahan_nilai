@@ -23,7 +23,6 @@ class UpdateSiswaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nomor_induk' => 'required|unique:siswa,nomor_induk,except,id',
             'nama_lengkap' => 'required|string|max:200',
             'agama' => 'required|string|max:25',
             'catatan' => 'nullable|string',
@@ -33,6 +32,7 @@ class UpdateSiswaRequest extends FormRequest
             'alamat' => 'required|string',
             'telepon' => 'required|string',
             'kelas_id' => 'required|exists:kelas,id',
+            'status' => 'required|in:active,deactive'
         ];
     }
 }

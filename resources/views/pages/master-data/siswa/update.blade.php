@@ -106,7 +106,15 @@
                             <small>{{ $message }}</small>
                         @enderror
                     </div>
-                    
+
+                    <div class="form-group mb-3">
+                        <label for="siswa_status" class="form-label">Status</label>
+                        <select name="status" id="siswa_status" class="form-control {{ !$errors->has('status')?:'is-invalid' }}">
+                            <option value="">Pilih status</option>
+                            <option value="active" {{ $siswa->status == 'active' ? 'selected' : '' }}>Aktif</option>
+                            <option value="deactive" {{ $siswa->status == 'deactive' ? 'selected' : '' }}>Non Aktif</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="card-footer d-flex justify-content-end">
                     <a href="{{ route('master-data.guru.index') }}" class="btn btn-link link-success fw-medium"><i class="ri-close-line me-1 align-middle"></i> Kembali</a>

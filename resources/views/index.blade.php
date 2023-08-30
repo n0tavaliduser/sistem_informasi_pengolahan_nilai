@@ -116,7 +116,7 @@
                             </div>
                             <div class="d-flex align-items-end justify-content-between mt-4">
                                 <div>
-                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4 text-light"><span class="counter-value" data-target="{{ \App\Models\Siswa::count() }}"></span> Siswa</h4>
+                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4 text-light"><span class="counter-value" data-target="{{ \App\Models\Siswa::where('status', 'active')->count() }}"></span> Siswa</h4>
                                     @if (Auth::user()->role->name === 'Admin')
                                     <a href="{{ route('master-data.siswa.index') }}" class="link-secondary text-decoration-underline text-light">Lihat siswa</a>
                                     @endif
@@ -161,7 +161,9 @@
 
                     $totalSiswa = \App\Models\Siswa::whereHas('kelas', function ($query) {
                         $query->where('jurusan_id', Request::get('jurusan_id'));
-                    })->count();
+                    })
+                    ->where('status', 'active')
+                    ->count();
                 @endphp
 
                 <div class="col-xxl-6">
@@ -226,7 +228,7 @@
     foreach ($jurusanIds as $jurusanId) {
         $siswaCount = 0;
         foreach (\App\Models\Kelas::where('jurusan_id', $jurusanId)->pluck('id') as $kelasId) {
-            $siswaCount += \App\Models\Siswa::where('kelas_id', $kelasId)->count();
+            $siswaCount += \App\Models\Siswa::where('kelas_id', $kelasId)->where('status', 'active')->count();
         }
         array_push($jumlahSiswaPerJurusan, $siswaCount);
     }
