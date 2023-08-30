@@ -100,7 +100,7 @@ class SiswaController extends Controller
         $siswa->nomor_induk = $additionalData['nomor_induk'];
         $siswa->saveOrFail();
 
-        return redirect()->with(['success' => 'Berhasil update data siswa!']);
+        return redirect()->route('master-data.siswa.index')->with(['success' => 'Berhasil update data siswa!']);
     }
 
     /**
