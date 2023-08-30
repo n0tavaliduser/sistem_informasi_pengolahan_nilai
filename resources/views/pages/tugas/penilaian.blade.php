@@ -31,15 +31,18 @@
                             @endif
                         </div>
                     </form>
+                    @php
+                        $semua_tugas = \App\Models\Tugas::where('mata_pelajaran_id', Request::get('mata_pelajaran_id'))->where('kelas_id', Request::get('kelas_id'))->get();
+                    @endphp
+                    @if ($semua_tugas->count() > 0)
+                        <a href="{{ route('tugas.cetak-rekap-nilai', ['mata_pelajaran' => \App\Models\MataPelajaran::where('id', Request::get('mata_pelajaran_id'))->first(), 'kelas' => \App\Models\Kelas::where('id', Request::get('kelas_id'))->first()]) }}" class="btn btn-success">Cetak</a>
+                    @endif
                 </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     @if (Auth::user()->role->name == 'Guru')
                     
-                    @php
-                        $semua_tugas = \App\Models\Tugas::where('mata_pelajaran_id', Request::get('mata_pelajaran_id'))->where('kelas_id', Request::get('kelas_id'))->get();
-                    @endphp
                     @if ($semua_tugas->count() == 0)
                         tidak ada data ditemukan
                     @else

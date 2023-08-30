@@ -17,4 +17,5 @@ Route::middleware(Authenticate::class)->prefix('manajemen-tugas')->group(functio
     Route::get('/tugas/status/{tugas}/buka', [TugasController::class, 'bukaTugas'])->name('tugas.open-tugas');
     Route::get('/tugas/download/{tugas}/files', [TugasController::class, 'downloadFile'])->name('tugas.download-file');
     Route::get('/rekap-nilai', [TugasController::class, 'rekapNilai'])->name('tugas.rekap-nilai');
+    Route::get('/rekap-nilai/{mata_pelajaran}/{kelas}/cetak', [TugasController::class, 'cetak'])->name('tugas.cetak-rekap-nilai');
 });

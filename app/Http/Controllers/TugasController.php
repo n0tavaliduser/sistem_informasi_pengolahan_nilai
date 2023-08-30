@@ -6,6 +6,7 @@ use App\Http\Requests\Tugas\StoreTugasRequest;
 use App\Http\Requests\Tugas\UpdateTugasRequest;
 use App\Models\Guru;
 use App\Models\JadwalPelajaran;
+use App\Models\Kelas;
 use App\Models\MataPelajaran;
 use App\Models\PengumpulanTugas;
 use App\Models\Siswa;
@@ -199,5 +200,34 @@ class TugasController extends Controller
     public function downloadFile(Tugas $tugas)
     {
         return response()->download('storage/' . $tugas->file);
+    }
+
+    public function cetak(MataPelajaran $mata_pelajaran, Kelas $kelas)
+    {
+        $semua_pengumpulan_tugas = PengumpulanTugas::with('kelas')
+            ->whereHas('kelas', function ($query) use ($kelas) {
+                $query->where('id', $kelas->id);
+            })
+            ->whereHas('mata_pelajaran.jadwal_pelajarans.guru', function ($query) {
+                $query->where('user_id', Auth::user()->id);
+            })
+            ->where('mata_pelajaran_id', $mata_pelajaran->id)
+            ->get();
+
+        $semua_mata_pelajaran = MataPelajaran::with('jadwal_pelajarans')
+            ->whereHas('jadwal_pelajarans.guru', function ($query) {
+                $query->where('user_id', Auth::user()->id);
+            })
+            ->get();
+
+        $semua_siswa = Siswa::where('kelas_id', $kelas->id)->get();
+
+        return view('pages.tugas.cetak-rekap-nilai-tugas', [
+            'semua_pengumpulan_tugas' => $semua_pengumpulan_tugas,
+            'semua_mata_pelajaran' => $semua_mata_pelajaran,
+            'semua_siswa' => $semua_siswa,
+            'mata_pelajaran' => $mata_pelajaran,
+            'kelas' => $kelas
+        ]);
     }
 }

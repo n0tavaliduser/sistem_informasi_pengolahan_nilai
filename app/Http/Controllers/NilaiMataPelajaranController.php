@@ -122,4 +122,31 @@ class NilaiMataPelajaranController extends Controller
 
         return redirect()->back()->with(['success' => 'Berhasil menghapus nilai mata pelajaran!']);
     }
+
+    public function cetak(Kelas $kelas, MataPelajaran $mata_pelajaran)
+    {
+        $semua_nilai_mata_pelajaran = NilaiMataPelajaran::with('mata_pelajaran')
+                ->where('mata_pelajaran_id', $mata_pelajaran->id)
+                ->get();
+
+        $semua_mata_pelajaran = MataPelajaran::with(['jadwal_pelajarans'])
+            ->whereHas('jadwal_pelajarans.kelas', function ($query) use ($kelas) {
+                $query->where('id', $kelas->id);
+            })
+            ->get();
+
+        $semua_kelas = Kelas::with(['jadwal_pelajarans'])
+            ->get();
+
+        $semua_siswa = Siswa::where('kelas_id', $kelas->id)->get();
+
+        return view('pages.nilai-mata-pelajaran.cetak', [
+            'semua_nilai_mata_pelajaran' => $semua_nilai_mata_pelajaran,
+            'semua_mata_pelajaran' => $semua_mata_pelajaran,
+            'semua_kelas' => $semua_kelas,
+            'semua_siswa' => $semua_siswa,
+            'kelas' => $kelas,
+            'mata_pelajaran' => $mata_pelajaran
+        ]);
+    }
 }

@@ -31,6 +31,9 @@
                             @endif
                         </div>
                     </form>
+                    @if (Request::get('mata_pelajaran_id'))
+                        <a href="{{ route('nilai-mata-pelajaran.cetak', ['kelas' => \App\Models\Kelas::where('id', Request::get('kelas_id'))->first(), 'mata_pelajaran' => \App\Models\MataPelajaran::where('id', Request::get('mata_pelajaran_id'))->first()]) }}" class="btn btn-success">cetak</a>
+                    @endif
                 </div>
             </div>
             <div class="card-body">

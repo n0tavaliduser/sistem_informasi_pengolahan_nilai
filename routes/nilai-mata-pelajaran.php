@@ -9,4 +9,7 @@ Route::middleware(Authenticate::class)->prefix('manajemen-nilai')->group(functio
     Route::post('/nilai-mata-pelajaran', [NilaiMataPelajaranController::class, 'store'])->name('nilai-mata-pelajaran.store');
     Route::patch('/nilai-mata-pelajaran/{nilai_mata_pelajaran}', [NilaiMataPelajaranController::class, 'update'])->name('nilai-mata-pelajaran.update');
     Route::delete('/nilai-mata-pelajaran/{nilai_mata_pelajaran}', [NilaiMataPelajaranController::class, 'destroy'])->name('nilai-mata-pelajaran.destroy');
+
+    // action
+    Route::get('/nilai-mata-pelajaran/{kelas}/{mata_pelajaran}/cetak', [NilaiMataPelajaranController::class, 'cetak'])->name('nilai-mata-pelajaran.cetak');
 });
