@@ -43,7 +43,7 @@ class Jurusan extends Model
 
 	public function kelas()
 	{
-		return $this->hasMany(Kela::class);
+		return $this->hasMany(Kelas::class);
 	}
 
 	public function mata_pelajarans()
