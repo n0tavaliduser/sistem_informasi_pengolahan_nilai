@@ -159,14 +159,6 @@
                                                     <th class="ps-0" scope="row">Tanggal Lahir :</th>
                                                     <td class="text-muted">{{ \Carbon\Carbon::parse(Auth::user()->gurus->where('user_id', Auth::user()->id)->first()?->tanggal_lahir)->format('d-m-Y') }}</td>
                                                 </tr>
-                                                <tr>
-                                                    <th class="ps-0" scope="row">Kelas :</th>
-                                                    <td class="text-muted">{{ Auth::user()->gurus->where('user_id', Auth::user()->id)->first()?->kelas->nama_kelas }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th class="ps-0" scope="row">Tingkat :</th>
-                                                    <td class="text-muted">{{ Auth::user()->gurus->where('user_id', Auth::user()->id)->first()?->kelas->tingkat }}</td>
-                                                </tr>
                                                 @endif
                                             </tbody>
                                         </table>
