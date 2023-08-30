@@ -73,10 +73,12 @@
                                     <div class="hstack gap-3 fs-15">
                                         <a href="{{ route('master-data.siswa.edit', $siswa) }}"><i class="ri-settings-4-line"></i></a>
                                         <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $siswa->id }}" class="text-danger"><i class="ri-delete-bin-5-line"></i></a>
+                                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#resetPasswordModal-{{ $siswa->id }}" class="text-secondary"><i class="ri-shield-keyhole-line"></i></a>
                                     </div>
                                 </td>
                             </tr>
                             @include('pages.master-data.siswa._modal_delete')
+                            @include('pages.master-data.siswa._modal_reset_password')
                             @endforeach
                         </tbody>
                     </table>

@@ -125,4 +125,15 @@ class GuruController extends Controller
 
         return redirect()->route('master-data.guru.index')->with(['success' => 'Berhasil menghapus data guru!']);
     }
+
+    public function resetPassword(Guru $guru)
+    {   
+        $user = User::where('id', $guru->user_id)->first();
+
+        $user->update([
+            'password' => Hash::make('guru12345')
+        ]);
+
+        return redirect()->back()->with(['success' => 'Berhasil reset password guru!']);
+    }
 }

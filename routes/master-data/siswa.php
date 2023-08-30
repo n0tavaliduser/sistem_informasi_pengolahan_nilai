@@ -11,4 +11,7 @@ Route::middleware(Authenticate::class)->group(function () {
     Route::get('/siswa/{siswa}/edit', [SiswaController::class, 'edit'])->name('master-data.siswa.edit');
     Route::patch('/siswa/{siswa}', [SiswaController::class, 'update'])->name('master-data.siswa.update');
     Route::delete('/siswa/{siswa}', [SiswaController::class, 'destroy'])->name('master-data.siswa.destroy');
+
+    // action
+    Route::get('/siswa/{siswa}/reset-password', [SiswaController::class, 'resetPassword'])->name('master-data.siswa.reset-password');
 });

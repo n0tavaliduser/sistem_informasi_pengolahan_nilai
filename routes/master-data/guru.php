@@ -12,4 +12,7 @@ Route::middleware(Authenticate::class)->group(function () {
     Route::get('/guru/{guru}/edit', [GuruController::class, 'edit'])->name('master-data.guru.edit');
     Route::patch('/guru/{guru}', [GuruController::class, 'update'])->name('master-data.guru.update');
     Route::delete('/guru/{guru}', [GuruController::class, 'destroy'])->name('master-data.guru.destroy');
+
+    // action
+    Route::get('/guru/{guru}/reset-password', [GuruController::class, 'resetPassword'])->name('master-data.guru.reset-password');
 });

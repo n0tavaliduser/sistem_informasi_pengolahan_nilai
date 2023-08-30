@@ -126,4 +126,15 @@ class SiswaController extends Controller
 
         return redirect()->route('master-data.siswa.index')->with(['success' => 'Berhasil menghapus data siswa']);
     }
+
+    public function resetPassword(Siswa $siswa)
+    {   
+        $user = User::where('id', $siswa->user_id)->first();
+
+        $user->update([
+            'password' => Hash::make('siswa12345')
+        ]);
+
+        return redirect()->back()->with(['success' => 'Berhasil reset password siswa!']);
+    }
 }

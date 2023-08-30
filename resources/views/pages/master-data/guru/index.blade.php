@@ -65,10 +65,12 @@
                                     <div class="hstack gap-3 fs-15">
                                         <a href="{{ route('master-data.guru.edit', $guru) }}"><i class="ri-settings-4-line"></i></a>
                                         <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $guru->id }}" class="text-danger"><i class="ri-delete-bin-5-line"></i></a>
+                                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#resetPasswordModal-{{ $guru->id }}" class="text-secondary"><i class="ri-shield-keyhole-line"></i></a>
                                     </div>
                                 </td>
                             </tr>
                             @include('pages.master-data.guru._modal_delete')
+                            @include('pages.master-data.guru._modal_reset_password')
                             @endforeach
                         </tbody>
                     </table>
