@@ -63,7 +63,15 @@
                         <li class="menu-title"><span>MENU</span></li>   
                     @endif
 
-                    @if (Auth::user()->role->name == 'Guru')
+                    @if (Auth::user()->role->name == 'Guru') 
+                        @if (\App\Models\Kelas::where('guru_id', \App\Models\Guru::where('user_id', Auth::user()->id)->first()->id)->first()->exists())                            
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('nilai/*/rekap') ? 'active' : '' }}" href="{{ route('nilai.ranking', \App\Models\Kelas::where('guru_id', \App\Models\Guru::where('user_id', Auth::user()->id)->first()->id)->first()) }}" role="button">
+                                <i class="ri-list-ordered"></i> <span>Rekap Nilai {{ \App\Models\Kelas::where('guru_id', \App\Models\Guru::where('user_id', Auth::user()->id)->first()->id)->first()->nama_kelas }}</span>
+                            </a>
+                        </li>
+                        
+                        @endif
                         <li class="nav-item">
                             <a class="nav-link {{ Request::is('absensi') ? 'active' : '' }}" href="{{ route('absensi.index') }}" role="button">
                                 <i class="ri-list-unordered"></i> <span>Absensi</span>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Nilai\StoreNilaiRequest;
 use App\Http\Requests\Nilai\UpdateNilaiRequest;
+use App\Models\Kelas;
 use App\Models\MataPelajaran;
 use App\Models\Nilai;
 use App\Models\Siswa;
@@ -113,6 +114,85 @@ class NilaiController extends Controller
     {
         return view('pages.nilai.cetak', [
             'siswa' => $siswa
+        ]);
+    }
+
+    public function ranking(Request $request, Kelas $kelas)
+    {
+        $semua_nilai = Nilai::with('siswa')
+            ->whereHas('siswa', function ($query) use ($kelas) {
+                $query->where('kelas_id', $kelas->id);
+            });
+
+        if (!empty($request->get('mata_pelajaran_id'))) {
+            $semua_nilai = $semua_nilai->where('mata_pelajaran_id', $request->get('mata_pelajaran_id'));
+        }
+    
+        $semua_nilai = $semua_nilai->get();
+
+        $semua_mata_pelajaran = MataPelajaran::with('jadwal_pelajarans')
+            ->whereHas('jadwal_pelajarans', function ($query) use ($kelas) {
+                $query->where('kelas_id', $kelas->id);
+            })
+            ->get();
+
+        return view('pages.nilai.ranking', [
+            'semua_nilai' => $semua_nilai,
+            'semua_mata_pelajaran' => $semua_mata_pelajaran,
+            'kelas' => $kelas
+        ]);
+    }
+
+    public function rekapByKelas(Request $request, Kelas $kelas)
+    {
+        $semua_nilai = Nilai::with('siswa')
+            ->whereHas('siswa', function ($query) use ($kelas) {
+                $query->where('kelas_id', $kelas->id);
+            });
+
+        if (!empty($request->get('mata_pelajaran_id'))) {
+            $semua_nilai = $semua_nilai->where('mata_pelajaran_id', $request->get('mata_pelajaran_id'));
+        }
+    
+        $semua_nilai = $semua_nilai->get();
+
+        $semua_mata_pelajaran = MataPelajaran::with('jadwal_pelajarans')
+            ->whereHas('jadwal_pelajarans', function ($query) use ($kelas) {
+                $query->where('kelas_id', $kelas->id);
+            })
+            ->get();
+
+        return view('pages.nilai.rekap-by-kelas', [
+            'semua_nilai' => $semua_nilai,
+            'semua_mata_pelajaran' => $semua_mata_pelajaran,
+            'kelas' => $kelas
+        ]);
+    }
+
+    public function cetakByKelas(Request $request, Kelas $kelas)
+    {
+        $semua_nilai = Nilai::with('siswa')
+            ->whereHas('siswa', function ($query) use ($kelas) {
+                $query->where('kelas_id', $kelas->id);
+            });
+
+        if (!empty($request->get('mata_pelajaran_id'))) {
+            $semua_nilai = $semua_nilai->where('mata_pelajaran_id', $request->get('mata_pelajaran_id'));
+        }
+    
+        $semua_nilai = $semua_nilai->orderBy('nilai', 'ASC')
+            ->get();
+
+        $semua_mata_pelajaran = MataPelajaran::with('jadwal_pelajarans')
+            ->whereHas('jadwal_pelajarans', function ($query) use ($kelas) {
+                $query->where('kelas_id', $kelas->id);
+            })
+            ->get();
+
+        return view('pages.nilai.cetak-by-kelas', [
+            'semua_nilai' => $semua_nilai,
+            'semua_mata_pelajaran' => $semua_mata_pelajaran,
+            'kelas' => $kelas
         ]);
     }
 }

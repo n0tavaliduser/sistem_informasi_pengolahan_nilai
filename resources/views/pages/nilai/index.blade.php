@@ -2,15 +2,15 @@
 @section('title') PENGOLAHAN NILAI @endsection
 @section('content')
 @component('components.breadcrumb')
-@slot('li_1') <a href="{{ route('root') }}">LMS</a> @endslot
-@slot('title') Pengolahan Nilai @endslot
+@slot('li_1') <a href="{{ url()->previous() }}">LMS</a> @endslot
+@slot('title') {{ Auth::user()->role->name == 'Admin' ? 'Pengolahan Nilai' : 'Rekap Nilai Akhir' }} @endslot
 @endcomponent
 
 <div class="row">
     <div class="col-xl-12">
         @include('components.alert')
         <div class="card">
-            @if (Auth::user()->role->name != 'Siswa')
+            @if (Auth::user()->role->name == 'Admin')
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div class="d-flex gap-2 w-50">
                     <form method="get" class="w-100">
