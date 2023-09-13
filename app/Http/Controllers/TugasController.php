@@ -64,9 +64,7 @@ class TugasController extends Controller
             $semua_siswa = Siswa::where('kelas_id', $request->get('kelas_id'))->get();
         } elseif (Auth::user()->role->name == 'Siswa') {
             $semua_pengumpulan_tugas = PengumpulanTugas::with('kelas')
-                ->whereHas('kelas.siswas', function ($query) {
-                    $query->where('user_id', Auth::user()->id);
-                })
+                ->where('siswa_id', Siswa::where('user_id', Auth::user()->id)->first()->id)
                 ->where('mata_pelajaran_id', $request->get('mata_pelajaran_id'))
                 ->get();
 
