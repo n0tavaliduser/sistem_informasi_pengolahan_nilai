@@ -70,11 +70,17 @@
                                 <i class="ri-list-ordered"></i> <span>Rekap Nilai {{ \App\Models\Kelas::where('guru_id', \App\Models\Guru::where('user_id', Auth::user()->id)->first()->id)->first()->nama_kelas }}</span>
                             </a>
                         </li>
-                        
                         @endif
+
                         <li class="nav-item">
                             <a class="nav-link {{ Request::is('absensi') ? 'active' : '' }}" href="{{ route('absensi.index') }}" role="button">
                                 <i class="ri-list-unordered"></i> <span>Absensi</span>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link {{ Request::is('absensi/rekap') ? 'active' : '' }}" href="{{ route('absensi.rekap') }}" role="button">
+                                <i class="ri-calendar-line"></i> <span>Rekap Absensi</span>
                             </a>
                         </li>
                     @endif
