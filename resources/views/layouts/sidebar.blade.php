@@ -63,8 +63,8 @@
                         <li class="menu-title"><span>MENU</span></li>   
                     @endif
 
-                    @if (Auth::user()->role->name == 'Guru') 
-                        @if (\App\Models\Kelas::where('guru_id', \App\Models\Guru::where('user_id', Auth::user()->id)->first()->id)->first()->exists())                            
+                    @if (Auth::user()->role->name == 'Guru')
+                        @if (!empty(\App\Models\Kelas::where('guru_id', \App\Models\Guru::where('user_id', Auth::user()->id)->first()->id)->first()))                            
                         <li class="nav-item">
                             <a class="nav-link {{ Request::is('nilai/*/rekap') ? 'active' : '' }}" href="{{ route('nilai.ranking', \App\Models\Kelas::where('guru_id', \App\Models\Guru::where('user_id', Auth::user()->id)->first()->id)->first()) }}" role="button">
                                 <i class="ri-list-ordered"></i> <span>Rekap Nilai {{ \App\Models\Kelas::where('guru_id', \App\Models\Guru::where('user_id', Auth::user()->id)->first()->id)->first()->nama_kelas }}</span>
